@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>網站維護流程 SOP</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --bg: #f3f4f6;
+            --card-bg: #ffffff;
+            --text: #1f2937;
+            --accent-a: #10b981; /* 綠色 */
+            --accent-b: #f59e0b; /* 黃色 */
+            --accent-c: #3b82f6; /* 藍色 */
+            --accent-d: #ef4444; /* 紅色 */
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Microsoft JhengHei", sans-serif; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px; /* 放寬一點讓表格好放 */
+            text-align: center;
+        }
+
+        h1 { margin-bottom: 10px; color: #374151; }
+        p.subtitle { color: #6b7280; margin-bottom: 40px; }
+
+        /* --- 互動卡片區 --- */
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            padding: 40px;
+            transition: all 0.3s ease;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 50px; /* 與表格的距離 */
+            max-width: 600px; /* 卡片維持窄一點比較好看 */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* 選項按鈕 */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            width: 100%;
+        }
+
+        button {
+            padding: 20px;
+            font-size: 18px;
+            border: 2px solid #e5e7eb;
+            background: white;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #4b5563;
+            font-weight: bold;
+            line-height: 1.4;
+        }
+
+        button:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: #eef2ff;
+            transform: translateY(-2px);
+        }
+
+        /* 結果顯示區 */
+        .result-box {
+            text-align: left;
+            width: 100%;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .scenario-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 50px;
+            color: white;
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .result-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .action-list {
+            background: #f9fafb;
+            border-left: 4px solid #ccc;
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .action-step {
+            margin-bottom: 20px;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        
+        .action-step:last-child { margin-bottom: 0; }
+
+        /* 子清單區塊 */
+        .sub-info-box {
+            margin-top: 8px;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 10px 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+
+        .sub-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 6px;
+            font-size: 15px;
+            color: #475569;
+        }
+        .sub-item:last-child { margin-bottom: 0; }
+
+        .tag-label {
+            background: #e0e7ff;
+            color: #4338ca;
+            font-size: 13px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-right: 10px;
+            font-weight: bold;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        /* 重置按鈕 */
+        .btn-reset {
+            margin-top: 30px;
+            background: #374151;
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            font-size: 14px;
+        }
+        .btn-reset:hover { background: #111827; border-color: transparent; color: white; }
+
+        .hidden { display: none !important; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- 表格區樣式 --- */
+        .table-section {
+            width: 100%;
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .table-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: left;
+            padding-left: 10px;
+            border-left: 5px solid var(--primary);
+        }
+
+        .workflow-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 15px;
+        }
+
+        .workflow-table th, .workflow-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .workflow-table th {
+            background-color: #f8fafc;
+            color: #64748b;
+            font-weight: 600;
+        }
+        
+        .workflow-table td {
+            color: #334155;
+            vertical-align: top;
+        }
+
+        .workflow-table tr:last-child td { border-bottom: none; }
+
+        /* 表格內的小標籤 */
+        .mini-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        /* 情境顏色對應 */
+        .type-a { background-color: var(--accent-a); border-left-color: var(--accent-a) !important; }
+        .type-b { background-color: var(--accent-b); border-left-color: var(--accent-b) !important; }
+        .type-c { background-color: var(--accent-c); border-left-color: var(--accent-c) !important; }
+        .type-d { background-color: var(--accent-d); border-left-color: var(--accent-d) !important; }
+
+        /* 手機版表格捲動 */
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        @media (max-width: 600px) {
+            .workflow-table th, .workflow-table td { min-width: 120px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>網站維護流程 SOP</h1>
+        <p class="subtitle">回答問題，自動判斷正確的操作方式</p>
+
+        <!-- 上方互動區 -->
+        <div class="card" id="mainCard">
+            <!-- 步驟 1 -->
+            <div id="step1" class="step-content">
+                <h2 style="margin-bottom: 30px;">預估修改需要多久時間？</h2>
+                <div class="options-grid">
+                    <button onclick="goToStep('step2-short')">⚡ 半天內可完成 (小幅度)</button>
+                    <button onclick="goToStep('step2-long')">🐢 超過半天 (大幅度)</button>
+                </div>
+            </div>
+
+            <!-- 步驟 2-1 -->
+            <div id="step2-short" class="step-content hidden">
+                <h2 style="margin-bottom: 30px;">會動到 CSS 樣式嗎？</h2>
+                <div class="options-grid">
+                    <button onclick="showResult('A')">❌ 不會 (只改圖/文/功能)</button>
+                    <button onclick="showResult('B')">✅ 會 (需要調整樣式)</button>
+                </div>
+            </div>
+
+            <!-- 步驟 2-2 -->
+            <div id="step2-long" class="step-content hidden">
+                <h2 style="margin-bottom: 30px;">資料的複雜程度？</h2>
+                <div class="options-grid">
+                    <button onclick="showResult('C')">📄 純 HTML / 資料單純</button>
+                    <button onclick="showResult('D')">📚 資料在模組內需要一直複製貼上</button>
+                </div>
+            </div>
+
+            <!-- 結果區 -->
+            <div id="resultView" class="result-box hidden">
+                <div id="badge" class="scenario-badge">情境 X</div>
+                <h3 id="resultTitle" class="result-title">標題</h3>
+                <div class="action-list" id="actionList">
+                    <!-- JS 動態填入 -->
+                </div>
+                <div style="text-align: center;">
+                    <button class="btn-reset" onclick="resetAll()">重新判斷</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 下方總覽表格 -->
+        <div class="table-section">
+            <div class="table-title">流程總覽對照表 (Cheat Sheet)</div>
+            <div class="table-wrapper">
+                <table class="workflow-table">
+                    <thead>
+                        <tr>
+                            <th>情境</th>
+                            <th>條件特徵</th>
+                            <th>核心流程</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="mini-badge type-a">情境 A</span></td>
+                            <td>
+                                <b>幅度小 / 不動 CSS</b><br>
+                                <span style="font-size:13px; color:#999;">改圖、改字、增減功能</span>
+                            </td>
+                            <td>
+                                直接在 <b>正式站</b> 修改
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="mini-badge type-b">情境 B</span></td>
+                            <td>
+                                <b>幅度小 / 動 CSS</b><br>
+                                <span style="font-size:13px; color:#999;">需要調整樣式</span>
+                            </td>
+                            <td>
+                                1. <b>正式站</b> 先改內容/HTML<br>
+                                2. 複製到測試站調 CSS<br>
+                                3. 只推 CSS 回正式站
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="mini-badge type-c">情境 C</span></td>
+                            <td>
+                                <b>幅度大 / 純 HTML</b><br>
+                                <span style="font-size:13px; color:#999;">資料不在模組內</span>
+                            </td>
+                            <td>
+                                1. 複製到測試站製作<br>
+                                2. 只推 CSS 回正式站<br>
+                                3. 正式站手動上資料
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="mini-badge type-d">情境 D</span></td>
+                            <td>
+                                <b>幅度大 / 模組資料重</b><br>
+                                <span style="font-size:13px; color:#999;">需大量複製貼上</span>
+                            </td>
+                            <td>
+                                1. <b>正式站</b> 開模組/架構 (base css none/隱藏)<br>
+                                2. 正式站貼完資料<br>
+                                3. 整站複製到測試站<br>
+                                4. 測試站 IDE 調樣式<br>
+                                5. 只推 CSS 回正式站
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // 資料庫：定義四種情境的內容
+        const scenarios = {
+            A: {
+                colorClass: 'type-a',
+                title: '幅度極小，不動 CSS',
+                steps: [
+                    '👉 直接在 <b style="color:#10b981">正式站</b> 修改即可。'
+                ]
+            },
+            B: {
+                colorClass: 'type-b',
+                title: '幅度小，但動到 CSS',
+                steps: [
+                    '1. <b style="color:#ef4444">正式站</b> 先把要修改的地方改好 (HTML/內容)',
+                    '2. 複製到 <b style="color:#f59e0b">測試站</b>',
+                    '3. 在測試站調整 CSS',
+                    '4. 最後 <b style="color:#f59e0b">只推 CSS 回去</b> 正式站'
+                ]
+            },
+            C: {
+                colorClass: 'type-c',
+                title: '純 HTML 撰寫，資料不是上在模組內的',
+                steps: [
+                    '1. 複製到 <b style="color:#3b82f6">測試站</b> 進行處理',
+                    '2. 處理完成後，<b style="color:#3b82f6">只推 CSS 回去</b>',
+                    '3. 回到正式站，<b style="color:#ef4444">手動重新上資料</b>'
+                ]
+            },
+            D: {
+                colorClass: 'type-d',
+                title: '改模組/資料量巨大 (避免重複做工)',
+                steps: [
+                    `
+                    <div>
+                        1. 在 <b style="color:#ef4444">正式站</b> 開好模組/架構。
+                        <div class="sub-info-box">
+                            <div class="sub-item"><span class="tag-label">模組</span>在 base 的 css 寫 none</div>
+                            <div class="sub-item"><span class="tag-label">架構</span>先設定隱藏</div>
+                        </div>
+                    </div>
+                    `,
+                    '2. 在正式站把資料全部貼完',
+                    '3. 整站複製到 <b style="color:#3b82f6">測試站</b>',
+                    '4. 在測試站 IDE 調整樣式',
+                    '5. 最後 <b style="color:#3b82f6">只推 CSS 回去</b> 正式站'
+                ]
+            }
+        };
+
+        // 導航邏輯
+        function goToStep(stepId) {
+            document.querySelectorAll('.step-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(stepId).classList.remove('hidden');
+        }
+
+        // 顯示結果
+        function showResult(type) {
+            document.querySelectorAll('.step-content').forEach(el => el.classList.add('hidden'));
+            
+            const data = scenarios[type];
+            const resultView = document.getElementById('resultView');
+            const badge = document.getElementById('badge');
+            const actionList = document.getElementById('actionList');
+            const resultTitle = document.getElementById('resultTitle');
+
+            badge.className = `scenario-badge ${data.colorClass}`;
+            badge.textContent = `情境 ${type}`;
+            resultTitle.innerHTML = data.title;
+            
+            actionList.innerHTML = '';
+            actionList.style.borderLeftColor = `var(--accent-${type.toLowerCase()})`;
+            
+            data.steps.forEach(htmlContent => {
+                const div = document.createElement('div');
+                div.className = 'action-step';
+                div.innerHTML = htmlContent;
+                actionList.appendChild(div);
+            });
+
+            resultView.classList.remove('hidden');
+        }
+
+        // 重置
+        function resetAll() {
+            document.querySelectorAll('.step-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById('resultView').classList.add('hidden');
+            document.getElementById('step1').classList.remove('hidden');
+        }
+    </script>
+
+</body>
+</html>

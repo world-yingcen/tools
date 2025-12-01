@@ -1,0 +1,709 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>翻譯蒟蒻 - 操作手冊</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* --- 1. 基礎設定 (Reset & Base) --- */
+        :root {
+            --primary-color: #2563eb; /* 藍色主色 */
+            --primary-dark: #1d4ed8;
+            --primary-light: #eff6ff;
+            --text-main: #334155;
+            --text-light: #64748b;
+            --border-color: #e2e8f0;
+            --bg-color: #f8fafc;
+            --sidebar-width: 300px;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: "Microsoft JhengHei", "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* --- 2. 側邊欄 (Sidebar) --- */
+        aside {
+            width: var(--sidebar-width);
+            background: #fff;
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 4px 0 24px rgba(0,0,0,0.05);
+            z-index: 10;
+            flex-shrink: 0;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            background: linear-gradient(135deg, #2563eb, #3b82f6);
+            color: white;
+        }
+
+        .sidebar-header h1 { margin: 0; font-size: 18px; display: flex; align-items: center; gap: 8px; }
+        .sidebar-header p { margin: 5px 0 0 0; font-size: 15px; opacity: 0.9; }
+
+        #nav-menu { flex: 1; overflow-y: auto; padding: 15px; }
+
+        .nav-btn {
+            width: 100%;
+            text-align: left;
+            background: transparent;
+            border: none;
+            padding: 15px 15px;
+            margin-bottom: 5px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--text-light);
+            transition: all 0.2s;
+            font-size: 16px;
+        }
+
+        .nav-btn:hover { background-color: var(--bg-color); color: var(--primary-color); }
+        
+        .nav-btn.active {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .nav-icon {
+            width: 28px; height: 28px;
+            background: #f1f5f9;
+            border-radius: 6px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 15px; color: #94a3b8;
+        }
+
+        .nav-btn.active .nav-icon {
+            background: var(--primary-color); color: white;
+        }
+
+        /* 新增：快速連結區塊樣式 */
+        .sidebar-links {
+            padding: 15px 35px;
+            background-color: #f8fafc;
+            border-top: 1px solid var(--border-color);
+        }
+        .sidebar-links h3 {
+            font-size: 20px;;
+            color: #000000e0;
+            margin: 0 0 10px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .sidebar-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .sidebar-links li {
+            margin-bottom: 8px;
+        }
+        .sidebar-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.2s;
+        }
+        .sidebar-links a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+        .sidebar-links i {
+            color: #cbd5e1;
+            font-size: 12px;
+        }
+
+        .sidebar-links small{
+            color: #a9a9a9;
+        }
+
+        .sidebar-footer {
+            padding: 15px;
+            text-align: center;
+            font-size: 13px;
+            color: #b5bac1;
+            border-top: 1px solid var(--border-color);
+            background: #fff;
+        }
+
+        /* --- 3. 主內容區 (Main) --- */
+        main {
+            flex: 1;
+            overflow-y: auto;
+            padding: 40px;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 50px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            min-height: 80vh;
+        }
+
+        /* --- 4. 通用樣式元件 --- */
+        h2 { font-size: 28px; margin: 0 0 20px 0; color: #1e293b; }
+        h3 { font-size: 20px; margin: 0 0 15px 0; color: #334155; }
+        p, li { line-height: 1.6; color: #475569; }
+        
+        .step-header {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        .step-label {
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* 提示框 */
+        .info-box { background: #eff6ff; border-left: 4px solid #3b82f6; padding: 15px; border-radius: 0 8px 8px 0; margin-bottom: 20px; }
+        .warn-box { background: #fef2f2; border-left: 4px solid #ef4444; padding: 15px; border-radius: 0 8px 8px 0; margin-bottom: 20px; }
+        .tip-box  { background: #fffbeb; border-left: 4px solid #f59e0b; padding: 15px; border-radius: 0 8px 8px 0; margin-bottom: 20px; }
+        
+        /* 徽章 */
+        .badge { padding: 2px 8px; border-radius: 4px; font-size: 15px; font-weight: bold; color: white; display: inline-block; margin: 0 2px; }
+        .badge.cms { background-color: #ef4444; }
+        .badge.tool { background-color: #3b82f6; }
+        .badge.test { background-color: #10b981; }
+
+        /* 按鈕 */
+        .btn-group { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #f1f5f9; }
+        .btn {
+            padding: 10px 24px; border-radius: 6px; border: none; cursor: pointer;
+            font-size: 15px; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; transition: 0.3s;
+        }
+        .btn-next { background-color: var(--primary-color); color: white; }
+        .btn-next:hover { background-color: var(--primary-dark); box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2); }
+        .btn-prev { background-color: #f1f5f9; color: #64748b; }
+        .btn-prev:hover { background-color: #e2e8f0; }
+        .btn-home { background-color: #f8fafc; color: #64748b; border: 1px solid #e2e8f0; }
+        .btn-home:hover { background-color: #f1f5f9; color: #334155; }
+
+        /* Step Content 動畫 */
+        .step-content { display: none; animation: fadeIn 0.5s ease; }
+        .step-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* 列表樣式 */
+        ol.custom-list { padding-left: 20px; }
+        ol.custom-list li { margin-bottom: 15px; padding-left: 5px; }
+        ol.custom-list strong { color: #1e293b; }
+        ul.check-list { list-style: none; padding: 0; }
+        ul.check-list li { margin-bottom: 10px; padding-left: 24px; position: relative; }
+        ul.check-list li:before { content: '\f00c'; font-family: "Font Awesome 6 Free"; font-weight: 900; position: absolute; left: 0; color: #10b981; }
+
+        /* 圖片佔位符 */
+        .screenshot-placeholder {
+            border: 3px dashed #cbd5e1;
+            background-color: #f8fafc;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .screenshot-placeholder img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 10px;
+        }
+        .screenshot-placeholder span {
+            display: inline-block;
+            background: #fff;
+            padding: 5px 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            font-size: 15px;
+            color: #94a3b8;
+        }
+
+        /* 提醒區塊 (Step 8) */
+        .reminder-box {
+            background: linear-gradient(135deg, #fff7ed, #ffedd5);
+            border: 2px solid #fed7aa;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .reminder-box:before {
+            content: '';
+            position: absolute; top: 0; left: 0; width: 6px; height: 100%;
+            background: #f97316;
+        }
+        .reminder-box h4 { margin: 0 0 10px 0; color: #c2410c; font-size: 18px; display: flex; align-items: center; gap: 10px; }
+        .reminder-box p { margin: 0; color: #9a3412; font-size: 15px; line-height: 1.6; }
+
+        /* 醒目 Alert (Step 8) */
+        .alert-box {
+            background: linear-gradient(135deg, #ef4444, #b91c1c);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.3);
+            position: relative;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { transform: scale(1.01); box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+        .alert-box h3 { color: white; margin: 0 0 10px 0; display: flex; align-items: center; gap: 10px; }
+        .alert-box p { color: rgba(255,255,255,0.9); margin: 0; }
+        .alert-box strong { color: #fef08a; border-bottom: 2px solid #fef08a; }
+
+        /* 格線佈局 */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media (max-width: 768px) {
+            body { flex-direction: column; height: auto; overflow: auto; }
+            aside { width: 100%; height: auto; border-right: none; border-bottom: 1px solid #ddd; }
+            main { padding: 20px; }
+            .container { padding: 20px; margin-top: 20px; }
+            .grid-2 { grid-template-columns: 1fr; }
+            .nav-btn { padding: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 左側導覽列 -->
+    <aside>
+        <div class="sidebar-header">
+            <h1><i class="fa-solid fa-robot"></i> 翻譯蒟蒻教學</h1>
+        </div>
+        
+        <nav id="nav-menu">
+            <!-- JS 動態生成選單 -->
+        </nav>
+
+        <!-- 新增：快速連結區塊 -->
+        <div class="sidebar-links">
+            <h3>快速連結</h3>
+            <ul>
+                <li>
+                    <a href="http://192.168.168.137/php81/miracle2023/public/admin" target="_blank">
+                        <i class="fa-solid fa-earth-americas"></i> 米洛測試站
+                    </a>
+                </li>
+                <li>
+                    <a href="http://192.168.168.137/php81/world-website-admin/public/admin/" target="_blank">
+                        <i class="fa-solid fa-globe"></i> 沃德測試站
+                    </a>
+                </li>
+                <li>
+                    <a href="https://docs.google.com/spreadsheets/d/14GOSxk0KgBzXGTiE9Km4j5Ocn9Zc6EuEgHcqiFRikcg/edit?gid=1285179831#gid=1285179831	" target="_blank">
+                        <i class="fa-solid fa-file-pen"></i> 內容更新紀錄
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="https://www.canva.com/folder/FAF18ALaYg0" target="_blank">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> 圖像生成器<small>(12月見)</small>
+                    </a>
+                </li>
+            </ul>
+<br>
+            <h3>各種範本</h3>
+            <ul>
+                <li>
+                    <a href="https://docs.google.com/document/d/10x3I1euOeipP1L2VniqhNFGh4MJHXfj_hxJ7uzzSvns/edit?usp=sharing" target="_blank">
+                          <i class="fa-solid fa-wand-magic-sparkles"></i> 沃德設計觀點範本
+                    </a>
+                </li>
+                 <li>
+                    <a href="https://docs.google.com/document/d/1LJU-Tsa1Lelt4x4J8DKNAse3sk-C9F0I4mX6yLNNpmc/edit?usp=sharing" target="_blank">
+                 <i class="fa-solid fa-wand-magic-sparkles"></i> 米洛觀點範本
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.canva.com/folder/FAF18ALaYg0" target="_blank">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> 圖表樣式範本<small>(先登入沃德帳號)</small>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+
+        <div class="sidebar-footer">
+            遇到問題請截圖並聯繫 LIN 😉
+        </div>
+    </aside>
+
+    <!-- 右側內容區 -->
+    <main>
+        <div class="container">
+            
+            <!-- STEP 1: Google Doc 設定 -->
+            <div id="step1" class="step-content active">
+                <div class="step-header">
+                    <span class="step-label">Step 1</span>
+                    <h2>Google 文件設定</h2>
+                </div>
+
+                <div class="info-box">
+                    <p style="margin:0; color:#1e40af; font-weight:bold;">這是「一次性」設定</p>
+                    <p style="margin:5px 0 0 0; font-size:16px; color:#1e3a8a;">如果你的 Google 文件已經開啟過 Markdown 功能，可以直接跳到下一步。</p>
+                </div>
+
+                <ol class="custom-list">
+                    <li>打開你的 Google 文件草稿。</li>
+                    <li>點選上方選單的 <strong>工具 (Tools)</strong>。</li>
+                    <li>選擇 <strong>偏好設定 (Preferences)</strong>。</li>
+                    <li>勾選 <strong style="color:#ef4444;"><i class="fa-brands fa-markdown"></i> 啟用 Markdown</strong>。</li>
+                    <li>點擊確定。</li>
+                </ol>
+
+                <!-- 截圖區：請在此替換圖片 -->
+                <div class="screenshot-placeholder">
+                    <!-- ⚠️ 請確認你的資料夾內有此圖片 -->
+                    <img src="image/miracle-how-to-use.jpg" alt="操作截圖">
+                    <br>
+                </div>
+
+                <div class="btn-group" style="justify-content: flex-end;">
+                    <button onclick="nextStep()" class="btn btn-next">下一步：準備圖片 <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- STEP 2: 圖片準備 -->
+            <div id="step2" class="step-content">
+                <div class="step-header">
+                    <span class="step-label">Step 2</span>
+                    <h2>準備文章圖片</h2>
+                </div>
+                
+                <div style="text-align:center; padding: 40px 0;">
+                    <i class="fa-solid fa-image" style="font-size:60px; color:#a855f7; margin-bottom:20px;"></i>
+                    <h3>你的圖片都準備好了嗎？</h3>
+                    <p style="font-size:18px; color:#6b21a8;">如果還沒，請先<strong>求救設計部</strong> 🆘</p>
+                </div>
+
+                <div class="btn-group">
+                    <button onclick="prevStep()" class="btn btn-prev"><i class="fa-solid fa-arrow-left"></i> 上一步</button>
+                    <button onclick="nextStep()" class="btn btn-next">圖片好了，下一步 <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- STEP 3: 正式站上傳 -->
+            <div id="step3" class="step-content">
+                <div class="step-header">
+                    <span class="step-label">Step 3</span>
+                    <h2>上傳圖片 (正式站)</h2>
+                </div>
+
+                <div class="warn-box">
+                    <p style="margin:0; color:#991b1b; font-weight:bold;"><i class="fa-solid fa-triangle-exclamation"></i> 注意！</p>
+                    <p style="margin:5px 0 0 0; font-size:16px; color:#7f1d1d;">這一步是為了取得「永久的圖片網址」，請務必到<strong>正式站後台</strong>操作，但文章狀態要設為<strong>下架</strong>。</p>
+                </div>
+
+                <ol class="custom-list">
+                    <li>登入<span style="color:#ef4444; font-weight:bold;">正式站</span> 後台，前往文章管理區塊。</li>
+                    <li>新增文章並設定狀態為「<strong>下架</strong>」(隱藏)。</li>
+                    <li>將剛剛準備好的所有圖片，上傳到編輯器中。</li>
+                    <li>按下<strong>存檔</strong>。</li>
+                </ol>
+
+                <div class="btn-group">
+                    <button onclick="prevStep()" class="btn btn-prev"><i class="fa-solid fa-arrow-left"></i> 上一步</button>
+                    <button onclick="nextStep()" class="btn btn-next">圖片已上傳，下一步 <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- STEP 4: 檢查格式 -->
+            <div id="step4" class="step-content">
+                <div class="step-header">
+                    <span class="step-label">Step 4</span>
+                    <h2>檢查 Google 文件格式</h2>
+                </div>
+
+                <p>回到 Google 文件，請檢查你的文案「格式」是否正確。</p>
+
+                <div class="grid-2" style="margin-top:20px;">
+                    <!-- 正確 -->
+                    <div style="background:#f0fdf4; border:2px solid #bbf7d0; border-radius:8px; padding:20px;">
+                        <h3 style="color:#15803d;"><i class="fa-solid fa-circle-check"></i> 正確做法</h3>
+                        <p style="font-size:16px;">使用 Google 文件上方的樣式選單：</p>
+                        <ul style="padding-left:20px; font-size:16px; color:#334155;">
+                            <li>大標題選用 <strong>標題 2 (H2)</strong></li>
+                            <li>小標題選用 <strong>標題 3 (H3)</strong></li>
+                            <li>列表選用 <strong>項目符號清單</strong></li>
+                        </ul>
+                    </div>
+                    <!-- 錯誤 -->
+                    <div style="background:#fef2f2; border:2px solid #fecaca; border-radius:8px; padding:20px;">
+                        <h3 style="color:#b91c1c;"><i class="fa-solid fa-circle-xmark"></i> 錯誤做法</h3>
+                        <p style="font-size:16px;">不能只是「看起來像」：</p>
+                        <ul style="padding-left:20px; font-size:16px; color:#334155;">
+                            <li>❌ 只是把字體 <strong>放大</strong> 當標題</li>
+                            <li>❌ 只是把字體 <strong>加粗</strong> 當標題</li>
+                            <li>❌ 自己手打 1. 2. 3. 當列表</li>
+                        </ul>
+                        <p style="margin-top:10px; font-size:15px; color:#ef4444; font-weight:bold;">* 這樣 MD 會偵測不到，轉出來會是普通文字！</p>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button onclick="prevStep()" class="btn btn-prev"><i class="fa-solid fa-arrow-left"></i> 上一步</button>
+                    <button onclick="nextStep()" class="btn btn-next">格式檢查完畢 <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- STEP 5: 貼上文字 -->
+            <div id="step5" class="step-content">
+                <div class="step-header">
+                    <span class="step-label">Step 5</span>
+                    <h2>文字搬家 (貼上 MD)</h2>
+                </div>
+
+                <ol class="custom-list" style="font-size:16px;">
+                    <li>
+                        <strong>複製 Markdown：</strong><br>
+                        在 Google 文件中，選取右鍵按 <strong style="color:var(--primary-color);">複製為 Markdown</strong>。
+                    </li>
+                    <li>
+                        <strong>貼上到翻譯蒟蒻：</strong><br>
+                        請依照區塊（<strong>引言、錨點連結區塊、主內容、CTA 區塊</strong>）分別貼到對應的 <span class="badge tool">輸入框</span>。
+                    </li>
+                    <li>
+                        <strong>點擊轉換按鈕：</strong><br>
+                        按下「交給你了」，文字會自動變成欄位。
+                    </li>
+                    <li style="background-color:#f0f9ff; padding:15px; border-radius:8px; border:1px dashed #bae6fd;">
+                        <strong>可自行增加其他樣式：</strong><br>
+                        如果自動解析出來的少了你想要的樣式<br>
+                        例如：<span style="background:#fff; padding:2px 6px; border-radius:4px; font-size:13px;">QA</span>、<span style="background:#fff; padding:2px 6px; border-radius:4px; font-size:13px;">延伸閱讀</span>、<span style="background:#fff; padding:2px 6px; border-radius:4px; font-size:13px;">備註</span>...等<br><br>
+                       <strong>可以滑到欄位按 <span style="background:var(--primary-color); color:white; width:20px; height:20px; display:inline-flex; justify-content:center; align-items:center; border-radius:50%;">+</span> 新增</strong>
+                    </li>
+                </ol>
+
+                <div class="tip-box" style="margin-top:20px;">
+                    <i class="fa-solid fa-lightbulb"></i> <strong>提示：</strong> 此時圖片區塊還會是空的，不用擔心，我們下一步處理圖片。
+                </div>
+
+                <div class="btn-group">
+                    <button onclick="prevStep()" class="btn btn-prev"><i class="fa-solid fa-arrow-left"></i> 上一步</button>
+                    <button onclick="nextStep()" class="btn btn-next">下一步 <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- STEP 6: 置入圖片 -->
+            <div id="step6" class="step-content">
+                <div class="step-header">
+                    <span class="step-label">Step 6</span>
+                    <h2>取得圖片網址</h2>
+                </div>
+
+                <p>現在我們要把 <span class="badge cms">正式站</span> 的圖片連結，貼回 <span class="badge tool">翻譯蒟蒻</span>。</p>
+                
+                <div style="background:white; border:1px solid #e2e8f0; border-radius:8px; overflow:hidden; margin-top:20px;">
+                    <div style="background:#f8fafc; padding:10px 15px; border-bottom:1px solid #e2e8f0; font-weight:bold; font-size:16px; color:#64748b;">操作流程</div>
+                    <div style="padding:20px;">
+                        <ul style="list-style:none; padding:0; margin:0;">
+                            <li style="display:flex; gap:15px; margin-bottom:20px; align-items:start;">
+                                <div style="width:24px; height:24px; background:#e2e8f0; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:bold;">1</div>
+                                <div>回到米洛後台，打開剛剛存檔的文章編輯器，點擊圖片選取它。</div>
+                            </li>
+                            <li style="display:flex; gap:15px; margin-bottom:20px; align-items:start;">
+                                <div style="width:24px; height:24px; background:#e2e8f0; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:bold;">2</div>
+                                <div>
+                                    <strong>滑鼠右鍵</strong> > 選擇 <strong style="color:var(--primary-color);">複製圖片網址</strong>。
+                                    <div style="font-size:15px; color:#94a3b8; margin-top:4px;">*注意不是複製圖片本身，是複製位址(網址)</div>
+                                </div>
+                            </li>
+                            <li style="display:flex; gap:15px; align-items:start;">
+                                <div style="width:24px; height:24px; background:#e2e8f0; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:bold;">3</div>
+                                <div>回到翻譯蒟蒻，找到對應的圖片欄位，貼上網址。</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button onclick="prevStep()" class="btn btn-prev"><i class="fa-solid fa-arrow-left"></i> 上一步</button>
+                    <button onclick="nextStep()" class="btn btn-next">下一步 <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- STEP 7: 預覽與轉出 -->
+            <div id="step7" class="step-content">
+                <div class="step-header">
+                    <span class="step-label">Step 7</span>
+                    <h2>預覽與轉出 HTML</h2>
+                </div>
+
+                <div class="grid-2">
+                    <div>
+                        <h3><i class="fa-solid fa-eye" style="color:#3b82f6;"></i> 檢查預覽</h3>
+                        <p>看向工具右側的即時預覽區：</p>
+                        <ul class="check-list">
+                            <li>文字是否有錯字？</li>
+                            <li>圖片是否都有顯示出來？</li>
+                            <li>段落順序是否正確？</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3><i class="fa-solid fa-code" style="color:#10b981;"></i> 產生代碼</h3>
+                        <p>確認無誤後：</p>
+                        <ol style="padding-left:20px; color:#475569;">
+                            <li>點擊左下角的 <span style="background:#f1f5f9; padding:2px 6px; border-radius:4px; font-family:monospace; font-size:13px;">👌🏻 給我html</span> 按鈕。</li>
+                            <li>點擊 <span style="background:#f1f5f9; padding:2px 6px; border-radius:4px; font-family:monospace; font-size:13px;">複製</span> 按鈕。</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button onclick="prevStep()" class="btn btn-prev"><i class="fa-solid fa-arrow-left"></i> 上一步</button>
+                    <button onclick="nextStep()" class="btn btn-next">拿到 HTML 了！ <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- STEP 8: 測試站上架 -->
+            <div id="step8" class="step-content">
+                <div class="step-header">
+                    <span class="step-label">Step 8</span>
+                    <h2>測試站上架與完稿</h2>
+                </div>
+
+                <!-- 醒目提醒區塊 -->
+                <div class="alert-box">
+                    <h3>
+                        <i class="fa-solid fa-circle-exclamation" style="font-size:24px; color:#fef08a;"></i>
+                        重要提醒：這是「測試站」！
+                    </h3>
+                    <p>
+                        請確認你目前開啟的網址是 <strong>測試站 (開頭http://192.168.168.137/)</strong><br><br>
+                        ⚠️ 千萬不要將 HTML 直接發佈到正式站前台！
+                    </p>
+                </div>
+
+                <div style="background:white; border:1px solid #e2e8f0; border-radius:8px; padding:30px;">
+                    <ol class="custom-list">
+                        <li>前往 <strong>測試站後台</strong> 新增文章。</li>
+                        <li>切換編輯器至 <strong style="background:#f1f5f9; padding:2px 8px; border-radius:4px; color:var(--primary-color); font-size:16px;"><i class="fa-solid fa-code"></i> 原始碼模式</strong>。</li>
+                        <li>將剛剛複製的 HTML 全部貼上。</li>
+                        <li>存檔，並前往 <strong>測試站前台</strong> 預覽。</li>
+                        <li>米洛、沃德 都是一樣的方法唷～</li>
+                        <li><strong>確認版面與內容完美無缺，可以去完成看稿流程囉！ 🎉</strong></li>
+                    </ol>
+                </div>
+
+                <!-- 週五提醒區塊 -->
+                <div class="reminder-box">
+                    <h4><i class="fa-solid fa-calendar-check"></i> 完稿提醒</h4>
+                    <p>看完稿記得將文章搬到，之前正式站暫存圖片的文章編輯器 <br><strong>每週五下午 16:00-18:00</strong> 切換成顯示文章，並且到 Excel 紀錄唷！</p>
+                </div>
+
+                <div class="btn-group" style="justify-content: center;">
+                    <button onclick="location.reload()" class="btn btn-home">
+                        <i class="fa-solid fa-rotate-right"></i> 回到首頁
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        const steps = [
+            { id: 'step1', title: 'Google 文件設定', icon: 'fa-file-word' },
+            { id: 'step2', title: 'AI 產圖準備', icon: 'fa-image' },
+            { id: 'step3', title: '正式站上傳圖片', icon: 'fa-cloud-upload-alt' },
+            { id: 'step4', title: '檢查文件格式', icon: 'fa-check-double' },
+            { id: 'step5', title: '貼上 MD 內容', icon: 'fa-paste' },
+            { id: 'step6', title: '置入圖片網址', icon: 'fa-link' },
+            { id: 'step7', title: '預覽與輸出 HTML', icon: 'fa-code' },
+            { id: 'step8', title: '測試站完稿', icon: 'fa-flag-checkered' }
+        ];
+
+        let currentStepIndex = 0;
+
+        // 渲染左側選單
+        function renderNav() {
+            const navContainer = document.getElementById('nav-menu');
+            navContainer.innerHTML = steps.map((step, index) => `
+                <button onclick="goToStep(${index})" id="nav-btn-${index}" class="nav-btn">
+                    <div class="nav-icon">
+                        <span style="font-family:monospace;">${index + 1}</span>
+                    </div>
+                    <span>${step.title}</span>
+                </button>
+            `).join('');
+            updateActiveState();
+        }
+
+        // 更新畫面狀態
+        function updateActiveState() {
+            // 1. 切換右側內容
+            document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
+            document.getElementById(steps[currentStepIndex].id).classList.add('active');
+
+            // 2. 切換左側按鈕樣式
+            steps.forEach((step, index) => {
+                const btn = document.getElementById(`nav-btn-${index}`);
+                if (index === currentStepIndex) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            // 3. 滾動到頂部
+            document.querySelector('main').scrollTop = 0;
+        }
+
+        // 跳轉到指定步驟
+        function goToStep(index) {
+            currentStepIndex = index;
+            updateActiveState();
+        }
+
+        // 下一步
+        function nextStep() {
+            if (currentStepIndex < steps.length - 1) {
+                currentStepIndex++;
+                updateActiveState();
+            }
+        }
+
+        // 上一步
+        function prevStep() {
+            if (currentStepIndex > 0) {
+                currentStepIndex--;
+                updateActiveState();
+            }
+        }
+
+        // 初始化
+        renderNav();
+    </script>
+</body>
+</html>
