@@ -101,9 +101,13 @@ export const LayoutManager = {
                     const finalImageAlt = mainImageAlt || mainTitle || "範例圖片描述";
 
                     let imageHtml = "";
-                    // 如果沒有圖片 URL，就使用預設的範例圖片
-                    const imageUrl = mainImageUrl || "https://system16.webtech.com.tw/web/202500107/archive/image/article1/images/about-pic-1.jpg";
-                    imageHtml = `<img src="${imageUrl}" alt="${finalImageAlt}">`;
+                    const isImageRemoved = mainImageBlock.removedFields?.URL;
+
+                    if (!isImageRemoved) {
+                        // 如果沒有圖片 URL，就使用預設的範例圖片
+                        const imageUrl = mainImageUrl || "https://system16.webtech.com.tw/web/202500107/archive/image/article1/images/about-pic-1.jpg";
+                        imageHtml = `<img src="${imageUrl}" alt="${finalImageAlt}">`;
+                    }
 
                     const adjacentHtml = interveningBlocks.map(b => this._generateIndependentBlockHtml(b)).join('\n');
 
@@ -307,8 +311,17 @@ ${subTitle ? `            <${h3Tag} class="sub-title ">${this._escapeHtml(subTit
             const subtitleTag = SUBTITLE_TAG || 'h3'; // 預設使用 h3
             const descriptionHTML = this._generateComplexDescriptionHTML(DESC);
 
-            const mainImageHTML = `<div class="image-box"><img class="cover" src="${mainImageUrl}" alt="${mainImageAlt}"></div>`;
-            const textBlockHTML = `<div class="text-box"><${subtitleTag} class="item-title">${this._escapeHtml(subtitle)}</${subtitleTag}><div class="description">${descriptionHTML}</div></div>`;
+            let mainImageHTML = "";
+            if (!rowBlock.removedFields?.MAIN_URL) {
+                mainImageHTML = `<div class="image-box"><img class="cover" src="${mainImageUrl}" alt="${mainImageAlt}"></div>`;
+            }
+
+            let subtitleHTML = "";
+            if (!rowBlock.removedFields?.SUBTITLE) {
+                subtitleHTML = `<${subtitleTag} class="item-title">${this._escapeHtml(subtitle)}</${subtitleTag}>`;
+            }
+
+            const textBlockHTML = `<div class="text-box">${subtitleHTML}<div class="description">${descriptionHTML}</div></div>`;
 
             const finalRowHTML = (POSITION === "image-right") ? textBlockHTML + mainImageHTML : mainImageHTML + textBlockHTML;
 
@@ -341,12 +354,22 @@ ${subTitle ? `            <${h3Tag} class="sub-title ">${this._escapeHtml(subTit
             const subtitle = SUBTITLE || "";
             const descriptionHTML = this._generateComplexDescriptionHTML(DESC);
 
+            let titleHTML = "";
+            if (!rowBlock.removedFields?.TITLE) {
+                titleHTML = `<${titleTag} class="list-title  ">${this._escapeHtml(title)}</${titleTag}>`;
+            }
+
+            let subtitleHTML = "";
+            if (!rowBlock.removedFields?.SUBTITLE && subtitle) {
+                subtitleHTML = `<${rowBlock.content.SUBTITLE_TAG || 'h4'} class="list-sub-title">${this._escapeHtml(subtitle)}</${rowBlock.content.SUBTITLE_TAG || 'h4'}>`;
+            }
+
             return `
             <div class="list-row">
                 <div class="list-title-box ">
                     <span class="list-number">${number}</span>
-                    <${titleTag} class="list-title  ">${this._escapeHtml(title)}</${titleTag}>
-                    ${subtitle ? `<${rowBlock.content.SUBTITLE_TAG || 'h4'} class="list-sub-title">${this._escapeHtml(subtitle)}</${rowBlock.content.SUBTITLE_TAG || 'h4'}>` : ''}
+                    ${titleHTML}
+                    ${subtitleHTML}
                 </div>
                 <div class="description">${descriptionHTML}</div>
             </div>`;
@@ -376,10 +399,15 @@ ${subTitle ? `            <${h3Tag} class="sub-title ">${this._escapeHtml(subTit
             const titleTag = TITLE_TAG || 'h3'; // 預設使用 h3
             const descriptionHTML = this._generateComplexDescriptionHTML(DESC).replace(/<p>|<\/p>/g, '');
 
+            let titleHTML = "";
+            if (!rowBlock.removedFields?.TITLE) {
+                titleHTML = `<${titleTag} class="faq-title">${title}</${titleTag}>`;
+            }
+
             return `
             <div class="faq-row">
                 <div class="faq-q-icon">Q</div>
-                <${titleTag} class="faq-title">${title}</${titleTag}>
+                ${titleHTML}
                 <div class="faq-description">${descriptionHTML}</div> 
             </div>`;
         }).join("\n");
@@ -412,9 +440,14 @@ ${subTitle ? `            <${h3Tag} class="sub-title ">${this._escapeHtml(subTit
             const iconAlt = ICON_ALT || "圖片alt";
             const description = DESC ? this._escapeHtml(DESC).replace(/\n/g, "<br>") : `ㄤ~ㄤ~ㄤ~小叮噹幫我實現所有~的願望ㄤ~ㄤ~ㄤ~小叮噹幫我實現所有~的願望ㄤ~ㄤ~ㄤ~小叮噹幫我實現所有~的願望...`;
 
+            let iconHTML = "";
+            if (!itemBlock.removedFields?.ICON_URL) {
+                iconHTML = `<div class="icon"><img src="${iconUrl}" alt="${iconAlt}"></div>`;
+            }
+
             return `
                     <div class="icon-item icon-item-${index + 1}"> 
-                        <div class="icon"><img src="${iconUrl}" alt="${iconAlt}"></div>
+                        ${iconHTML}
                         <div class="text"><p class="description">${description}</p></div>
                     </div>`;
         }).join("\n");
@@ -454,11 +487,21 @@ ${subTitle ? `            <${h3Tag} class="sub-title ">${this._escapeHtml(subTit
             const titleTag = TITLE_TAG || 'h3'; // 預設使用 h3
             const descriptionHTML = this._generateComplexDescriptionHTML(DESC);
 
+            let imageHTML = "";
+            if (!cardBlock.removedFields?.URL) {
+                imageHTML = `<div class="image-box"><img alt="${imageAlt}" src="${imageUrl}"></div>`;
+            }
+
+            let titleHTML = "";
+            if (!cardBlock.removedFields?.TITLE) {
+                titleHTML = `<${titleTag} class="item-title ">${this._escapeHtml(title)}</${titleTag}>`;
+            }
+
             return `
                 <div class="list-row">
-                    <div class="image-box"><img alt="${imageAlt}" src="${imageUrl}"></div>
+                    ${imageHTML}
                     <div class="text-box">
-                        <${titleTag} class="item-title ">${this._escapeHtml(title)}</${titleTag}>
+                        ${titleHTML}
                         <div class="description">${descriptionHTML}</div>
                     </div>
                 </div>`;
@@ -490,11 +533,21 @@ ${subTitle ? `            <${h3Tag} class="sub-title ">${this._escapeHtml(subTit
             const titleTag = TITLE_TAG || 'h3'; // 預設使用 h3
             const descriptionHTML = this._generateComplexDescriptionHTML(DESC);
 
+            let imageHTML = "";
+            if (!cardBlock.removedFields?.URL) {
+                imageHTML = `<div class="image-box"><img class="cover" src="${imageUrl}" alt="${imageAlt}"></div>`;
+            }
+
+            let titleHTML = "";
+            if (!cardBlock.removedFields?.TITLE) {
+                titleHTML = `<${titleTag} class="list-title">${this._escapeHtml(title)}</${titleTag}>`;
+            }
+
             return `
             <div class="list-row">
-                <div class="image-box"><img class="cover" src="${imageUrl}" alt="${imageAlt}"></div>
+                ${imageHTML}
                 <div class="text-box">
-                    <${titleTag} class="list-title">${this._escapeHtml(title)}</${titleTag}>
+                    ${titleHTML}
                     <div class="description">${descriptionHTML}</div>
                 </div>
             </div>`;
@@ -600,11 +653,21 @@ ${subTitle ? `            <${h3Tag} class="sub-title ">${this._escapeHtml(subTit
             const titleTag = TITLE_TAG || 'h3'; // 預設使用 h3
             const descriptionHTML = this._generateComplexDescriptionHTML(DESC);
 
+            let imageHTML = "";
+            if (!cardBlock.removedFields?.URL) {
+                imageHTML = `<div class="image-box"><img class="cover" alt="${imageAlt}" src="${imageUrl}"></div>`;
+            }
+
+            let titleHTML = "";
+            if (!cardBlock.removedFields?.TITLE) {
+                titleHTML = `<${titleTag} class="item-title ">${this._escapeHtml(title)}</${titleTag}>`;
+            }
+
             return `
                 <div class="list-row">
-                    <div class="image-box"><img class="cover" alt="${imageAlt}" src="${imageUrl}"></div>
+                    ${imageHTML}
                     <div class="text-box">
-                        <${titleTag} class="item-title ">${this._escapeHtml(title)}</${titleTag}>
+                        ${titleHTML}
                         <div class="description">${descriptionHTML}</div>
                     </div>
                 </div>`;
@@ -638,12 +701,27 @@ ${subTitle ? `            <${h3Tag} class="sub-title ">${this._escapeHtml(subTit
             const titleTag = TITLE_TAG || 'h3'; // 預設使用 h3
             const descriptionHTML = this._generateComplexDescriptionHTML(DESC);
 
+            let imageHTML = "";
+            if (!cardBlock.removedFields?.URL) {
+                imageHTML = `<div class="image-box"><img class="cover" src="${imageUrl}" alt="${imageAlt}"></div>`;
+            }
+
+            let iconHTML = "";
+            if (!cardBlock.removedFields?.ICON_URL) {
+                iconHTML = `<div class="icon"><img src="${iconUrl}" alt="${iconAlt}"></div>`;
+            }
+
+            let titleHTML = "";
+            if (!cardBlock.removedFields?.TITLE) {
+                titleHTML = `<${titleTag} class="list-title">${this._escapeHtml(title)}</${titleTag}>`;
+            }
+
             return `
             <div class="list-row">
-                <div class="image-box"><img class="cover" src="${imageUrl}" alt="${imageAlt}"></div>
+                ${imageHTML}
                 <div class="text-box">
-                    <div class="icon"><img src="${iconUrl}" alt="${iconAlt}"></div>
-                    <${titleTag} class="list-title">${this._escapeHtml(title)}</${titleTag}>
+                    ${iconHTML}
+                    ${titleHTML}
                     <div class="description">${descriptionHTML}</div>
                 </div>
             </div>`;

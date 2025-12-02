@@ -47,12 +47,29 @@ export const UIManager = {
 
     // --- Event Handlers ---
     _handleContainerClick(e) {
-        if (e.target.matches('.remove-btn')) {
-            const blockId = e.target.closest('.dynamic-block').id;
-            this.removeBlock(blockId);
-            this._handlers.onContentChange();
-        } else if (e.target.matches('.insert-trigger')) {
-            this._toggleInsertMenu(e.target); // 點擊 '+'
+        if (e.target.closest('.remove-field-btn')) {
+            const btn = e.target.closest('.remove-field-btn');
+            const fieldGroup = btn.closest('.removable-field');
+
+            // 如果按鈕在 .removable-field 內，只隱藏該欄位
+            if (fieldGroup) {
+                const input = fieldGroup.querySelector('[data-field]');
+                if (input) {
+                    input.value = ''; // 清空內容
+                    input.dataset.fieldRemoved = 'true'; // 加上刪除標記
+                }
+                fieldGroup.style.display = 'none'; // 隱藏欄位
+                this._handlers.onContentChange(); // 觸發更新
+            } else {
+                // 否則刪除整個區塊
+                const blockId = e.target.closest('.dynamic-block').id;
+                this.removeBlock(blockId);
+                this._handlers.onContentChange();
+            }
+        } else if (e.target.matches('.insert-trigger') || e.target.closest('.insert-trigger')) {
+            // 支援點擊 SVG
+            const trigger = e.target.closest('.insert-trigger');
+            this._toggleInsertMenu(trigger);
         } else if (e.target.closest('.insert-menu button')) {
             const button = e.target.closest('.insert-menu button');
             const blockType = button.dataset.type;
@@ -60,15 +77,6 @@ export const UIManager = {
             const targetBlockId = trigger.dataset.targetId; // 從觸發器獲取目標ID
             this._handlers.onInsertBlock(blockType, targetBlockId);
             this._closeAllInsertMenus();
-        } else if (e.target.matches('.remove-field-btn')) {
-            const fieldGroup = e.target.closest('.removable-field');
-            const input = fieldGroup.querySelector('[data-field]');
-            if (input) {
-                input.value = ''; // 清空內容
-                input.dataset.fieldRemoved = 'true'; // **關鍵：加上刪除標記**
-            }
-            fieldGroup.style.display = 'none'; // 隱藏欄位
-            this._handlers.onContentChange(); // 觸發更新
         }
     },
 
@@ -155,7 +163,7 @@ export const UIManager = {
                     ${displayName} #${this._blockCounter}
                 </div>
                 ${blockInfo.isRemovable !== false ? `
-                <button class="action-btn remove-btn" title="刪除此區塊">
+                <button class="action-btn remove-field-btn" title="刪除此區塊">
                     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="3 6 5 6 21 6"></polyline>
                         <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
@@ -214,7 +222,7 @@ export const UIManager = {
         blockElement.querySelector('.add-zone')?.remove(); // 移除舊的
         if (!insertableBlocks || insertableBlocks.length === 0) return;
 
-        const iconMap = { 'IMAGE': '🖼️', 'HR': '—' };
+        const iconMap = { 'IMAGE': '🖼️', 'HR': '分隔線' };
 
         const buttonsHtml = insertableBlocks.map(type => {
             const displayName = BLOCK_DISPLAY_NAMES[type] || type;

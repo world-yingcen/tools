@@ -11,48 +11,69 @@
  */
 const BLOCK_EDITOR_TEMPLATES = {
     MAIN_TEXT: `
-        <div class="input-group">
-            <label class="field-label">大標 (Heading)</label>
+        <div class="input-group removable-field">
+            <div class="label-container">
+                <label class="field-label">大標 (Heading)</label>
+                <button type="button" class="remove-field-btn" title="移除此欄位"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"></path></svg></button>
+            </div>
             <div class="merged-input">
                 <select class="tag-select" data-field="H2_TAG"><option value="h1">H1</option><option value="h2" selected>H2</option><option value="h3">H3</option></select>
                 <input type="text" class="main-input" data-field="H2" placeholder="輸入文章標題">
             </div>
         </div>
-        <div class="input-group">
-            <label class="field-label">副標 (Sub-heading)</label>
+        <div class="input-group removable-field">
+            <div class="label-container">
+                <label class="field-label">副標 (Sub-heading)</label>
+                <button type="button" class="remove-field-btn" title="移除此欄位"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"></path></svg></button>
+            </div>
             <div class="merged-input">
                 <select class="tag-select" data-field="H3_TAG"><option value="h1">H1</option><option value="h2">H2</option><option value="h3" selected>H3</option></select>
                 <input type="text" class="main-input" data-field="H3" placeholder="輸入文章副標題">
             </div>
         </div>
-        <div class="input-group">
-            <label class="field-label">敘述</label>
+        <div class="input-group removable-field">
+            <div class="label-container">
+                <label class="field-label">敘述</label>
+                <button type="button" class="remove-field-btn" title="移除此欄位"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"></path></svg></button>
+            </div>
             <textarea class="textarea-input" data-field="P" placeholder="輸入文章內容，如需列點請在前面加上*"></textarea>
         </div>`,
     TITLE_BLOCK: `
-        <div class="input-group">
-            <label class="field-label">大標 (Heading)</label>
+        <div class="input-group removable-field">
+            <div class="label-container">
+                <label class="field-label">大標 (Heading)</label>
+                <button type="button" class="remove-field-btn" title="移除此欄位"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"></path></svg></button>
+            </div>
             <div class="merged-input">
                 <select class="tag-select" data-field="H2_TAG"><option value="h1">H1</option><option value="h2" selected>H2</option><option value="h3">H3</option></select>
                 <input type="text" class="main-input" data-field="H2" placeholder="輸入文章標題">
             </div>
         </div>
-        <div class="input-group">
-            <label class="field-label">副標 (Sub-heading)</label>
+        <div class="input-group removable-field">
+            <div class="label-container">
+                <label class="field-label">副標 (Sub-heading)</label>
+                <button type="button" class="remove-field-btn" title="移除此欄位"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"></path></svg></button>
+            </div>
             <div class="merged-input">
                 <select class="tag-select" data-field="H3_TAG"><option value="h1">H1</option><option value="h2">H2</option><option value="h3" selected>H3</option></select>
                 <input type="text" class="main-input" data-field="H3" placeholder="輸入文章副標題">
             </div>
         </div>`,
     MAIN_IMAGE: `
-        <div class="input-group">
-            <label class="field-label">圖片連結</label>
+        <div class="input-group removable-field">
+            <div class="label-container">
+                <label class="field-label">圖片連結</label>
+                <button type="button" class="remove-field-btn" title="移除此欄位"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"></path></svg></button>
+            </div>
             <div class="merged-input">
                 <input type="text" class="main-input" data-field="URL" placeholder="輸入 圖片 URL">
             </div>
         </div>
-        <div class="input-group">
-            <label class="field-label">圖片 Alt</label>
+        <div class="input-group removable-field">
+            <div class="label-container">
+                <label class="field-label">圖片 Alt</label>
+                <button type="button" class="remove-field-btn" title="移除此欄位"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"></path></svg></button>
+            </div>
             <div class="merged-input">
                 <input type="text" class="main-input" data-field="ALT" placeholder="輸入 圖片描述">
             </div>
@@ -67,13 +88,13 @@ const BLOCK_EDITOR_TEMPLATES = {
     UL: `<div class="input-group"><label class="field-label">列表 (UL)</label><textarea class="textarea-input" data-field="LIST_ITEMS" placeholder="輸入列表項目，一行一個"></textarea></div>`,
     A: `<div class="input-group"><label class="field-label">連結文字</label><div class="merged-input"><input type="text" class="main-input" data-field="TEXT" placeholder="輸入連結文字"></div></div>
         <div class="input-group"><label class="field-label">連結 URL</label><div class="merged-input"><input type="text" class="main-input" data-field="HREF" placeholder="輸入連結網址 (href)"></div></div>`,
-    IMAGE: `<div class="input-group"><label class="field-label">圖片網址</label><div class="merged-input"><input type="text" class="main-input" data-field="URL" placeholder="輸入圖片網址 (URL)"></div></div>
-            <div class="input-group"><label class="field-label">圖片 Alt</label><div class="merged-input"><input type="text" class="main-input" data-field="ALT" placeholder="輸入圖片描述 (alt)"></div></div>`,
+    IMAGE: `<div class="input-group removable-field"><div class="label-container"><label class="field-label">圖片網址</label><button type="button" class="remove-field-btn" title="移除此欄位"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"></path></svg></button></div><div class="merged-input"><input type="text" class="main-input" data-field="URL" placeholder="輸入圖片網址 (URL)"></div></div>
+            <div class="input-group removable-field"><div class="label-container"><label class="field-label">圖片 Alt</label><button type="button" class="remove-field-btn" title="移除此欄位"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"></path></svg></button></div><div class="merged-input"><input type="text" class="main-input" data-field="ALT" placeholder="輸入圖片描述 (alt)"></div></div>`,
     HR: `<hr style="border-top: 1px solid #ddd; margin: 10px 0;">`,
     TABLE: `<div class="input-group"><label class="field-label">表格 Markdown</label><textarea class="textarea-input" data-field="MARKDOWN" rows="8" placeholder="貼上 Markdown 表格..."></textarea></div>`,
     CARD: `
-           <div class="input-group"><label class="field-label">圖片 URL</label><div class="merged-input"><input type="text" class="main-input" data-field="URL" placeholder="圖片連結"></div></div>
-           <div class="input-group"><label class="field-label">圖片 Alt</label><div class="merged-input"><input type="text" class="main-input" data-field="ALT" placeholder="圖片描述 (SEO)"></div></div>
+           <div class="input-group removable-field"><div class="label-container"><label class="field-label">圖片 URL</label><button type="button" class="remove-field-btn" title="移除此欄位"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"></path></svg></button></div><div class="merged-input"><input type="text" class="main-input" data-field="URL" placeholder="圖片連結"></div></div>
+           <div class="input-group removable-field"><div class="label-container"><label class="field-label">圖片 Alt</label><button type="button" class="remove-field-btn" title="移除此欄位"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"></path></svg></button></div><div class="merged-input"><input type="text" class="main-input" data-field="ALT" placeholder="圖片描述 (SEO)"></div></div>
            <div class="input-group">
                <label class="field-label">標題</label>
                <div class="merged-input">
@@ -83,9 +104,9 @@ const BLOCK_EDITOR_TEMPLATES = {
            </div>
            <div class="input-group"><label class="field-label">敘述</label><textarea class="textarea-input" data-field="DESC" placeholder="輸入卡片內容..."></textarea></div>`,
     ICON_CARD: `
-                <div class="input-group"><label class="field-label">圖片 URL</label><div class="merged-input"><input type="text" class="main-input" data-field="URL" placeholder="項目主圖連結"></div></div>
-                <div class="input-group"><label class="field-label">圖片 Alt</label><div class="merged-input"><input type="text" class="main-input" data-field="ALT" placeholder="圖片描述 (SEO)"></div></div>
-                <div class="input-group"><label class="field-label">Icon URL</label><div class="merged-input"><input type="text" class="main-input" data-field="ICON_URL" placeholder="小圖示連結"></div></div>
+                <div class="input-group removable-field"><div class="label-container"><label class="field-label">圖片 URL</label><button type="button" class="remove-field-btn" title="移除此欄位"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"></path></svg></button></div><div class="merged-input"><input type="text" class="main-input" data-field="URL" placeholder="項目主圖連結"></div></div>
+                <div class="input-group removable-field"><div class="label-container"><label class="field-label">圖片 Alt</label><button type="button" class="remove-field-btn" title="移除此欄位"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"></path></svg></button></div><div class="merged-input"><input type="text" class="main-input" data-field="ALT" placeholder="圖片描述 (SEO)"></div></div>
+                <div class="input-group removable-field"><div class="label-container"><label class="field-label">Icon URL</label><button type="button" class="remove-field-btn" title="移除此欄位"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"></path></svg></button></div><div class="merged-input"><input type="text" class="main-input" data-field="ICON_URL" placeholder="小圖示連結"></div></div>
                 <div class="input-group">
                     <label class="field-label">標題</label>
                     <div class="merged-input">
@@ -95,8 +116,8 @@ const BLOCK_EDITOR_TEMPLATES = {
                 </div>
                 <div class="input-group"><label class="field-label">敘述</label><textarea class="textarea-input" data-field="DESC" placeholder="輸入項目內容..."></textarea></div>`,
     NUMBER_CARD: `
-                  <div class="input-group"><label class="field-label">Icon URL</label><div class="merged-input"><input type="text" class="main-input" data-field="ICON_URL" placeholder="Icon 連結"></div></div>
-                  <div class="input-group"><label class="field-label">Icon Alt</label><div class="merged-input"><input type="text" class="main-input" data-field="ALT" placeholder="Icon 描述 (SEO)"></div></div>
+                  <div class="input-group removable-field"><div class="label-container"><label class="field-label">Icon URL</label><button type="button" class="remove-field-btn" title="移除此欄位"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"></path></svg></button></div><div class="merged-input"><input type="text" class="main-input" data-field="ICON_URL" placeholder="Icon 連結"></div></div>
+                  <div class="input-group removable-field"><div class="label-container"><label class="field-label">Icon Alt</label><button type="button" class="remove-field-btn" title="移除此欄位"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"></path></svg></button></div><div class="merged-input"><input type="text" class="main-input" data-field="ALT" placeholder="Icon 描述 (SEO)"></div></div>
                   <div class="input-group">
                       <label class="field-label">標題</label>
                       <div class="merged-input">
@@ -106,8 +127,8 @@ const BLOCK_EDITOR_TEMPLATES = {
                   </div>
                   <div class="input-group"><label class="field-label">敘述</label><textarea class="textarea-input" data-field="DESC" placeholder="輸入卡片內容..."></textarea></div>`,
     ONE_COLUMN_ITEM: `
-                      <div class="input-group"><label class="field-label">圖片 URL</label><div class="merged-input"><input type="text" class="main-input" data-field="URL" placeholder="圖片連結"></div></div>
-                      <div class="input-group"><label class="field-label">圖片 Alt</label><div class="merged-input"><input type="text" class="main-input" data-field="ALT" placeholder="圖片描述 (SEO)"></div></div>
+                      <div class="input-group removable-field"><div class="label-container"><label class="field-label">圖片 URL</label><button type="button" class="remove-field-btn" title="移除此欄位"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"></path></svg></button></div><div class="merged-input"><input type="text" class="main-input" data-field="URL" placeholder="圖片連結"></div></div>
+                      <div class="input-group removable-field"><div class="label-container"><label class="field-label">圖片 Alt</label><button type="button" class="remove-field-btn" title="移除此欄位"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"></path></svg></button></div><div class="merged-input"><input type="text" class="main-input" data-field="ALT" placeholder="圖片描述 (SEO)"></div></div>
                       <div class="input-group">
                           <label class="field-label">標題</label>
                           <div class="merged-input">
@@ -125,8 +146,8 @@ const BLOCK_EDITOR_TEMPLATES = {
                       <div class="input-group"><label class="field-label">敘述</label><textarea class="textarea-input" data-field="DESC" placeholder="輸入項目內容..."></textarea></div>`,
     ALT_ROW: `
               <div class="input-group"><label class="field-label">排列方式</label><div class="merged-input"><select class="main-input" data-field="POSITION"><option value="image-left">左圖右文</option><option value="image-right">右圖左文</option></select></div></div>
-              <div class="input-group"><label class="field-label">主圖 URL</label><div class="merged-input"><input type="text" class="main-input" data-field="MAIN_URL" placeholder="大圖連結"></div></div>
-              <div class="input-group"><label class="field-label">主圖 Alt</label><div class="merged-input"><input type="text" class="main-input" data-field="MAIN_ALT" placeholder="大圖描述 (SEO)"></div></div>
+              <div class="input-group removable-field"><div class="label-container"><label class="field-label">主圖 URL</label><button type="button" class="remove-field-btn" title="移除此欄位"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"></path></svg></button></div><div class="merged-input"><input type="text" class="main-input" data-field="MAIN_URL" placeholder="大圖連結"></div></div>
+              <div class="input-group removable-field"><div class="label-container"><label class="field-label">主圖 Alt</label><button type="button" class="remove-field-btn" title="移除此欄位"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"></path></svg></button></div><div class="merged-input"><input type="text" class="main-input" data-field="MAIN_ALT" placeholder="大圖描述 (SEO)"></div></div>
               <div class="input-group">
                   <label class="field-label">副標題</label>
                   <div class="merged-input">
@@ -136,15 +157,21 @@ const BLOCK_EDITOR_TEMPLATES = {
               </div>
               <div class="input-group"><label class="field-label">敘述</label><textarea class="textarea-input" data-field="DESC" placeholder="輸入文字區塊的內容..."></textarea></div>`,
     STICKY_TEXT_ROW: `
-                      <div class="input-group">
-                          <label class="field-label">標題</label>
+                      <div class="input-group removable-field">
+                          <div class="label-container">
+                              <label class="field-label">標題</label>
+                              <button type="button" class="remove-field-btn" title="移除此欄位"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"></path></svg></button>
+                          </div>
                           <div class="merged-input">
                               <select class="tag-select" data-field="TITLE_TAG"><option value="h1">H1</option><option value="h2">H2</option><option value="h3" selected>H3</option></select>
                               <input type="text" class="main-input" data-field="TITLE" placeholder="輸入標題">
                           </div>
                       </div>
-                      <div class="input-group">
-                          <label class="field-label">副標題</label>
+                      <div class="input-group removable-field">
+                          <div class="label-container">
+                              <label class="field-label">副標題</label>
+                              <button type="button" class="remove-field-btn" title="移除此欄位"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"></path></svg></button>
+                          </div>
                           <div class="merged-input">
                               <select class="tag-select" data-field="SUBTITLE_TAG"><option value="h1">H1</option><option value="h2">H2</option><option value="h3" selected>H3</option></select>
                               <input type="text" class="main-input" data-field="SUBTITLE" placeholder="輸入副標題">
@@ -152,8 +179,11 @@ const BLOCK_EDITOR_TEMPLATES = {
                       </div>
                       <div class="input-group"><label class="field-label">敘述</label><textarea class="textarea-input" data-field="DESC" placeholder="輸入內容..."></textarea></div>`,
     QA_ROW: `
-             <div class="input-group">
-                 <label class="field-label">問題</label>
+             <div class="input-group removable-field">
+                 <div class="label-container">
+                     <label class="field-label">問題</label>
+                     <button type="button" class="remove-field-btn" title="移除此欄位"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"></path></svg></button>
+                 </div>
                  <div class="merged-input">
                      <select class="tag-select" data-field="TITLE_TAG"><option value="h1">H1</option><option value="h2">H2</option><option value="h3" selected>H3</option></select>
                      <input type="text" class="main-input" data-field="TITLE" placeholder="輸入問題">
@@ -161,12 +191,12 @@ const BLOCK_EDITOR_TEMPLATES = {
              </div>
              <div class="input-group"><label class="field-label">回答</label><textarea class="textarea-input" data-field="DESC" placeholder="輸入回答..."></textarea></div>`,
     TWO_COL_IMAGE_ICON_ITEM: `
-                              <div class="input-group"><label class="field-label">Icon URL</label><div class="merged-input"><input type="text" class="main-input" data-field="ICON_URL" placeholder="輸入 Icon 圖片網址"></div></div>
-                              <div class="input-group"><label class="field-label">Icon Alt</label><div class="merged-input"><input type="text" class="main-input" data-field="ICON_ALT" placeholder="輸入 Icon 描述 (alt)"></div></div>
+                              <div class="input-group removable-field"><div class="label-container"><label class="field-label">Icon URL</label><button type="button" class="remove-field-btn" title="移除此欄位"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"></path></svg></button></div><div class="merged-input"><input type="text" class="main-input" data-field="ICON_URL" placeholder="輸入 Icon 圖片網址"></div></div>
+                              <div class="input-group removable-field"><div class="label-container"><label class="field-label">Icon Alt</label><button type="button" class="remove-field-btn" title="移除此欄位"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"></path></svg></button></div><div class="merged-input"><input type="text" class="main-input" data-field="ICON_ALT" placeholder="輸入 Icon 描述 (alt)"></div></div>
                               <div class="input-group"><label class="field-label">敘述</label><textarea class="textarea-input" data-field="DESC" placeholder="輸入項目敘述..."></textarea></div>`,
     ICON_TITLE_CARD: `
-                      <div class="input-group"><label class="field-label">Icon URL</label><div class="merged-input"><input type="text" class="main-input" data-field="URL" placeholder="Icon 連結"></div></div>
-                      <div class="input-group"><label class="field-label">Icon Alt</label><div class="merged-input"><input type="text" class="main-input" data-field="ALT" placeholder="Icon 描述 (SEO)"></div></div>
+                      <div class="input-group removable-field"><div class="label-container"><label class="field-label">Icon URL</label><button type="button" class="remove-field-btn" title="移除此欄位"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"></path></svg></button></div><div class="merged-input"><input type="text" class="main-input" data-field="URL" placeholder="Icon 連結"></div></div>
+                      <div class="input-group removable-field"><div class="label-container"><label class="field-label">Icon Alt</label><button type="button" class="remove-field-btn" title="移除此欄位"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"></path></svg></button></div><div class="merged-input"><input type="text" class="main-input" data-field="ALT" placeholder="Icon 描述 (SEO)"></div></div>
                       <div class="input-group">
                           <label class="field-label">標題</label>
                           <div class="merged-input">
@@ -176,8 +206,8 @@ const BLOCK_EDITOR_TEMPLATES = {
                       </div>
                       <div class="input-group"><label class="field-label">敘述</label><textarea class="textarea-input" data-field="DESC" placeholder="輸入卡片內容..."></textarea></div>`,
     IMAGE_TITLE_DESC_CARD: `
-                            <div class="input-group"><label class="field-label">圖片 URL</label><div class="merged-input"><input type="text" class="main-input" data-field="URL" placeholder="項目主圖連結"></div></div>
-                            <div class="input-group"><label class="field-label">圖片 Alt</label><div class="merged-input"><input type="text" class="main-input" data-field="ALT" placeholder="圖片描述 (SEO)"></div></div>
+                            <div class="input-group removable-field"><div class="label-container"><label class="field-label">圖片 URL</label><button type="button" class="remove-field-btn" title="移除此欄位"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"></path></svg></button></div><div class="merged-input"><input type="text" class="main-input" data-field="URL" placeholder="項目主圖連結"></div></div>
+                            <div class="input-group removable-field"><div class="label-container"><label class="field-label">圖片 Alt</label><button type="button" class="remove-field-btn" title="移除此欄位"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"></path></svg></button></div><div class="merged-input"><input type="text" class="main-input" data-field="ALT" placeholder="圖片描述 (SEO)"></div></div>
                             <div class="input-group">
                                 <label class="field-label">標題</label>
                                 <div class="merged-input">
@@ -187,15 +217,21 @@ const BLOCK_EDITOR_TEMPLATES = {
                             </div>
                             <div class="input-group"><label class="field-label">敘述</label><textarea class="textarea-input" data-field="DESC" placeholder="輸入項目內容..."></textarea></div>`,
     TEXT_CARD: `
-                <div class="input-group">
-                    <label class="field-label">標題</label>
+                <div class="input-group removable-field">
+                    <div class="label-container">
+                        <label class="field-label">標題</label>
+                        <button type="button" class="remove-field-btn" title="移除此欄位"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"></path></svg></button>
+                    </div>
                     <div class="merged-input">
                         <select class="tag-select" data-field="TITLE_TAG"><option value="h1">H1</option><option value="h2">H2</option><option value="h3" selected>H3</option></select>
                         <input type="text" class="main-input" data-field="TITLE" placeholder="卡片標題">
                     </div>
                 </div>
-                <div class="input-group">
-                    <label class="field-label">副標題</label>
+                <div class="input-group removable-field">
+                    <div class="label-container">
+                        <label class="field-label">副標題</label>
+                        <button type="button" class="remove-field-btn" title="移除此欄位"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"></path></svg></button>
+                    </div>
                     <div class="merged-input">
                         <select class="tag-select" data-field="SUBTITLE_TAG"><option value="h1">H1</option><option value="h2">H2</option><option value="h3" selected>H3</option></select>
                         <input type="text" class="main-input" data-field="SUBTITLE" placeholder="卡片副標題 (可選)">

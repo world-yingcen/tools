@@ -108,7 +108,8 @@ const App = {
                         mergedContent[key] = uiBlockData.content[key];
                     }
                 }
-                return { ...uiBlockData, content: mergedContent };
+                // 關鍵修復：保留 removedFields 資訊，讓 layout-manager.js 知道哪些欄位被刪除
+                return { ...uiBlockData, content: mergedContent, removedFields: uiBlockData.removedFields };
             }
             return uiBlockData;
         });

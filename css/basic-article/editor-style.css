@@ -58,16 +58,21 @@
   color: var(--text-main);
 }
 
+.remove-field-btn {
+  top: 0;
+  right: 0;
+}
+
 .action-btn {
   background: transparent;
   border: none;
   color: #94a3b8;
   cursor: pointer;
-  padding: 5px;
+  padding: 0;
   border-radius: 4px;
   transition: all 0.2s;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 15px;
+  right: 20px;
 }
 
 .action-btn:hover {

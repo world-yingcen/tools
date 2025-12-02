@@ -785,49 +785,20 @@ input[type=radio] {
 
 /* 移除按鈕 */
 
-.remove-btn {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: #28a745;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    width: 24px;
-    height: 24px;
-    line-height: 1;
-    padding: 0;
-    font-size: 14px;
-    cursor: pointer;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 15;
-}
 
-.remove-field-btn:hover,
-.remove-btn:hover {
-    background: var(--ColorPrimary);
-}
-
-.removable-field .remove-btn {
-    top: 0;
-    right: 0;
-}
 
 .remove-field-btn {
     position: absolute;
-    top: 0;
-    right: 0;
-    background: #28a745;
+    top: 15px;
+    right: 15px;
+    background: #d9d9d9;
     color: white;
     border: none;
     border-radius: 4px;
     width: 24px;
     height: 24px;
+    padding: 4px;
     line-height: 1;
-    padding: 0;
     font-size: 14px;
     cursor: pointer;
     font-weight: bold;
@@ -835,13 +806,22 @@ input[type=radio] {
     align-items: center;
     justify-content: center;
     z-index: 15;
+    opacity: 0;
+}
+
+.dynamic-block:hover .remove-field-btn {
+    opacity: 1;
+}
+
+.remove-field-btn:hover {
+    background: var(--ColorPrimary);
 }
 
 
 /* --- 新增：可移除欄位的樣式 --- */
 .removable-field {
     position: relative;
-    margin: 30px 0 0;
+    margin: 10px 0 0;
 }
 
 /* 區塊標題 */
@@ -989,7 +969,7 @@ input[type=radio] {
     /* 分隔線始終顯示插入點 */
 }
 
-.dynamic-block[data-type="HR"] .remove-btn {
+.dynamic-block[data-type="HR"] .remove-field-btn {
     top: -10px;
     z-index: 41;
 }

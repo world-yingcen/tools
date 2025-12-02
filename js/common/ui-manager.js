@@ -43,10 +43,25 @@ export const UIManager = {
 
     // --- Event Handlers ---
     _handleContainerClick(e) {
-        if (e.target.matches('.remove-btn')) {
-            const blockId = e.target.closest('.dynamic-block').id;
-            this.removeBlock(blockId);
-            this._handlers.onContentChange();
+        if (e.target.closest('.remove-field-btn')) {
+            const btn = e.target.closest('.remove-field-btn');
+            const fieldGroup = btn.closest('.removable-field');
+
+            // 如果按鈕在 .removable-field 內，只隱藏該欄位
+            if (fieldGroup) {
+                const input = fieldGroup.querySelector('[data-field]');
+                if (input) {
+                    input.value = ''; // 清空內容
+                    input.dataset.fieldRemoved = 'true'; // 加上刪除標記
+                }
+                fieldGroup.style.display = 'none'; // 隱藏欄位
+                this._handlers.onContentChange(); // 觸發更新
+            } else {
+                // 否則刪除整個區塊
+                const blockId = e.target.closest('.dynamic-block').id;
+                this.removeBlock(blockId);
+                this._handlers.onContentChange();
+            }
         } else if (e.target.matches('.insert-trigger')) {
             this._toggleInsertMenu(e.target);
         } else if (e.target.matches('.insert-menu button')) {
@@ -244,7 +259,7 @@ export const UIManager = {
 
         // Only allow removal for non-section-starter dynamic-blocks
         if (blockInfo.isRemovable !== false && !isSectionStarterBlock) {
-            newBlock.insertAdjacentHTML('beforeend', `<button type="button" class="remove-btn">×</button>`);
+            newBlock.insertAdjacentHTML('beforeend', `<button type="button" class="remove-field-btn" title="移除此區塊"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2-2v2"></path></svg></button>`);
         }
 
         // Set initial data
@@ -306,7 +321,7 @@ export const UIManager = {
 
         const iconMap = {
             'IMAGE': '🖼️',
-            'HR': '—',
+            'HR': '分隔線',
             'VIDEO': '影片',
         };
 
@@ -356,10 +371,14 @@ export const UIManager = {
             const type = el.dataset.type;
             // Ensure content is extracted from the correct input fields within the block
             const content = {};
+            const removedFields = {};
             el.querySelectorAll('[data-field]').forEach(input => {
                 content[input.dataset.field] = input.value.trim();
+                if (input.dataset.fieldRemoved === 'true') {
+                    removedFields[input.dataset.field] = true;
+                }
             });
-            data.push({ id: el.id, type, content });
+            data.push({ id: el.id, type, content, removedFields });
         });
         return data;
     },
