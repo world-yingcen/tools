@@ -97,7 +97,6 @@ export const LayoutManager = {
                         determinedIsTextFirst = false;
                     }
 
-                    const descriptionHTML = this._generateComplexDescriptionHTML(description);
                     const finalImageAlt = mainImageAlt || mainTitle || "範例圖片描述";
 
                     let imageHtml = "";
@@ -117,6 +116,8 @@ export const LayoutManager = {
                     const isDescriptionRemoved = mainTextBlock.removedFields?.P;
                     const isSubTitleRemoved = mainTextBlock.removedFields?.H3;
 
+
+
                     if (!isMainTitleRemoved || !isSubTitleRemoved) {
                         textBlockHTMLParts.push(`        <div class="section-title section-title-bottom ">`);
                         if (!isMainTitleRemoved) {
@@ -130,6 +131,7 @@ export const LayoutManager = {
                         textBlockHTMLParts.push(`        </div>`);
                     }
                     if (!isDescriptionRemoved) {
+                        const descriptionHTML = this._generateComplexDescriptionHTML(description);
                         textBlockHTMLParts.push(`        <div class="description mt-2">${descriptionHTML}</div>`);
                     }
 

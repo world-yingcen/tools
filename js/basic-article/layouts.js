@@ -612,7 +612,17 @@ layouts["article-11"].parsingConfig = {
 // 為預設 SEO Blog 版型新增 parsingConfig
 layouts["article-01"].parsingConfig = {
     mainTitle: 'H1',
-    subTitle: 'H2'
+    atomicParsing: true,
+    blockMapping: {
+        'H1': 'H2', // Markdown H1 -> UI H2 (文章大標)
+        'H2': 'H3', // Markdown H2 -> UI H3 (文章副標)
+        'H3': 'H3', // Markdown H3 -> UI H3 (項目標題)
+        'P': 'P',
+        'UL': 'UL',
+        'OL': 'OL',
+        'IMAGE': 'IMAGE',
+        'H4': 'H4'
+    }
 };
 
 layouts["article-02"].parsingConfig = {

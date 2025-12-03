@@ -373,6 +373,126 @@ const App = {
         const config = layoutDef.parsingConfig;
         if (!config) return; // 如果沒有設定，就直接返回
 
+        // --- 原子化解析模式 (Atomic Parsing) ---
+        // 適用於需要精確控制每個 Markdown 區塊對應到 UI 區塊的版型
+        if (config.atomicParsing) {
+            console.log(`[Parser] Using Atomic Parsing mode`);
+
+            // 1. 填入主標題 (如果有的話)
+            if (config.mainTitle) {
+                const mainTitleData = parsedBlocks.find(b => b.type === config.mainTitle);
+                if (mainTitleData) {
+                    const mainTitleBlock = UIManager.elements.dynamicContentContainer.querySelector('[data-field="H2"]');
+                    if (mainTitleBlock) {
+                        mainTitleBlock.value = mainTitleData.content;
+                        mainTitleBlock.dispatchEvent(new Event('input', { bubbles: true }));
+
+                        // 特殊處理：標記 MAIN_TEXT 區塊中未使用的欄位為已移除
+                        const mainTextContainer = mainTitleBlock.closest('[data-type="MAIN_TEXT"]');
+                        if (mainTextContainer) {
+                            // 標記 H3 (副標題) 為已移除
+                            const h3Field = mainTextContainer.querySelector('[data-field="H3"]');
+                            if (h3Field) {
+                                h3Field.value = '';
+                                h3Field.dataset.fieldRemoved = 'true';
+                            }
+
+                            // 標記 H3_TAG 為已移除
+                            const h3TagField = mainTextContainer.querySelector('[data-field="H3_TAG"]');
+                            if (h3TagField) {
+                                h3TagField.dataset.fieldRemoved = 'true';
+                            }
+
+                            // 標記 P (敘述) 為已移除
+                            const pField = mainTextContainer.querySelector('[data-field="P"]');
+                            if (pField) {
+                                pField.value = '';
+                                pField.dataset.fieldRemoved = 'true';
+                            }
+                        }
+                    }
+                }
+            }
+
+            // 2. 處理剩餘區塊
+            // 排除已使用的主標題
+            const usedBlocks = [];
+            if (config.mainTitle) {
+                const mainTitleBlock = parsedBlocks.find(b => b.type === config.mainTitle);
+                if (mainTitleBlock) usedBlocks.push(mainTitleBlock);
+            }
+
+            // 特殊處理：如果是原子化解析，且沒有特別指定 MAIN_IMAGE，則將預設的 MAIN_IMAGE 區塊隱藏
+            // 這樣可以讓圖片作為一般內容區塊插入到文字流中
+            const mainImageUiBlock = UIManager.elements.dynamicContentContainer.querySelector('[data-type="MAIN_IMAGE"]');
+            if (mainImageUiBlock) {
+                const urlInput = mainImageUiBlock.querySelector('[data-field="URL"]');
+                if (urlInput) {
+                    urlInput.value = '';
+                    urlInput.dataset.fieldRemoved = 'true'; // 標記為已移除
+                }
+                mainImageUiBlock.style.display = 'none'; // 在 UI 上隱藏
+            }
+
+            const contentBlocks = parsedBlocks.filter(b => !usedBlocks.includes(b));
+
+            // 清除預設的初始區塊 (除了主標題、主圖片和必要的容器)
+            // 這裡我們假設 atomicParsing 模式下，除了主標題外，其他內容都由 Markdown 動態生成
+            // 但為了保險起見，我們先保留不可移除的區塊
+
+            // 策略：
+            // 1. 找到最後一個非動態生成的區塊作為插入點
+            // 2. 依序創建新區塊
+
+            let lastBlockId = null;
+            // 嘗試找到主標題區塊作為起始點
+            const mainTitleUiBlock = UIManager.elements.dynamicContentContainer.querySelector('[data-type="MAIN_TEXT"]'); // 修正：應該找 MAIN_TEXT 區塊
+            if (mainTitleUiBlock) {
+                lastBlockId = mainTitleUiBlock.id;
+            } else {
+                // 如果沒有主標題區塊，就找最後一個區塊
+                const lastBlock = UIManager.elements.dynamicContentContainer.querySelector('.dynamic-block:last-child');
+                lastBlockId = lastBlock ? lastBlock.id : null;
+            }
+
+            // 定義 Markdown 類型到 UI 類型的映射
+            const typeMapping = config.blockMapping || {
+                'H3': 'H3',
+                'P': 'P',
+                'UL': 'UL',
+                'OL': 'OL',
+                'IMAGE': 'IMAGE',
+                'H4': 'H4'
+            };
+
+            contentBlocks.forEach(block => {
+                const uiType = typeMapping[block.type];
+                if (uiType) {
+                    // 創建新區塊
+                    const newBlock = UIManager.createBlock(this._getFullBlockInfo({ type: uiType, isRemovable: true }, layoutDef), lastBlockId);
+                    lastBlockId = newBlock.id;
+
+                    // 填入內容
+                    const contentField = uiType === 'IMAGE' ? 'URL' :
+                        uiType === 'UL' || uiType === 'OL' ? 'LIST_ITEMS' : 'TEXT';
+
+                    const input = newBlock.querySelector(`[data-field="${contentField}"]`);
+                    if (input) {
+                        if (uiType === 'IMAGE') {
+                            input.value = block.content.URL;
+                            const altInput = newBlock.querySelector(`[data-field="ALT"]`);
+                            if (altInput) altInput.value = block.content.ALT;
+                        } else {
+                            input.value = block.content;
+                        }
+                        input.dispatchEvent(new Event('input', { bubbles: true }));
+                    }
+                }
+            });
+
+            return; // 原子化解析完成，直接返回
+        }
+
         // --- 步驟 1: 填入主標題和副標題 ---
         if (config.mainTitle) { // 處理主標題 (H2)
             const mainTitleData = parsedBlocks.find(b => b.type === config.mainTitle);
@@ -389,6 +509,23 @@ const App = {
                 if (mainTitleBlock) {
                     mainTitleBlock.value = mainTitleData.content;
                     mainTitleBlock.dispatchEvent(new Event('input', { bubbles: true }));
+
+                    // 特殊處理：如果是 MAIN_TEXT 區塊，且使用原子化解析，
+                    // 則將未使用的副標題 (H3) 和敘述 (P) 標記為已移除，避免顯示預設內容
+                    const mainTextContainer = mainTitleBlock.closest('[data-type="MAIN_TEXT"]');
+                    if (mainTextContainer) {
+                        const h3Field = mainTextContainer.querySelector('[data-field="H3"]');
+                        const pField = mainTextContainer.querySelector('[data-field="P"]');
+
+                        if (h3Field) {
+                            h3Field.value = '';
+                            h3Field.dataset.fieldRemoved = 'true';
+                        }
+                        if (pField) {
+                            pField.value = '';
+                            pField.dataset.fieldRemoved = 'true';
+                        }
+                    }
                 }
                 // 不再從 parsedBlocks 中移除，因為 H2 可能也是一個項目的一部分
             }
@@ -450,6 +587,8 @@ const App = {
                 const pField = UIManager.elements.dynamicContentContainer.querySelector('[data-field="P"]');
                 if (pField) {
                     pField.value = combinedText;
+                    // 重要：移除 fieldRemoved 標記，確保內容會被渲染
+                    delete pField.dataset.fieldRemoved;
                     pField.dispatchEvent(new Event('input', { bubbles: true }));
                     console.log(`[Parser] Filled P field with ${combinedText.length} characters`);
                 }

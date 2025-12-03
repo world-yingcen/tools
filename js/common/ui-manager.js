@@ -49,11 +49,11 @@ export const UIManager = {
 
             // 如果按鈕在 .removable-field 內，只隱藏該欄位
             if (fieldGroup) {
-                const input = fieldGroup.querySelector('[data-field]');
-                if (input) {
+                const inputs = fieldGroup.querySelectorAll('[data-field]');
+                inputs.forEach(input => {
                     input.value = ''; // 清空內容
                     input.dataset.fieldRemoved = 'true'; // 加上刪除標記
-                }
+                });
                 fieldGroup.style.display = 'none'; // 隱藏欄位
                 this._handlers.onContentChange(); // 觸發更新
             } else {
