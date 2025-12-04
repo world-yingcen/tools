@@ -390,17 +390,18 @@ const App = {
                         // 特殊處理：標記 MAIN_TEXT 區塊中未使用的欄位為已移除
                         const mainTextContainer = mainTitleBlock.closest('[data-type="MAIN_TEXT"]');
                         if (mainTextContainer) {
-                            // 標記 H3 (副標題) 為已移除
-                            const h3Field = mainTextContainer.querySelector('[data-field="H3"]');
-                            if (h3Field) {
-                                h3Field.value = '';
-                                h3Field.dataset.fieldRemoved = 'true';
-                            }
-
-                            // 標記 H3_TAG 為已移除
-                            const h3TagField = mainTextContainer.querySelector('[data-field="H3_TAG"]');
-                            if (h3TagField) {
-                                h3TagField.dataset.fieldRemoved = 'true';
+                            // 標記 H3 (副標題) 為已移除，除非它被指定為 subTitle
+                            if (!config.subTitle) {
+                                const h3Field = mainTextContainer.querySelector('[data-field="H3"]');
+                                if (h3Field) {
+                                    h3Field.value = '';
+                                    h3Field.dataset.fieldRemoved = 'true';
+                                }
+                                // 標記 H3_TAG 為已移除
+                                const h3TagField = mainTextContainer.querySelector('[data-field="H3_TAG"]');
+                                if (h3TagField) {
+                                    h3TagField.dataset.fieldRemoved = 'true';
+                                }
                             }
 
                             // 標記 P (敘述) 為已移除
@@ -414,12 +415,35 @@ const App = {
                 }
             }
 
+            // 1.5 填入副標題 (如果有的話)
+            if (config.subTitle) {
+                const subTitleData = parsedBlocks.find(b => b.type === config.subTitle);
+                if (subTitleData) {
+                    const subTitleBlock = UIManager.elements.dynamicContentContainer.querySelector('[data-field="H3"]');
+                    if (subTitleBlock) {
+                        subTitleBlock.value = subTitleData.content;
+                        subTitleBlock.dispatchEvent(new Event('input', { bubbles: true }));
+                        // 確保移除 fieldRemoved 標記
+                        delete subTitleBlock.dataset.fieldRemoved;
+
+                        const subTitleTagBlock = UIManager.elements.dynamicContentContainer.querySelector('[data-field="H3_TAG"]');
+                        if (subTitleTagBlock) {
+                            delete subTitleTagBlock.dataset.fieldRemoved;
+                        }
+                    }
+                }
+            }
+
             // 2. 處理剩餘區塊
-            // 排除已使用的主標題
+            // 排除已使用的主標題和副標題
             const usedBlocks = [];
             if (config.mainTitle) {
                 const mainTitleBlock = parsedBlocks.find(b => b.type === config.mainTitle);
                 if (mainTitleBlock) usedBlocks.push(mainTitleBlock);
+            }
+            if (config.subTitle) {
+                const subTitleBlock = parsedBlocks.find(b => b.type === config.subTitle);
+                if (subTitleBlock) usedBlocks.push(subTitleBlock);
             }
 
             // 特殊處理：如果是原子化解析，且沒有特別指定 MAIN_IMAGE，則將預設的 MAIN_IMAGE 區塊隱藏

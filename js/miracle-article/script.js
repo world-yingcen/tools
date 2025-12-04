@@ -293,18 +293,18 @@ const App = {
                     i++;
                 }
                 blocks.push({ type: 'OL', content: { LIST_ITEMS: listItems.join('\n') } });
-            } else if (line.match(/^!\[(.*)\]\((.*)\)/)) {
-                const match = line.match(/^!\[(.*)\]\((.*)\)/);
+            } else if (line.match(/^!\\?\[(.*)\\?\]\((.*)\)/)) {
+                const match = line.match(/^!\\?\[(.*)\\?\]\((.*)\)/);
                 let url = match[2];
                 // 只要不是 .jpg, .png, .webp 結尾，就替換為假圖
                 if (!url.match(/\.(jpg|jpeg|png|webp)$/i)) {
                     url = 'https://system16.webtech.com.tw/web/202500107/archive/image/article1/images/about-pic-1.jpg';
                 }
-                blocks.push({ type: 'IMAGE', content: { ALT: match[1].replace(/\*\*/g, ''), URL: url } });
+                blocks.push({ type: 'IMAGE', content: { ALT: match[1].replace(/\*\*/g, '').replace(/\\/g, ''), URL: url } });
                 i++;
-            } else if (line.match(/^\[(.*)\]\((.*)\)/)) {
-                const match = line.match(/^\[(.*)\]\((.*)\)/);
-                const text = match[1].replace(/\*\*/g, '');
+            } else if (line.match(/^\\?\[(.*)\\?\]\((.*)\)/)) {
+                const match = line.match(/^\\?\[(.*)\\?\]\((.*)\)/);
+                const text = match[1].replace(/\*\*/g, '').replace(/\\/g, '');
                 let href = match[2];
 
                 // 判斷是否為圖片連結 (副檔名 或 Google Drive 連結)
@@ -313,10 +313,10 @@ const App = {
                     href.includes('drive.google.com');
 
                 if (isImage) {
-                    // 只要不是 .jpg, .png, .webp 結尾，就替換為假圖
-                    if (!href.match(/\.(jpg|jpeg|png|webp)$/i)) {
-                        href = 'https://system16.webtech.com.tw/web/202500107/archive/image/article1/images/about-pic-1.jpg';
-                    }
+                    // 只要不是 .jpg, .png, .webp 結尾，就替換為假圖 -> 移除此限制
+                    // if (!href.match(/\.(jpg|jpeg|png|webp)$/i)) {
+                    //     href = 'https://system16.webtech.com.tw/web/202500107/archive/image/article1/images/about-pic-1.jpg';
+                    // }
                     blocks.push({ type: 'IMAGE', content: { ALT: text, URL: href } });
                 } else {
                     blocks.push({ type: 'A', content: { TEXT: text, HREF: href } });
