@@ -301,7 +301,7 @@
                     </ul>
                     <div class="important-note">禁止使用私訊，確保資訊可追蹤。</div>
                     
-                    <div class="response-box"><div class="response-title">建議回覆範本</div>🙏 新增 01、02 題，再麻煩 @主管 幫我安排工程師修理感恩 😭
+                    <div class="response-box"><div class="response-title">建議回覆範本</div>🙏 新增 01、02 題，再麻煩 @開發人員 幫我修理感恩 😭
 
 01. nav 那邊 打開收尋後 副選單 的層級跑上來了
 02. nav 那邊 打開收尋 的語系
@@ -320,9 +320,7 @@
                         <li>群組提問，附上預期 vs 實際對比圖。</li>
                         <li>待開發說明原因（如技術限制）。</li>
                     </ol>
-                    <div class="response-box"><div class="response-title">建議回覆範本</div>舉手發問 @開發人員，
-目前 [區塊A] 的間距顯示為 20px，但設計稿規劃為 40px（附圖請看文件）。
-想問是不是因為框架限制或為了符合複用性？再幫我確認一下，謝謝。<br>
+                    <div class="response-box"><div class="response-title">建議回覆範本</div>舉手發問 @開發人員，目前 [區塊A] 的間距顯示為 20px，但設計稿規劃為 40px（附圖請看文件）。想問是不是因為框架限制或為了符合複用性？再幫我確認一下，謝謝。<br>
 文件：<a href="#" target="_blank">雲端文件紀錄</a>
 </div>
                 `
@@ -338,8 +336,7 @@
                         <li>長期需求：優先採用自動化。</li>
                         <li>一次性需求：評估成本後決定。</li>
                     </ul>
-                    <div class="response-box"><div class="response-title">建議回覆範本</div>「@開發主管，
-本次專案需建立大量資料，包含圖片上傳與重複性的資料複製貼上。考量人工逐筆處理耗時且易錯，請問後台是否有批次匯入功能？或是可以從程式端這邊直接複製」</div>
+                    <div class="response-box"><div class="response-title">建議回覆範本</div>「@開發主管，本次專案需建立大量資料，包含圖片上傳與重複性的資料複製貼上。考量人工逐筆處理耗時且易錯，請問後台是否有批次匯入功能？或是可以從程式端這邊直接複製」</div>
                 `
             },
             {
@@ -353,9 +350,7 @@
                         <li>若理由合理且不影響品質：可接受。</li>
                         <li>若影響體驗：由專案統一提出調整。</li>
                     </ul>
-                    <div class="response-box"><div class="response-title">建議回覆範本</div>「@開發人員，
-這部分的效果與原先規劃不同（詳見附圖），
-想請問調整的原因是否為技術限制？還是有什麼原因呢?
+                    <div class="response-box"><div class="response-title">建議回覆範本</div>「@開發人員，這部分的效果與原先規劃不同（詳見附圖），想請問調整的原因是否為技術限制？還是有什麼原因呢?
 <br>
 文件：<a href="#" target="_blank">雲端文件紀錄</a>
 </div>
@@ -378,18 +373,28 @@
             {
                 id: "06",
                 category: "Responsibilities",
-                title: "設計端的職責與程式碼限制",
+                title: "設計與技術職責邊界 (責權分明)",
                 content: `
-                    <p>設計端職責僅限 <strong>HTML 與 CSS</strong>。</p>
-                    <p>不協助修改 JS 邏輯，原因：</p>
+                <p style="color:red">核心原則：</p>
+                    <p>前端技術程式碼，由前端人員主責維護。設計師切勿自行增修非職責範疇內的程式碼。</p>
+                 <p style="color:red">設計端職責範疇：</p>
+                    <p>設計師的職責僅限於HTML結構與CSS樣式的處理，或是設計師自己撰寫的JS程式碼</p>
+
+                      <p style="color:red">協作與建議規範：</p>
+                    <p>如果設計師額外有 JS 想法，可以另外提出建議並在本機環境 DEMO 示範，但是請勿動到專案檔案。然而，最理想的協作模式是：設計師僅提出功能的願景與需求，技術面則完全交由前端人員處理。</p>
+                      <p style="color:red">請堅守職責邊界：</p>
+                    <p>如果某段程式碼一開始是由前端開發人員撰寫並主責，相關問題或功能增修，一律交回前端人員處理，設計師不介入修改。</p>
+       <p style="color:red">設計師不協助修改的原因：</p>
                     <ul>
-                        <li>避免破壞既有邏輯</li>
-                        <li>避免版本衝突</li>
-                    </ul>
+                        <li>維護穩定性：避免破壞既有的程式邏輯與功能運作。</li>
+                        <li>防止衝突：避免不同版本或操作錯誤導致的程式碼衝突。</li>
+                        <li>專業專精：確保由最初主責技術的開發人員進行修正，維護專案穩定性。</li>
+                    </ul>                   
+
                     <div class="important-note">請堅守職責邊界，維護專案穩定性。</div>
-                    <div class="response-box"><div class="response-title">建議回覆範本</div>「@開發主管，我有收到專案那邊客戶需求，需要增加/修改功能，但這個功能需要使用JS，因為我不太清楚怎麼修改，可以麻煩幫我請工程師協助嗎感恩。
+                    <div class="response-box"><div class="response-title">建議回覆範本</div>「@開發人員 @PM，專案提出的客戶需求，我目前認知這個需求無法只用 CSS 達成，需要前端人員判斷使用 JS 或其他技術做法。請兩位評估是否需要召開討論來確認處理方式，若視覺面樣式需要調整我可加入。
                         
-文件：<a href="#" target="_blank">雲端文件紀錄</a>」</div>
+相關細節請參考：<a href="#" target="_blank">雲端文件紀錄</a>」</div>
                 `
             },
             {
@@ -417,9 +422,7 @@
                         <li>增加支援資源</li>
                     </ul>
                     <div class="important-note">嚴禁因不確定而延後回報。</div>
-                    <div class="response-box"><div class="response-title">建議回覆範本</div>「@PM，
-因目前臨時插入 A 需求，評估後原定週五交付的 B 任務可能會延誤半天。
-需要請你幫我協調優先順序或是申請支援協助」</div>
+                    <div class="response-box"><div class="response-title">建議回覆範本</div>「@PM，因目前臨時插入 A 需求，評估後原定週五交付的 B 任務可能會延誤半天。需要請你幫我協調優先順序或是申請支援協助」</div>
                 `
             },
             {
