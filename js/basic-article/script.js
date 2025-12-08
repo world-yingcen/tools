@@ -360,7 +360,8 @@ const App = {
             }
 
             // 修改：偵測 Markdown 連結，並判斷是否為圖片
-            const linkMatch = line.match(/^\[(.*?)\]\((.*?)\)/);
+            // 支援 \[alt\](url) 這種被轉義的格式
+            const linkMatch = line.match(/^\\?\[(.*?)\\?\]\((.*?)\)/);
             if (linkMatch) {
                 const text = linkMatch[1];
                 let href = linkMatch[2];
