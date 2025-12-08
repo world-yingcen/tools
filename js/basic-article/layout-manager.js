@@ -32,6 +32,7 @@ export const LayoutManager = {
             "article-05": this._generateTwoColumnImageTitleDescHTML,
             "article-04": this._generateTwoColumnTextCardHTML,
             "article-15": this._generateCompanyInfoHTML,
+            "article-16": this._generateTableLayoutHTML,
         };
 
         // 如果選擇的版型有對應的專用生成器，就使用它
@@ -259,11 +260,15 @@ export const LayoutManager = {
         }).join('\n');
 
         return `    <div class="rwd-table">
+        <div class="rwd-table-compare">
+            <div class="table">
                 <table>
                     <tbody>
 ${trs}
                     </tbody>
                 </table>
+            </div>
+        </div>
     </div>`;
     },
 
@@ -798,44 +803,72 @@ ${subTitle ? `            <${h3Tag} class="sub-title ">${this._escapeHtml(subTit
         const itemBlocks = orderedData.filter(b => b.type === 'COMPANY_TEXT_ITEM' || b.type === 'COMPANY_LINK_ITEM');
 
         const companyName = nameBlock?.content.COMPANY_NAME || "公司名稱";
-
-        const itemsHTML = itemBlocks.map(block => {
+        const companyInfoList = itemBlocks.map(block => {
             const { LABEL, TEXT, HREF } = block.content;
-            const label = LABEL || "項目標題";
-            const text = TEXT || "項目內容";
-
-            let valueHTML = '';
+            const label = LABEL || "標題";
+            const text = TEXT || "內容";
             if (block.type === 'COMPANY_LINK_ITEM') {
-                const lines = (TEXT || '').split('\n').filter(Boolean);
-                valueHTML = lines.map(line => {
-                    const parts = line.split(',');
-                    const textPart = parts[0] ? parts[0].trim() : '';
-                    const hrefPart = parts[1] ? parts[1].trim() : '#';
-                    return `<a class="company-list-link" href="${this._escapeHtml(hrefPart)}" aria-label="${this._escapeHtml(textPart)}">${this._escapeHtml(textPart)}</a>`;
-                }).join('\n                        ');
-            } else { // COMPANY_TEXT_ITEM
-                const textLines = (TEXT || '').split('\n').filter(Boolean);
-                valueHTML = textLines.map(line =>
-                    `<p class="company-list-link">${this._escapeHtml(line)}</p>`
-                ).join('\n                        ');
+                const href = HREF || "#";
+                return `<p>${this._escapeHtml(label)}：<a href="${href}">${this._escapeHtml(text)}</a></p>`;
+            } else {
+                return `<p>${this._escapeHtml(label)}：${this._escapeHtml(text)}</p>`;
             }
-
-            return `
-                <div class="company-item">
-                    <b>${this._escapeHtml(label)}</b>
-                    <div class="company-list">${valueHTML}</div>
-                </div>`;
-        }).join('\n');
+        }).join('\n            ');
 
         const finalHtml = `
 <div class="innerpage">
     <div class="article-block article-block-15">
         <div class="from-text">
-            ${companyName ? `<h3 class="company-name">${this._escapeHtml(companyName)}</h3>` : ''}
-            <div class="company-info-list">${itemsHTML.trim() ? `\n${itemsHTML}\n            ` : '\n                <!-- 請在左側輸入電話、地址或信箱 -->\n            '}</div>
+            <h3 class="company-name">${this._escapeHtml(companyName)}</h3>
+            <div class="company-info-list">
+            ${companyInfoList || '    <!-- 請在左側輸入電話、地址或信箱 -->'}
+            </div>
         </div>
     </div>
 </div>`;
+
+        return { html: finalHtml, style: layoutId };
+    },
+
+    _generateTableLayoutHTML(orderedData, layoutId) {
+        const tableBlock = orderedData.find(b => b.type === 'TABLE');
+        const markdown = tableBlock?.content.MARKDOWN || "";
+
+        let tableHtml = "";
+        if (markdown) {
+            const lines = markdown.split('\n').filter(line => line.trim() && line.trim().startsWith('|'));
+            if (lines.length >= 2 && lines[1].match(/^\|.*[-:].*\|$/)) {
+                const trs = lines.filter((_, idx) => idx !== 1).map(rowLine => {
+                    const cells = rowLine.split('|').slice(1, -1).map(cell => `<td>${this._escapeHtml(cell.trim().replace(/\*\*/g, ''))}</td>`).join('');
+                    return `                            <tr>\n                                ${cells}\n                            </tr>`;
+                }).join('\n');
+
+                tableHtml = `
+        <div class="rwd-table">
+            <div class="rwd-table-compare">
+                <div class="table">
+                    <table>
+                        <tbody>
+${trs}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>`;
+            } else {
+                tableHtml = "<!-- 表格格式錯誤或內容為空 -->";
+            }
+        } else {
+            tableHtml = "<!-- 請輸入表格內容 -->";
+        }
+
+        const finalHtml = `
+<div class="innerpage">
+    <div class="article-block article-block-16 ">
+${tableHtml}
+    </div>
+</div>`;
+
         return { html: finalHtml, style: layoutId };
     },
 };

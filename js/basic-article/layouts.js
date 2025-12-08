@@ -468,6 +468,16 @@ export const layouts = {
         ],
         insertableBlocks: { default: ['COMPANY_TEXT_ITEM', 'COMPANY_LINK_ITEM'] }
     },
+    "article-16": {
+        id: "article-16",
+        name: "表格",
+        initialBlocks: [
+            { type: 'TABLE', isRemovable: false }
+        ],
+        insertableBlocks: {
+            default: ['TABLE']
+        }
+    },
 };
 
 layouts["article-15"].parsingConfig = {
@@ -609,6 +619,16 @@ layouts["article-11"].parsingConfig = {
     }
 };
 
+layouts["article-16"].parsingConfig = {
+    mainTitle: 'H1',
+    subTitle: 'H2',
+    itemBlockType: 'TABLE',
+    itemIdentifier: 'TABLE',
+    itemMapping: {
+        'TABLE': 'MARKDOWN'
+    }
+};
+
 // 為預設 SEO Blog 版型新增 parsingConfig
 layouts["article-01"].parsingConfig = {
     mainTitle: 'H1',
@@ -622,18 +642,41 @@ layouts["article-01"].parsingConfig = {
         'UL': 'UL',
         'OL': 'OL',
         'IMAGE': 'IMAGE',
-        'H4': 'H4'
+        'H4': 'H4',
+        'TABLE': 'TABLE'
     }
 };
 
 layouts["article-02"].parsingConfig = {
     mainTitle: 'H1',
-    subTitle: 'H2'
+    subTitle: 'H2',
+    atomicParsing: true,
+    blockMapping: {
+        'H1': 'H2',
+        'H3': 'H3',
+        'P': 'P',
+        'UL': 'UL',
+        'OL': 'OL',
+        'IMAGE': 'IMAGE',
+        'H4': 'H4',
+        'TABLE': 'TABLE'
+    }
 };
 
 layouts["article-03"].parsingConfig = {
     mainTitle: 'H1',
-    subTitle: 'H2'
+    subTitle: 'H2',
+    atomicParsing: true,
+    blockMapping: {
+        'H1': 'H2',
+        'H3': 'H3',
+        'P': 'P',
+        'UL': 'UL',
+        'OL': 'OL',
+        'IMAGE': 'IMAGE',
+        'H4': 'H4',
+        'TABLE': 'TABLE'
+    }
 };
 
 export function getLayoutDefinition(layoutId) {
