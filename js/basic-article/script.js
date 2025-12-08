@@ -498,7 +498,8 @@ const App = {
 
                     // 填入內容
                     const contentField = uiType === 'IMAGE' ? 'URL' :
-                        uiType === 'UL' || uiType === 'OL' ? 'LIST_ITEMS' : 'TEXT';
+                        uiType === 'UL' || uiType === 'OL' ? 'LIST_ITEMS' :
+                            uiType === 'TABLE' ? 'MARKDOWN' : 'TEXT';
 
                     const input = newBlock.querySelector(`[data-field="${contentField}"]`);
                     if (input) {
