@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>翻譯蒟蒻</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/world-article/block-style.css">
+    <link rel="stylesheet" href="css/world-article/style.css">
+
+
+</head>
+
+<body class="wrapper_bg">
+    <div class="container-wrapper">
+        <header class="header" id="header">
+            <h1 class="header__title text-primary font-weight-700">沃德設計觀點文章上架</h1>
+            <span class="header__version text-secondary">最後更新：2025/11/30</span>
+        </header>
+        <div class="tutorial-video">
+            <div class="tutorial-text">
+                <p>💡需要教學嗎?</p>
+                <a href="#" class="video-not">NO</a>
+                <a href="miracle-how-to-use.html" target="_blank" class="video-yes">YES</a>
+                <div class="no-text">
+                    886
+                </div>
+            </div>
+            <img class="tutorial-image" src="image/top-icon.webp" alt="教學指引圖示">
+
+            </aside>
+        </div>
+        <div class="go-top">
+            <a href="#header" class="go-top-link">></a>
+        </div>
+
+        <div class="main-layout">
+            <!-- 左側輸入欄位 -->
+            <div class="input-panel">
+                <!-- 區塊二：動態內容區塊控制項 -->
+                <section class="section-block" id="output-content-block">
+                    <div class="section-title-box">
+                        <div class="section-title">
+                            <h3 class="section-block__title text-primary font-weight-600">內容排序與編輯</h3>
+                            <p class="section-block__description text-secondary">
+                                將滑鼠移到區塊之間，點擊「+」新增內容
+                            </p>
+                        </div>
+                        <div class="toolbar-container">
+                            <button id="toggleAllSectionsButton" class="tool-button">全部<br>收合/展開</button>
+                        </div>
+                    </div>
+                    <div id="block-editor-root"></div>
+                </section>
+
+                <!-- 底部轉出按鈕 -->
+                <div class="panel__footer">
+                    <button id="generateButton" class="tool-button generate-btn">👌🏻 給我html</button>
+                </div>
+
+            </div>
+
+            <!-- 右側輸出區 -->
+            <div class="output-panel">
+                <!-- 區塊一：樣式預覽 -->
+                <section class="section-block section-block--no-top-border">
+                    <div class="preview__subtitle ">
+                        <h2 class="font-weight-600">即時內容預覽</h2>
+                        <span class="white">(順序由左邊拖曳決定)</span>
+                    </div>
+                    <div class="header__version text-secondary ">*溫馨提醒，是文案要符合樣式，不是樣式要符合文案唷 😉</div>
+                    <div class="header__version text-secondary ">*僅供預覽，確切的文字大小、顏色、間距，會依照你的網站設定自動調整</div>
+
+                    <div id="liveHtmlPreview" class="editor-content ">
+                    </div>
+                </section>
+            </div>
+
+
+        </div>
+        <!-- 複製提示訊息 -->
+        <div class="final-output" id="final-output">
+            <h2 class="panel__title panel__title--output font-weight-600">轉換結果</h2>
+            <div class="output-content">
+                <div id="copyMessage" class="copy-message" style="display: none;"></div>
+                <pre id="outputCode">*操作遇到問題，請先幫我螢幕錄影，再左轉找LIN 謝謝😉</pre>
+                <button id="copyButton" class="tool-button copy-btn">複製</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/world-article/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const videoNotButton = document.querySelector('.video-not');
+            const noTextElement = document.querySelector('.no-text');
+            const tutorialTextElement = document.querySelector('.tutorial-video');
+
+            videoNotButton.addEventListener('click', function (e) {
+                e.preventDefault();
+                noTextElement.style.display = 'flex'; // 顯示 "886"
+
+                // 3秒後隱藏整個教學提示框
+                setTimeout(function () {
+                    tutorialTextElement.style.display = 'none';
+                }, 1000);
+            });
+        });
+    </script>
+
+</body>
+
+</html>

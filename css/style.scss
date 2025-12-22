@@ -1,0 +1,1286 @@
+:root {
+    --TransitionDefault: 0.3s ease;
+
+    /* 顏色 */
+    --ColorPrimary: #ea0e0e;
+    --ColorSecondary: #343434;
+    --ColorPrimaryHover: var(--ColorSecondary);
+    --ColorSecondaryHover: var(--ColorPrimary);
+
+    /* 文字顏色 */
+    --TextColorPrimary: #333;
+    --TextColorSecondary: #888;
+    --TextColorTitle: #333;
+
+    /* 邊框 */
+    --BorderPrimary: 1px solid #333;
+    --BorderSecondary: 1px solid #ccc;
+    --BorderColorPrimary: #333;
+    --BorderColorSecondary: #ccc;
+
+
+    /* 外框按鈕 */
+    --BtnOutlineTextColor: #676767;
+    --BtnOutlineBg: transparent;
+    --BtnOutlineHoverTextColor: white;
+    --BtnOutlineHoverBg: var(--ColorPrimary);
+
+
+    /* 主按鈕 */
+    --BtnPrimaryTextColor: white;
+    --BtnPrimaryBg: var(--ColorPrimary);
+    --BtnPrimaryHoverTextColor: white;
+    --BtnPrimaryHoverBg: var(--ColorSecondary);
+
+    /* 次要按鈕  */
+    --BtnSecondaryTextColor: white;
+    --BtnSecondaryBg: var(--ColorSecondary);
+    --BtnSecondaryHoverTextColor: white;
+    --BtnSecondaryHoverBg: var(--ColorSecondaryHover);
+
+    /* 按鈕共用元素 */
+    --BtnBorderRadius: 99em;
+    --BtnWidth: 200px;
+    --BtnHeight: 50px;
+    --BtnFontSize: 17px;
+    --BtnMarginTop: max(3vw, 2rem);
+
+    /* 字體 */
+    --FontFamily: Roboto, "Noto Sans TC", sans-serif;
+    --FontFamilyEn: 'Roboto', sans-serif;
+    --FontFamilyTw: 'Noto Sans TC', sans-serif;
+
+
+
+    /* 文字大小 */
+    /*螢幕2560px-767px 大小46px-25px */
+    --FontSizePrimary: clamp(1.5625rem, 1.001rem + 1.1712vw, 2.875rem);
+
+    /*螢幕2560px-767px 大小24px-20px */
+    --FontSizeSecondary: clamp(1.25rem, 1.1431rem + 0.2231vw, 1.5rem);
+
+    /*螢幕2560px-767px 大小22px-18px */
+    --FontSizeItemTitle: clamp(1.125rem, 1.0181rem + 0.2231vw, 1.375rem);
+
+    /*螢幕2560px-767px 大小22px-18px */
+    --FontSizeHint: 18px;
+
+    /*螢幕2560px-767px 大小16px-15px */
+    --FontSizeBody: 16px;
+
+    /*螢幕2560px-767px 大小24px-16px */
+    --FontSizeTitleDeco: clamp(1rem, 0.7861rem + 0.4462vw, 1.5rem);
+
+    /*螢幕2560px-1366px 大小17px-15px */
+    --FontSizeNavi: clamp(0.9375rem, 0.884rem + 0.1115vw, 1.0625rem);
+
+
+    /* 邊界 */
+    /* 螢幕2560px-1200px 大小160px-60px */
+    --SectionPadding: clamp(3.75rem, -1.7647rem + 7.3529vw, 10rem);
+    --SectionMarginBottom: max(3vw, 2rem);
+    --ItemPadding: max(2vw, 1.5rem);
+    --CardPadding: max(3vw, 2rem);
+    --BlockPadding: max(3vw, 2rem);
+
+    --Space1: 1rem;
+    --Space2: max(2vw, 1.5rem);
+    --Space3: max(3vw, 2rem);
+    --Space4: max(4vw, 2.5rem);
+    --Space5: max(5vw, 3rem);
+
+    --ContainerDefaultWidth: 85%;
+
+    /* 其他 */
+    --BorderRadius: 0.3em;
+
+    /* 推回中間的時候用 */
+    --TransformCenter: translateX(-50%) translateY(-50%);
+    --TransformXCenter: translateX(-50%);
+    --TransformYCenter: translateY(-50%);
+
+    /* sns */
+    --SnsLine: #06C755;
+    --SnsFB: #1877f2;
+    --SnsMessenger: linear-gradient(20deg, rgba(0, 153, 255, 1) 0%, rgba(160, 51, 255, 1) 60%, rgba(255, 82, 128, 1) 90%, rgba(255, 112, 97, 1) 100%);
+    --SnsYT: #FF0033;
+    --SnsIG: linear-gradient(45deg, rgba(250, 225, 0, 1) 0%, rgba(252, 183, 32, 1) 15%, rgba(255, 121, 80, 1) 30%, rgba(255, 28, 116, 1) 50%, rgba(108, 28, 209, 1) 100%);
+    --SnsTwitter: #000;
+    --SnsShopee: #ed4c2f;
+}
+
+/* 基本重置 */
+:is(h1, h2, h3, h4, h5, h6, p) {
+    padding: 0;
+    margin: 0;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+img.cover {
+    width: 100%;
+    height: 100%;
+    max-width: unset;
+    object-fit: cover;
+    max-height: 100%;
+    min-height: 100%;
+}
+
+.img-radius {
+    border-radius: var(--BorderRadius);
+    overflow: hidden;
+}
+
+a,
+button,
+button:hover,
+a:is(:hover, :active, :focus, :visited) {
+    transition: var(--TransitionDefault);
+    text-decoration: none;
+}
+
+a:hover,
+a:focus {
+    color: var(--ColorPrimaryHover);
+}
+
+.row {
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+.row::before,
+.row::after {
+    display: none;
+}
+
+/* Body 和 HTML 基本設定 */
+body.wrapper_bg {
+    font-family: var(--FontFamily) !important;
+    letter-spacing: 1px;
+    line-height: 1.5;
+    font-size: var(--FontSizeBody);
+    color: var(--TextColorPrimary);
+    background-repeat: repeat;
+    padding-block: 5rem;
+}
+
+body {
+    font-family: var(--FontFamily);
+    letter-spacing: 1px;
+    line-height: 1.5;
+    font-size: var(--FontSizeBody);
+    color: var(--TextColorPrimary);
+    background-color: #f7f7f9;
+    padding: var(--Space3);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* 反白顏色設定*/
+::selection {
+    background: #555;
+    color: #fff;
+}
+
+.cd-main-content {
+    overflow: hidden;
+    margin-top: var(--NaviHeight) !important;
+}
+
+hr.default-hr {
+    border-top: var(--BorderSecondary);
+    margin-block: 2.5rem;
+}
+
+/* --- 2. LAYOUT & CONTAINER --- */
+
+/*容器設定*/
+
+#RWDfullscreen01 .container {
+    width: 100%;
+    z-index: 1;
+    position: relative;
+}
+
+.container-fluid {
+    width: 100%;
+    z-index: 1;
+    position: relative;
+    padding-inline: 0;
+}
+
+
+.container-95 {
+    width: calc(var(--ContainerDefaultWidth) + 10%);
+    margin: auto;
+    z-index: 1;
+    position: relative;
+    max-width: calc(95% - 30px);
+}
+
+.container-90 {
+    width: calc(var(--ContainerDefaultWidth) + 5%);
+    margin: auto;
+    z-index: 1;
+    position: relative;
+    max-width: calc(95% - 30px);
+}
+
+.container-85 {
+    width: var(--ContainerDefaultWidth);
+    margin: auto;
+    z-index: 1;
+    position: relative;
+    max-width: calc(95% - 30px);
+
+}
+
+.container-80 {
+    width: calc(var(--ContainerDefaultWidth) - 5%);
+    margin: auto;
+    z-index: 1;
+    position: relative;
+    max-width: calc(95% - 30px);
+
+}
+
+.container-75 {
+    width: calc(var(--ContainerDefaultWidth) - 10%);
+    margin: auto;
+    z-index: 1;
+    position: relative;
+    max-width: calc(95% - 30px);
+
+}
+
+.container-70 {
+    width: calc(var(--ContainerDefaultWidth) - 15%);
+    margin: auto;
+    z-index: 1;
+    position: relative;
+    max-width: calc(95% - 30px);
+}
+
+.container-65 {
+    width: calc(var(--ContainerDefaultWidth) - 25%);
+    margin: auto;
+    z-index: 1;
+    position: relative;
+    max-width: calc(95% - 30px);
+}
+
+
+/* 上下區塊邊界 */
+.section-spacing {
+    padding: var(--SectionPadding) 0;
+}
+
+.section-spacing-top {
+    padding-top: var(--SectionPadding);
+}
+
+.section-spacing-bottom {
+    padding-bottom: var(--SectionPadding);
+}
+
+/* 間距 */
+
+.d-grid {
+    display: grid;
+}
+
+.column-one {
+    grid-template-columns: 1fr;
+}
+
+.column-half {
+    grid-template-columns: 1fr 1fr;
+}
+
+.column-three {
+    grid-template-columns: repeat(3, 1fr)
+}
+
+.column-four {
+    grid-template-columns: repeat(4, 1fr)
+}
+
+.column-five {
+    grid-template-columns: repeat(5, 1fr)
+}
+
+.column-gap-1 {
+    column-gap: var(--Space1);
+}
+
+.column-gap-2 {
+    column-gap: var(--Space2);
+}
+
+.column-gap-3 {
+    column-gap: var(--Space3);
+}
+
+.column-gap-4 {
+    column-gap: var(--Space4);
+}
+
+.column-gap-5 {
+    column-gap: var(--Space5);
+}
+
+.row-gap-1 {
+    row-gap: var(--Space1);
+}
+
+.row-gap-2 {
+    row-gap: var(--Space2);
+}
+
+.row-gap-3 {
+    row-gap: var(--Space3);
+}
+
+.row-gap-4 {
+    row-gap: var(--Space4);
+}
+
+.row-gap-5 {
+    row-gap: var(--Space5);
+}
+
+.gap-1 {
+    gap: var(--Space1);
+}
+
+.gap-2 {
+    gap: var(--Space2);
+}
+
+.gap-3 {
+    gap: var(--Space3);
+}
+
+.gap-4 {
+    gap: var(--Space4);
+}
+
+.gap-5 {
+    gap: var(--Space5);
+}
+
+
+.mt-05 {
+    margin-top: 0.5rem;
+}
+
+.mt-1 {
+    margin-top: var(--Space1);
+}
+
+.mt-2 {
+    margin-top: var(--Space2);
+}
+
+.mt-3 {
+    margin-top: var(--Space3);
+}
+
+.mt-4 {
+    margin-top: var(--Space4);
+}
+
+.mt-5 {
+    margin-top: var(--Space5);
+}
+
+.m-auto {
+    margin-inline: auto;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* --- 3. TYPOGRAPHY --- */
+
+.customized_columns ._input,
+.customized_columns select,
+::placeholder {
+    color: #505050;
+}
+
+/* 標題文字 */
+.section-title {
+    position: relative;
+}
+
+.section-title-bottom {
+    margin-bottom: var(--SectionMarginBottom);
+}
+
+.index .main-title,
+.main-title {
+    letter-spacing: 2px;
+    font-weight: 600;
+    margin-top: 0rem;
+    margin-bottom: 0;
+    font-size: var(--FontSizePrimary);
+    color: var(--TextColorPrimary);
+    line-height: 1.3;
+}
+
+.index .sub-title,
+.sub-title {
+    letter-spacing: 1px;
+    font-weight: 300;
+    font-size: var(--FontSizeSecondary);
+    line-height: 1.3;
+    color: var(--TextColorSecondary);
+}
+
+h3+p {
+    margin-top: 1rem;
+}
+
+p+p {
+    margin-top: 1rem;
+}
+
+.main-title+.sub-title {
+    margin-top: 16px;
+}
+
+.en-title {
+    font-size: var(--FontSizeTitleDeco);
+    font-weight: 500;
+    letter-spacing: 0px;
+    font-family: var(--FontFamilyEn) !important;
+    color: var(--TextColorSecondary);
+    line-height: 1;
+}
+
+.white,
+:is(.main-title, .sub-title, .en-title, p).white {
+    color: white !important;
+}
+
+h3 {
+    font-size: var(--FontSizeItemTitle);
+    color: var(--TextColorTitle);
+    letter-spacing: 1px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+H4 {
+    font-size: var(--FontSizeHint);
+    color: var(--TextColorTitle);
+    letter-spacing: 1px;
+    font-weight: 400;
+    line-height: 1.3;
+}
+
+body,
+html input,
+select,
+textarea,
+p,
+.description {
+    letter-spacing: 1px;
+    color: var(--TextColorSecondary);
+    line-height: 1.8;
+    font-weight: 400;
+    font-family: var(--FontFamily) !important;
+
+}
+
+input,
+select,
+textarea,
+p,
+.description {
+    font-size: var(--FontSizeBody);
+}
+
+/* --- 4. MAIN APP STRUCTURE --- */
+
+
+.header {
+    margin-bottom: var(--Space3);
+    border-bottom: 1px solid var(--BorderColorSecondary);
+    padding-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container-wrapper {
+    margin: 0 auto;
+}
+
+.main-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: var(--Space3);
+}
+
+.input-panel,
+.output-panel {
+    background-color: white;
+    padding: var(--Space3);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: var(--Space3);
+}
+
+.output-panel {
+    background-color: #333;
+    position: sticky;
+    top: 10px;
+    height: 90vh;
+    overflow: scroll;
+}
+
+.final-output {
+    grid-column: 1/3;
+    position: relative;
+}
+
+/* --- 5. FORMS & INPUTS --- */
+.section-block {
+    padding-top: var(--Space3);
+    border-top: 1px solid #e5e5e5;
+}
+
+.input-group+.input-group {
+    margin-top: var(--Space1);
+}
+
+.input-group label {
+    display: block;
+    padding-bottom: 8px;
+    font-weight: 600;
+    color: var(--TextColorPrimary);
+    font-size: 0.95rem;
+}
+
+.input-group input[type="text"],
+.input-group textarea,
+.input-group select {
+    width: 100%;
+    padding: 10px 12px;
+    border: var(--BorderSecondary);
+    border-radius: 8px;
+    transition: var(--TransitionDefault);
+    resize: vertical;
+    box-sizing: border-box;
+    font-family: var(--FontFamily);
+}
+
+.input-group textarea {
+    min-height: 100px;
+}
+
+.input-group input:focus,
+.input-group textarea:focus,
+.input-group select:focus {
+    border-color: var(--ColorPrimary);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(var(--ColorPrimary), 0.3);
+}
+
+input[type=checkbox],
+input[type=radio] {
+    accent-color: var(--ColorPrimary);
+    margin: 0 0;
+}
+
+/* --- 新增：Markdown 輸入區塊樣式 --- */
+#markdownInput {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--BorderColor, #ccc);
+    border-radius: var(--BorderRadius, 8px);
+    background-color: var(--InputBg, #f9f9f9);
+    color: var(--TextColorPrimary, #333);
+    font-family: inherit;
+    margin-bottom: 15px;
+    resize: vertical;
+    height: 100px;
+    box-sizing: border-box;
+    font-size: 13px;
+}
+
+/* --- 6. BUTTONS --- */
+.tool-button {
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    transition: var(--TransitionDefault);
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.generate-btn {
+    background: #28a745;
+    color: white;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.generate-btn:hover {
+    background: var(--TextColorPrimary);
+}
+
+.output-content {
+    position: relative;
+}
+
+.copy-btn {
+    background: #ea0e0e;
+    color: white;
+    position: absolute;
+    top: 10px;
+    width: 80px;
+    right: 10px;
+    padding: 5px;
+}
+
+.copy-btn:hover {
+    background: #218838;
+}
+
+/* --- 新增：禁用按鈕的樣式 --- */
+.tool-button:disabled,
+.tool-button[disabled] {
+    background-color: #ccc;
+    /* 灰色背景 */
+    color: #666;
+    /* 深灰色文字 */
+    cursor: not-allowed;
+    /* 顯示「禁止」的滑鼠游標 */
+    opacity: 0.6;
+    /* 讓按鈕看起來有點透明 */
+    border-color: #ccc;
+}
+
+/* --- 7. OUTPUT & PREVIEW --- */
+#outputCode {
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+    padding: 16px;
+    border-radius: 8px;
+    white-space: pre-wrap;
+    word-break: break-all;
+    min-height: 350px;
+    overflow-x: auto;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    line-height: 1.5;
+}
+
+.copy-message {
+    padding: 10px;
+    border-radius: 6px;
+    text-align: center;
+    transition: opacity 0.3s;
+    color: white;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: var(--TransformCenter);
+    width: 450px;
+    font-size: var(--FontSizeItemTitle);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 400;
+}
+
+.copy-success {
+    background-color: #28a745;
+}
+
+.copy-error {
+    background-color: var(--ColorPrimary);
+    color: white;
+}
+
+.cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 即時預覽容器樣式 */
+#liveHtmlPreview {
+    border: 1px dashed var(--BorderPrimary);
+    padding: var(--Space2);
+    min-height: 180px;
+    background: #f6f6f6;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 1rem;
+}
+
+/* 預覽區內的列表樣式 */
+#liveHtmlPreview .default-list {
+    padding-left: 20px;
+    /* 讓列表符號顯示出來 */
+    margin-top: 1rem;
+    display: block;
+    /* 確保是塊級元素 */
+}
+
+#liveHtmlPreview .default-list li {
+    margin-bottom: 0.5rem;
+    /* 增加列表項之間的間距 */
+    color: var(--TextColorSecondary);
+    line-height: 1.6;
+}
+
+/* 預覽區內的圖片樣式 (佔位符) */
+#liveHtmlPreview .placeholder-image {
+    display: block;
+    width: 100%;
+    height: 120px;
+    background-color: #e0e0e0;
+    color: #555;
+    text-align: center;
+    line-height: 120px;
+    font-weight: 600;
+    border-radius: 4px;
+    object-fit: contain;
+}
+
+/* --- 8. DYNAMIC CONTENT BLOCKS --- */
+
+/* 拖曳欄位的樣式 */
+.dynamic-block {
+    margin-top: 15px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fcfcfc;
+    position: relative;
+    cursor: grab;
+    transition: border-color var(--TransitionDefault);
+    margin-bottom: 30px;
+    /* 增加底部空間，讓 insert bar 有位置顯示 */
+}
+
+.dynamic-block[data-type="MAIN_IMAGE"] {
+    cursor: default;
+}
+
+/* 移除按鈕 */
+
+
+
+.remove-field-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #d9d9d9;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    width: 24px;
+    height: 24px;
+    padding: 4px;
+    line-height: 1;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 15;
+    opacity: 0;
+}
+
+.dynamic-block:hover .remove-field-btn {
+    opacity: 1;
+}
+
+.remove-field-btn:hover {
+    background: var(--ColorPrimary);
+}
+
+
+/* --- 新增：可移除欄位的樣式 --- */
+.removable-field {
+    position: relative;
+    margin: 10px 0 0;
+}
+
+/* 區塊標題 */
+.block-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ColorPrimary);
+    margin-bottom: 10px;
+}
+
+/* 拖曳視覺回饋樣式 */
+.dynamic-block.dragging-source {
+    opacity: 0.4;
+}
+
+.dynamic-block.drag-over-top {
+    border-top: 3px solid var(--ColorPrimary);
+    padding-top: 12px;
+    margin-top: 0;
+}
+
+.dynamic-block.drag-over-bottom {
+    border-bottom: 3px solid var(--ColorPrimary);
+    padding-bottom: 12px;
+    margin-bottom: 0;
+}
+
+/* 新增 - 欄位間的插入點 */
+.insert-bar-container {
+    position: absolute;
+    bottom: -20px;
+    /* 放在區塊底部，跨越到下一個區塊的間隙 */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: opacity 0.3s;
+    opacity: 0;
+    /* 預設隱藏 */
+    pointer-events: none;
+    /* 讓滑鼠可以穿透，點到下方元素 */
+    z-index: 40;
+}
+
+/* 拖曳區塊和下方區塊 hover 時顯示插入條 */
+.dynamic-block:hover>.insert-bar-container,
+.insert-bar-container:hover {
+    opacity: 1;
+    pointer-events: auto;
+    /* hover時啟用點擊 */
+}
+
+/* + 號按鈕 */
+.insert-trigger {
+    background: var(--TextColorPrimary);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    line-height: 1;
+    font-size: 20px;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 2px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.insert-trigger:hover {
+    background: var(--ColorPrimary);
+    transform: rotate(90deg);
+}
+
+//  插入選項菜單 
+.insert-menu {
+    position: relative;
+    margin-top: 1rem;
+    display: none;
+    background: white;
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 20;
+    pointer-events: auto;
+    grid-template-columns: repeat(auto-fit, minmax(calc(100% / 8), 1fr));
+    gap: 5px 10px;
+    width: 100%;
+
+}
+
+.insert-menu button {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: #fff;
+    font-size: 0.85rem;
+    color: var(--TextColorPrimary);
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+    font-weight: 500;
+    height: 60px;
+    justify-content: center;
+    min-width: 65px;
+}
+
+.insert-menu button:hover {
+    background: #f0f0f0;
+    border-color: var(--ColorPrimary);
+}
+
+.insert-menu button span {
+    font-size: 0.75rem;
+    color: var(--TextColorSecondary);
+    pointer-events: none;
+}
+
+/* 提示圖示 */
+.menu-icon {
+    font-size: 1.2rem;
+    margin-bottom: 4px;
+}
+
+/* 分隔線的特殊樣式 */
+.dynamic-block[data-type="HR"] {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: default;
+}
+
+.dynamic-block[data-type="HR"] .insert-bar-container {
+    opacity: 1;
+    /* 分隔線始終顯示插入點 */
+}
+
+.dynamic-block[data-type="HR"] .remove-field-btn {
+    top: -10px;
+    z-index: 41;
+}
+
+/* --- 9. UTILITY CLASSES (from inline styles) --- */
+
+/* 通用樣式 */
+.text-primary {
+    color: var(--TextColorPrimary);
+}
+
+.text-secondary {
+    color: var(--TextColorSecondary);
+}
+
+.font-weight-600 {
+    font-weight: 600;
+}
+
+.font-weight-700 {
+    font-weight: 700;
+}
+
+.button--full-width {
+    width: 100%;
+}
+
+/* Header 樣式 */
+.header__title {
+    font-size: 1.8rem;
+}
+
+.tutorial-video {
+    position: fixed;
+    right: 20px;
+    bottom: 50px;
+    z-index: 100;
+
+    .tutorial-text {
+        background: #fffdcc;
+        border: 2px solid #000;
+        padding: 1rem 1.5rem;
+        border-radius: 0.5em;
+        position: absolute;
+        z-index: -1;
+        left: -50%;
+        top: -60%;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        animation: tip 0.5s forwards;
+        animation-delay: 3s;
+        opacity: 0;
+
+        @keyframes tip {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: var(--TextColorPrimary);
+        }
+
+        a {
+            border: 1px solid #888;
+            color: var(--TextColorPrimary);
+            padding: 3px 12px;
+            font-size: 14px;
+            border-radius: 5px;
+        }
+
+        .video-not {
+            margin-right: 5px;
+        }
+
+        .no-text {
+            display: none;
+            position: absolute;
+            background: #fffdcc;
+            width: 100%;
+            height: 94%;
+            top: 50%;
+            transform: var(--TransformYCenter);
+            text-align: center;
+
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+
+
+    .tutorial-image {
+        max-width: 150px;
+    }
+}
+
+.go-top {
+    background: #e7e7dd;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 0;
+    left: 15px;
+    position: fixed;
+    bottom: 60%;
+    z-index: 100;
+
+
+    .go-top-link {
+        transform: rotate(-90deg);
+        font-size: 20px;
+        font-weight: bold;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #000;
+    }
+}
+
+/* Panel 樣式 */
+.panel__title {
+    border-bottom: 2px solid;
+}
+
+.panel__title--input {
+    color: var(--ColorPrimary);
+    border-color: var(--ColorPrimary);
+}
+
+.panel__title--output {
+    color: var(--TextColorPrimary);
+    border: 0;
+    margin-top: var(--Space3);
+    font-size: var(--FontSizePrimary);
+}
+
+.panel__footer {
+    text-align: center;
+}
+
+/* Section Block 樣式 */
+.section-block--no-top-border {
+    border-top: none;
+    padding-top: 0;
+}
+
+.section-block__title {
+    margin-bottom: 0.5rem;
+}
+
+.section-block__description {
+    margin-bottom: 15px;
+}
+
+.input-group__hint {
+    font-size: 0.85rem;
+    margin-top: 8px;
+}
+
+/* --- 10. MEDIA QUERIES --- */
+
+/* 預覽區塊標題 */
+.preview__subtitle h2 {
+    color: var(--ColorPrimary);
+    line-height: 1;
+}
+
+.preview__subtitle {
+    display: flex;
+    gap: var(--Space1);
+    align-items: flex-end;
+    margin-bottom: var(--Space1);
+    font-size: var(--FontSizeItemTitle);
+
+}
+
+/* index */
+.index {
+    padding: 0;
+    background: #f5f7fa;
+
+
+    .container-wrapper {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .item-link-box {
+        border-radius: 16px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        border: 1px solid #e9ecef;
+        background: white;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+
+        &::before {
+            content: '>';
+            position: absolute;
+            right: 2em;
+            top: 50%;
+            transform: var(--TransformYCenter);
+        }
+
+        small {
+            display: block;
+            font-weight: lighter;
+            color: #ccc;
+        }
+    }
+
+    .item-link-box-no {
+        color: #ccc;
+
+        .item-link {
+            color: #ccc;
+        }
+    }
+
+    .block-cards {
+        padding-bottom: var(--Space5);
+    }
+
+    .title-image {
+        max-width: max(3vw, 200px);
+        border-radius: 50%;
+        margin-bottom: var(--SectionMarginBottom);
+    }
+
+    .main-title {
+        font-size: calc(var(--FontSizePrimary) * 1.5);
+    }
+
+    .sub-title {
+        font-size: calc(var(--FontSizeSecondary) * 1.2);
+        font-weight: 500;
+        color: var(--TextColorPrimary);
+    }
+
+    .item-link {
+        font-size: var(--FontSizeItemTitle);
+        color: var(--TextColorPrimary);
+        font-weight: bold;
+        padding: 2em 4em 2em 2em;
+
+    }
+}
+
+@media (min-width: 1200px) and (hover: hover) and (pointer: fine) {
+
+    /* 按鈕 */
+
+    .btn-group {
+        .main-btn:hover {
+            color: var(--BtnPrimaryHoverTextColor);
+            background: var(--BtnPrimaryHoverBg);
+        }
+
+        .sub-btn:hover {
+            color: var(--BtnSecondaryHoverTextColor);
+            background: var(--BtnSecondaryHoverBg);
+        }
+
+        .outline-btn:hover {
+            border-color: var(--BtnOutlineHoverBg);
+            background: var(--BtnOutlineHoverBg);
+            color: var(--BtnOutlineHoverTextColor);
+        }
+    }
+
+    .tutorial-video .tutorial-text a:hover {
+        background: #000;
+        color: white;
+    }
+
+}
+
+@media (max-width: 991px) {
+
+    .text-md-left {
+        text-align: left;
+    }
+
+    .text-md-center {
+        text-align: center;
+    }
+}
+
+@media (max-width: 650px) {
+    .text-xs-left {
+        text-align: left;
+    }
+
+    .text-xs-center {
+        text-align: center;
+    }
+}

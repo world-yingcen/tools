@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FileZilla Mac 完整操作教學</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/filezilla-tutorial/style.css">
+
+</head>
+
+<body>
+
+    <!-- 回上頁按鈕 -->
+    <a href="#" class="btn-back-floating" onclick="handleBack(event)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 12H5"></path>
+            <path d="M12 19l-7-7 7-7"></path>
+        </svg>
+        回上頁
+    </a>
+
+    <!-- 進度條 -->
+    <div class="progress-container">
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progressBar"></div>
+        </div>
+        <div class="step-indicator">
+            <span id="stepCounter">Step 1 of 5</span>
+            <span>教學導覽</span>
+        </div>
+    </div>
+
+    <!-- 主卡片 -->
+    <div class="tutorial-card">
+
+        <!-- Step 1: 下載與安裝 -->
+        <div class="step-content active" data-step="1">
+            <div class="text-area">
+                <h2>1. 下載並安裝</h2>
+                <p class="desc">請前往 FileZilla 官網下載應用程式，並依照指示完成安裝即可。</p>
+                <a href="https://filezilla-project.org/download.php?show_all=1" target="_blank" class="download-btn">
+                    前往下載頁面
+                </a>
+
+                <div class="alert-box">
+                    <span class="alert-title">⚠️ 版本選擇重點</span>
+                    <p class="alert-text">
+                        請確認你的 Mac 晶片版本：<br>
+                        • <b>Apple Silicon (M1/M2/M3)：</b> 下載 <u style="color:#d32f2f;">V 3.68.1 (arm64)</u><br>
+                        • <b>Intel 晶片：</b> 下載 <u style="color:#d32f2f;">V 3.68.1 (x86)</u>
+                    </p>
+                </div>
+            </div>
+            <div class="image-area">
+                <div class="screenshot-wrapper" onclick="openLightbox(this)">
+                    <img src="image/filezilla-tutorial/filezilla-tutorial-01.jpg" alt="下載頁面截圖" class="screenshot-img">
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2: 金鑰存放 (重點教學) -->
+        <div class="step-content" data-step="2">
+            <div class="text-area">
+                <h2>2. 放置金鑰 (找到 .ssh 資料夾)</h2>
+                <p class="desc">Mac 的 <code>.ssh</code> 是隱藏資料夾，請依照以下步驟開啟並放入金鑰：</p>
+                <ol style="margin-left:20px; line-height:1.8; color:#374151;">
+                    <li>點擊 Mac 桌面的 Finder 圖示。</li>
+                    <li>按下快捷鍵 <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>G</kbd> 開啟「前往資料夾」視窗。</li>
+                    <li>在輸入框中輸入 <code style="color:#eb2525;">~/.ssh/</code> 並按下 Enter。</li>
+                    <li>將你的金鑰檔案 (例如 <code>id_rsa</code>) 拖曳進去。</li>
+                </ol>
+            </div>
+            <div class="image-area">
+                <div class="screenshot-wrapper" onclick="openLightbox(this)">
+                    <img src="image/filezilla-tutorial/filezilla-tutorial-02.jpg" alt="Finder 前往資料夾畫面"
+                        class="screenshot-img">
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3: 開啟站台 -->
+        <div class="step-content" data-step="3">
+            <div class="text-area">
+                <h2>3. 開啟站台管理員</h2>
+                <p class="desc">打開 FileZilla 後，點擊左上角的圖示。</p>
+                <p class="desc">或使用快捷鍵 <kbd>Cmd</kbd> + <kbd>S</kbd> 快速開啟。</p>
+            </div>
+            <div class="image-area">
+                <div class="screenshot-wrapper" onclick="openLightbox(this)">
+                    <img src="image/filezilla-tutorial/filezilla-tutorial-03.jpg" alt="開啟站台管理員" class="screenshot-img">
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 4: 輸入參數 -->
+        <div class="step-content" data-step="4">
+            <div class="text-area">
+                <h2>4. 設定連線資訊</h2>
+                <p class="desc">請依照下方資訊填寫，並選擇剛剛放入的 key：</p>
+                <ul style="margin-left:20px; line-height:1.9; color:#374151;">
+                    <li><b>新增站台：</b> 點擊左下角按鈕並命名你快樂的名字。</li>
+                    <li><b>協定：</b> <b style="color:#2563eb;">SFTP - SSH File Transfer Protocol</b></li>
+                    <li><b>主機：</b> <b style="color:#2563eb;">192.168.168.101</b></li>
+                    <li><b>連接埠：</b> <b style="color:#2563eb;">22</b></li>
+                    <li><b>登入型式：</b> <b style="color:#2563eb;">金鑰檔案</b></li>
+                    <li><b>使用者：</b ><b style="color:#2563eb;">輸入你的帳號</b> </li>
+                    <li><b>金鑰檔案：</b> 瀏覽並選擇 <code>.ssh</code> 資料夾內的檔案</li>
+                </ul>
+            </div>
+            <div class="image-area">
+                <div class="screenshot-wrapper" onclick="openLightbox(this)">
+                    <img src="image/filezilla-tutorial/filezilla-tutorial-04.jpg" alt="設定參數" class="screenshot-img">
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 5: 上傳檔案 -->
+        <div class="step-content" data-step="5">
+            <div class="text-area">
+                <h2>5. 連線成功與上傳</h2>
+                <p class="desc">連線成功後，畫面會分為左右兩邊：</p>
+                <ul style="margin-left:20px; line-height:1.8; color:#374151;">
+                    <li><b>左邊 (本機)：</b> 你的電腦檔案。</li>
+                    <li><b>右邊 (伺服器)：</b> 請找到並進入 <b style="color:#d97706;">upload</b> 資料夾。</li>
+                </ul>
+                <div class="alert-box" style="background:#f0f9ff; border-color:#3b82f6; margin-top:20px;">
+                    <span class="alert-title" style="color:#1e40af;">🚀 開始上傳</span>
+                    <p class="alert-text" style="color:#1e3a8a;">
+                        將你的 <b>html, css, js, images</b> 等檔案，從左邊直接<b>拖曳</b>到右邊的 <code>upload</code> 資料夾內即可完成上傳。
+                    </p>
+                </div>
+            </div>
+            <div class="image-area">
+                <div class="screenshot-wrapper" onclick="openLightbox(this)">
+                    <img src="image/filezilla-tutorial/filezilla-tutorial-05.jpg" alt="上傳檔案畫面" class="screenshot-img">
+                </div>
+            </div>
+        </div>
+
+        <!-- 導航按鈕 -->
+        <div class="nav-footer">
+            <button class="btn btn-prev" id="prevBtn" disabled>上一步</button>
+            <button class="btn btn-next" id="nextBtn">
+                下一步
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <img id="lightboxImg" src="">
+    </div>
+
+    <script>
+        const steps = document.querySelectorAll('.step-content');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const progressBar = document.getElementById('progressBar');
+        const stepCounter = document.getElementById('stepCounter');
+        let currentStep = 0;
+
+        function updateUI() {
+            steps.forEach((step, index) => {
+                if (index === currentStep) {
+                    step.classList.add('active');
+                } else {
+                    step.classList.remove('active');
+                }
+            });
+
+            prevBtn.disabled = currentStep === 0;
+            if (currentStep === steps.length - 1) {
+                nextBtn.innerHTML = '完成教學 🎉';
+                nextBtn.style.backgroundColor = '#10b981';
+            } else {
+                nextBtn.innerHTML = `下一步 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>`;
+                nextBtn.style.backgroundColor = '';
+            }
+
+            const progress = ((currentStep + 1) / steps.length) * 100;
+            progressBar.style.width = `${progress}%`;
+            stepCounter.textContent = `Step ${currentStep + 1} of ${steps.length}`;
+        }
+
+        nextBtn.addEventListener('click', () => {
+            if (currentStep < steps.length - 1) {
+                currentStep++;
+                updateUI();
+            } else {
+                alert('恭喜！你已經學會如何上傳檔案了！');
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentStep > 0) {
+                currentStep--;
+                updateUI();
+            }
+        });
+
+        function handleBack(e) {
+            e.preventDefault();
+            if (document.referrer !== "") {
+                history.back();
+            } else {
+                window.location.href = '#';
+            }
+        }
+
+        function openLightbox(element) {
+            const imgSrc = element.querySelector('img').src;
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightboxImg');
+            lightboxImg.src = imgSrc;
+            lightbox.classList.add('show');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('show');
+        }
+
+        updateUI();
+    </script>
+
+</body>
+
+</html>

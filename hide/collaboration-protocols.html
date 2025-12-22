@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>設計與開發協作規範 SOP</title>
+    <style>
+        :root {
+            /* 專業配色系統 */
+            --primary-color: #2c3e50;
+            /* 深藍 */
+            --secondary-color: #34495e;
+            /* 次深藍 */
+            --accent-color: #48b6ff;
+            /* 亮藍 */
+            --text-color: #333333;
+            /* 深灰 */
+            --text-light: #ecf0f1;
+            /* 淺灰 */
+            --bg-color: #f4f6f9;
+            /* 淺灰背景 */
+            --card-front-bg: #ffffff;
+            --quote-bg: rgba(52, 152, 219, 0.15);
+            /* 回覆範本背景 */
+            --quote-border: #3498db;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --card-hover-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* 頁首設計 */
+        header {
+            max-width: 1000px;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 40px;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        p.subtitle {
+            color: #666;
+            font-size: 16px;
+        }
+
+        /* 網格系統 */
+        .sop-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            width: 85%;
+        }
+
+        /* 卡片容器 */
+        .card-container {
+            background-color: transparent;
+            width: 100%;
+            height: 500px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        /* 卡片本體 */
+        .card {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: left;
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transform-style: preserve-3d;
+            box-shadow: var(--card-shadow);
+            border-radius: 8px;
+        }
+
+        .card-container:hover .card {
+            box-shadow: var(--card-hover-shadow);
+        }
+
+        .card.is-flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 8px;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        /* === 正面樣式 (索引) === */
+        .card-front {
+            background-color: var(--card-front-bg);
+            color: var(--primary-color);
+            border-top: 4px solid var(--accent-color);
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-index {
+            font-size: 48px;
+            font-weight: 900;
+            color: #e0e6ed;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            line-height: 1;
+        }
+
+        .card-title-group {
+            margin-top: 40px;
+        }
+
+        .card-category {
+            text-transform: uppercase;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            color: #95a5a6;
+            margin-bottom: 8px;
+        }
+
+        .card-title {
+            font-size: 26px;
+            font-weight: bold;
+            line-height: 1.4;
+            color: var(--primary-color);
+        }
+
+        .card-action {
+            margin-top: auto;
+            color: var(--accent-color);
+            font-size: 16px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-action::after {
+            content: '→';
+            margin-left: 5px;
+            transition: transform 0.3s;
+        }
+
+        .card-container:hover .card-action::after {
+            transform: translateX(5px);
+        }
+
+        /* === 背面樣式 (詳情) === */
+        .card-back {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            transform: rotateY(180deg);
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .back-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .back-content {
+            font-size: 18px;
+            line-height: 1.6;
+            overflow-y: auto;
+            flex-grow: 1;
+            padding-right: 5px;
+        }
+
+        .back-content ul,
+        .back-content ol {
+            padding-left: 20px;
+            margin: 8px 0;
+        }
+
+        .back-content li {
+            margin-bottom: 6px;
+        }
+
+        .important-note {
+            background-color: rgba(231, 76, 60, 0.2);
+            border-left: 3px solid #e74c3c;
+            padding: 8px;
+            margin-top: 10px;
+            font-size: 15px;
+            color: #ffcccc;
+        }
+
+        /* === 建議回覆區塊樣式 === */
+        .response-box {
+            background-color: var(--quote-bg);
+            border: 1px dashed var(--quote-border);
+            border-radius: 6px;
+            padding: 10px;
+            margin-top: 15px;
+            font-family: "Menlo", "Monaco", "Consolas", monospace;
+            font-size: 15px;
+            color: #dbeeff;
+            white-space: pre-line;
+            /* 保留換行 */
+        }
+
+        .response-title {
+            font-size: 14px;
+            color: #8ecae6;
+            margin-bottom: 5px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+
+        .response-title::before {
+            content: '💬';
+            margin-right: 5px;
+        }
+
+        /* 連結樣式 (在深色背景中) */
+        .response-box a {
+            color: #8ecae6;
+            text-decoration: underline;
+        }
+
+        /* 捲軸美化 */
+        .back-content::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .back-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .back-content::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .sop-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card-container {
+                height: 450px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>設計與開發協作規範</h1>
+    </header>
+
+    <div class="sop-grid" id="gridContainer">
+        <!-- 內容將由 JavaScript 動態生成 -->
+    </div>
+
+    <script>
+        const sopData = [
+            {
+                id: "01",
+                category: "Bug Reporting",
+                title: "問題處理與紀錄方式",
+                content: `
+                    <p>案件執行發現遇到功能上的問題，需立即於群組建立紀錄，並標註主管請求協助。</p>
+                    <strong>紀錄內容需包含：</strong>
+                    <ul>
+                        <li>位置（頁面/區塊/裝置）</li>
+                        <li>問題描述與重現步驟</li>
+                        <li>截圖或操作影片</li>
+                        <li>若會影響進度，請@專案並告知延遲多久</li>
+                    </ul>
+                    <div class="important-note">禁止使用私訊，確保資訊可追蹤。</div>
+                    
+                    <div class="response-box"><div class="response-title">建議回覆範本</div>🙏 新增 01、02 題，再麻煩 @開發人員 幫我修理感恩 😭
+
+01. nav 那邊 打開收尋後 副選單 的層級跑上來了
+02. nav 那邊 打開收尋 的語系
+
+文件：<a href="#" target="_blank">雲端文件紀錄</a></div>
+                `
+            },
+            {
+                id: "02",
+                category: "Design Verification",
+                title: "樣式與初始設定不符時的處理",
+                content: `
+                    <p>發現實作成果與設計稿/規格不符：</p>
+                    <ol>
+                        <li><strong style="color:red">暫不修改程式碼</strong>，避免衝突。</li>
+                        <li>群組提問，附上預期 vs 實際對比圖。</li>
+                        <li>待開發說明原因（如技術限制）。</li>
+                    </ol>
+                    <div class="response-box"><div class="response-title">建議回覆範本</div>舉手發問 @開發人員，目前 [區塊A] 的間距顯示為 20px，但設計稿規劃為 40px（附圖請看文件）。想問是不是因為框架限制或為了符合複用性？再幫我確認一下，謝謝。<br>
+文件：<a href="#" target="_blank">雲端文件紀錄</a>
+</div>
+                `
+            },
+            {
+                id: "03",
+                category: "Efficiency",
+                title: "重複性工作與自動化評估",
+                content: `
+                    <p>遇大量人工重複操作（如大量上傳圖片、<strong>資料重複複製貼上</strong>）：</p>
+                    <ul>
+                        <li>優先詢問開發端是否可<strong>自動化處理</strong>。</li>
+                        <li>長期需求：優先採用自動化。</li>
+                        <li>一次性需求：評估成本後決定。</li>
+                    </ul>
+                    <div class="response-box"><div class="response-title">建議回覆範本</div>「@開發主管，本次專案需建立大量資料，包含圖片上傳與重複性的資料複製貼上。考量人工逐筆處理耗時且易錯，請問後台是否有批次匯入功能？或是可以從程式端這邊直接複製」</div>
+                `
+            },
+            {
+                id: "04",
+                category: "Quality Assurance",
+                title: "成果與預期不一致時的處理",
+                content: `
+                    <p>若開發成果（畫面/互動）與規劃不同：</p>
+                    <ul>
+                        <li>不預設對錯，先詢問理由。</li>
+                        <li>若理由合理且不影響品質：可接受。</li>
+                        <li>若影響體驗：由專案統一提出調整。</li>
+                    </ul>
+                    <div class="response-box"><div class="response-title">建議回覆範本</div>「@開發人員，這部分的效果與原先規劃不同（詳見附圖），想請問調整的原因是否為技術限制？還是有什麼原因呢?
+<br>
+文件：<a href="#" target="_blank">雲端文件紀錄</a>
+</div>
+                `
+            },
+            {
+                id: "05",
+                category: "Pre-Production",
+                title: "製作前的技術限制確認",
+                content: `
+                    <p>製作前，主動確認技術限制並建立紀錄：</p>
+                    <ul>
+                        <li>編輯器版本/後台套件</li>
+                        <li>圖片替換機制</li>
+                        <li>HTML 標籤使用限制</li>
+                    </ul>
+                    <div class="response-box"><div class="response-title">建議回覆範本</div>「@開發人員，我要準備開始上機製作了。想確認本次專案的後台編輯器是否支援 a標籤 裡面是block？ 以及圖片上傳是否有特定做法？或是有沒有其他需要先注意的？。」</div>
+                `
+            },
+            {
+                id: "06",
+                category: "Responsibilities",
+                title: "設計與技術職責邊界 (責權分明)",
+                content: `
+                <p style="color:red">核心原則：</p>
+                    <p>前端技術程式碼，由前端人員主責維護。設計師切勿自行增修非職責範疇內的程式碼。</p>
+                 <p style="color:red">設計端職責範疇：</p>
+                    <p>設計師的職責僅限於HTML結構與CSS樣式的處理，或是設計師自己撰寫的JS程式碼</p>
+
+                      <p style="color:red">協作與建議規範：</p>
+                    <p>如果設計師額外有 JS 想法，可以另外提出建議並在本機環境 DEMO 示範，但是請勿動到專案檔案。然而，最理想的協作模式是：設計師僅提出功能的願景與需求，技術面則完全交由前端人員處理。</p>
+                      <p style="color:red">請堅守職責邊界：</p>
+                    <p>如果某段程式碼一開始是由前端開發人員撰寫並主責，相關問題或功能增修，一律交回前端人員處理，設計師不介入修改。</p>
+       <p style="color:red">設計師不協助修改的原因：</p>
+                    <ul>
+                        <li>維護穩定性：避免破壞既有的程式邏輯與功能運作。</li>
+                        <li>防止衝突：避免不同版本或操作錯誤導致的程式碼衝突。</li>
+                        <li>專業專精：確保由最初主責技術的開發人員進行修正，維護專案穩定性。</li>
+                    </ul>                   
+
+                    <div class="important-note">請堅守職責邊界，維護專案穩定性。</div>
+                    <div class="response-box"><div class="response-title">建議回覆範本</div>「@開發人員 @PM，專案提出的客戶需求，我目前認知這個需求無法只用 CSS 達成，需要前端人員判斷使用 JS 或其他技術做法。請兩位評估是否需要召開討論來確認處理方式，若視覺面樣式需要調整我可加入。
+                        
+相關細節請參考：<a href="#" target="_blank">雲端文件紀錄</a>」</div>
+                `
+            },
+            {
+                id: "07",
+                category: "Version Control",
+                title: "版本修改權責與 Git 記錄",
+                content: `
+                    <p>若遇非 CSS/HTML 之程式碼修改需求或非設計師執行項目修改需求：</p>
+                    <p>請<strong>婉轉回覆由開發處理</strong>，以維持 Git 版本紀錄清晰。</p>
+                    <ul>
+                        <li>確保紀錄反映實際修改者</li>
+                        <li>便於日後追蹤與 Bug 調查</li>
+                    </ul>
+                    <div class="response-box"><div class="response-title">建議回覆範本</div>「不好意思，為了保持 Git 紀錄的清晰，以及方便日後追蹤問題，這段程式碼修改可能還是要請工程師幫我修改比較合適。感恩」</div>
+                `
+            },
+            {
+                id: "08",
+                category: "Risk Management",
+                title: "時程不足或延誤風險回報",
+                content: `
+                    <p>發現時程不足、需求增加或任務超時，<strong>需立即與專案溝通</strong>，以便：</p>
+                    <ul>
+                        <li>調整優先順序</li>
+                        <li>增加支援資源</li>
+                    </ul>
+                    <div class="important-note">嚴禁因不確定而延後回報。</div>
+                    <div class="response-box"><div class="response-title">建議回覆範本</div>「@PM，因目前臨時插入 A 需求，評估後原定週五交付的 B 任務可能會延誤半天。需要請你幫我協調優先順序或是申請支援協助」</div>
+                `
+            },
+            {
+                id: "09",
+                category: "Cross-Department",
+                title: "跨部門流程釐清與共識",
+                content: `
+                    <p>涉及跨部門流程時，由專案召集會議確認：</p>
+                    <ul>
+                        <li>製作前請專案協助招開對焦需求會議</li>
+                        <li>會議後產出最終版流程圖與責任歸屬</li>
+                        <li>會議後產出交付標準文件</li>
+                    </ul>
+                    <p>請開發<strong style="color: red;">再次確認無誤後才製作</strong>。</p>
+                   
+
+   <div class="response-box"><div class="response-title">會議後建議回覆範本</div>「@PM @開發人員，
+此文件是我彙整今天會議的紀錄，再麻煩幫我確認跟我認知的是否有出入，如果沒有我們就照文件流程執行唷，感恩
+    <br>
+文件：<a href="#" target="_blank">雲端文件紀錄</a>」</div>
+                `
+            },
+            {
+                id: "10",
+                category: "Maintenance",
+                title: "製作前的維護風險提醒",
+                content: `
+                    <p><strong>依照過往經驗判斷</strong>，若預判特定做法有維護風險（如硬寫選單、無法套模板）：</p>
+                    <p>設計責任在提供客戶維護情境與延伸設計服務可能遇到的情況、可能需要避免的問題有哪些，由專案判斷案件情況決定規格，技術面之執行方式與細節由開發部判斷最佳做法。</p>
+                    
+                    <div class="response-box"><div class="response-title">建議回覆範本</div>「@PM 依照過往經驗，目前設計稿的選單結構較為複雜，若在後台動態生成可能會有些彈性限制，再麻煩協助判斷是否需要召開案件小組結論，感恩」</div>
+                `
+            }
+        ];
+
+        const grid = document.getElementById('gridContainer');
+
+        sopData.forEach(item => {
+            const cardContainer = document.createElement('div');
+            cardContainer.className = 'card-container';
+
+            cardContainer.innerHTML = `
+                <div class="card">
+                    <div class="card-face card-front">
+                        <div class="card-index">${item.id}</div>
+                        <div class="card-title-group">
+                            <div class="card-category">${item.category}</div>
+                            <div class="card-title">${item.title}</div>
+                        </div>
+                        <div class="card-action">查看詳細流程與回覆建議</div>
+                    </div>
+                    <div class="card-face card-back">
+                        <div class="back-header">${item.id}. ${item.title}</div>
+                        <div class="back-content">
+                            ${item.content}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            cardContainer.addEventListener('click', function () {
+                const card = this.querySelector('.card');
+                card.classList.toggle('is-flipped');
+            });
+
+            grid.appendChild(cardContainer);
+        });
+    </script>
+</body>
+
+</html>

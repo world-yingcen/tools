@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>翻譯蒟蒻 - 使用教學手冊</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --bg-color: #f8f9fa;
+            --text-color: #333;
+            --code-bg: #2d2d2d;
+            --code-text: #f8f8f2;
+            --note-bg: #fff3cd;
+            --note-text: #856404;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+        }
+
+        /* Header & Nav */
+        header {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        section {
+            margin-bottom: 4rem;
+            background: #fff;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--accent-color);
+            display: inline-block;
+        }
+
+        h3 {
+            margin: 1.5rem 0 1rem;
+            color: var(--primary-color);
+            font-size: 1.3rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        /* Steps */
+        .step-list {
+            counter-reset: step;
+        }
+
+        .step-item {
+            position: relative;
+            padding-left: 3.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .step-item::before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2.5rem;
+            height: 2.5rem;
+            background: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 2.5rem;
+            font-weight: bold;
+        }
+
+        /* Format Rules Section Styles */
+        .format-rules {
+            background: #f1f8ff;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-left: 5px solid var(--accent-color);
+        }
+
+        .rule-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px dashed #dcebf7;
+        }
+
+        .rule-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .rule-label {
+            font-weight: bold;
+            min-width: 140px;
+            color: var(--primary-color);
+        }
+
+        .rule-arrow {
+            margin: 0 1rem;
+            color: #999;
+        }
+
+        .rule-value {
+            background: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-family: monospace;
+            color: #d63384;
+            font-size: 1.1rem;
+        }
+
+        .rule-desc {
+            margin-left: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .comment-note {
+            background-color: var(--note-bg);
+            color: var(--note-text);
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 1rem;
+            border: 1px solid #ffeeba;
+        }
+
+        .comment-image {
+            border: 1px solid #cecece;
+            border-radius: 6px;
+            margin-block: 1.5rem 3rem;
+        }
+
+        /* Code Blocks & Tables */
+        .code-block {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 1rem;
+            border-radius: 6px;
+            font-family: 'Consolas', monospace;
+            overflow-x: auto;
+            margin-bottom: 1rem;
+        }
+
+        .md-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .md-table th,
+        .md-table td {
+            border: 1px solid #ddd;
+            padding: 0.8rem;
+            text-align: left;
+        }
+
+        .md-table th {
+            background-color: #f1f1f1;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-left: 0.5rem;
+        }
+
+        .badge-basic {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .badge-design {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: var(--primary-color);
+            color: white;
+            margin-top: auto;
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .rule-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .rule-arrow {
+                display: none;
+            }
+
+            .rule-desc {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">翻譯蒟蒻 📖</a>
+            <nav>
+                <ul>
+                    <li><a href="#format-template">格式範本</a></li>
+                    <li><a href="#quick-start">快速入門</a></li>
+                    <li><a href="#markdown-guide">語法對照</a></li>
+                    <li><a href="#layouts">版型總覽</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+
+    <main>
+
+        <!-- 新增：原始文件格式範本 -->
+        <section id="format-template">
+            <h2>📄 原始文件格式範本</h2>
+            <p>在準備文案（例如在 Word 或筆記本撰寫）時，請依照下列邏輯設定格式，系統將能最精確地辨識內容：</p>
+            <strong>範例：</strong><br>
+
+            <div class="comment-image">
+                <img width="100%" src="image/basic-tutorial-01.jpg" alt="備註範例">
+            </div>
+            <!-- Markdown 語法 -->
+            <div id="markdown-guide">
+                <h2>📝 Markdown 語法對照表</h2>
+                <p>這款工具支援特定的 Markdown 語法來對應到不同的欄位。詳細對照如下：</p>
+
+                <table class="md-table">
+                    <thead>
+                        <tr>
+                            <th width="20%">格式設定</th>
+                            <th width="30%">Markdown 寫法</th>
+                            <th>對應功能說明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>標題 1</strong></td>
+                            <td><code># 內容...</code></td>
+                            <td><strong>H1 (大標)</strong>：通常作為文章主標題。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>標題 2</strong></td>
+                            <td><code>## 內容...</code></td>
+                            <td><strong>H2 (副標)</strong>：通常作為文章副標或區塊標題。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>標題 3</strong></td>
+                            <td><code>### 內容...</code></td>
+                            <td><strong>H3 (小標)</strong>：常作為卡片、QA 題目或項目的標題。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>一般文字</strong></td>
+                            <td>純文字</td>
+                            <td><strong>P (敘述)</strong>：段落內容。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>列表</strong></td>
+                            <td><code>* 項目一</code> 或 <code>- 項目一</code></td>
+                            <td><strong>UL (列表)</strong>：會轉換為點列式清單。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>圖片</strong></td>
+                            <td><code>![Alt文字](圖片網址)</code></td>
+                            <td><strong>Image</strong>：自動填入圖片 URL 與 Alt 描述。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>忽略備註</strong></td>
+                            <td><code>// 備註內容</code></td>
+                            <td><strong>Ignore</strong>：此行不會被輸出。</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 class="mt-4">💡 進階技巧：特殊版型語法</h3>
+                <p>某些版型（如 <strong>電子表單B-公司資訊</strong>）有特殊的解析規則，請參考下方寫法：</p>
+                <div class="code-block">
+                    ### **公司名稱**
+
+                    #### **電話**
+                    04-12345678, tel:04-12345678
+
+                    #### **地址**
+                    403臺中市西區大隆路20號
+                    // 這裡是備註，確認後再刪除
+                </div>
+            </div>
+
+
+            <div class="comment-note">
+                <strong>📝 關於備註：</strong><br>
+                如果是給設計師的備註請在該行最前面加上 <code>//</code><br>
+                <span style="font-size: 0.9em; opacity: 0.8;">範例：<code>// 這段文字系統會自動忽略它，不會轉譯他</code></span>
+            </div>
+
+
+        </section>
+
+        <!-- 快速入門 -->
+        <section id="quick-start">
+            <h2>⚡ 快速入門 (三步驟)</h2>
+            <div class="step-list">
+                <div class="step-item">
+                    <h3>步驟一：選擇排版樣式</h3>
+                    <p>在左上角的選單中，選擇你想使用的版型（例如：「上文下圖」或「QA列表」）。這會決定內容的呈現方式。</p>
+                </div>
+                <div class="step-item">
+                    <h3>步驟二：貼上文案</h3>
+                    <p>將依照上述「格式範本」準備好的內容，貼入左側的「Markdown 貼貼」區塊，並按下<strong>「交給你了」</strong>按鈕。</p>
+                </div>
+                <div class="step-item">
+                    <h3>步驟三：預覽與輸出</h3>
+                    <p>右側會即時顯示預覽畫面。確認無誤後，點擊左下角的<strong>「👌🏻 給我html」</strong>，然後複製產生的程式碼即可。</p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- 版型介紹 -->
+        <section id="layouts">
+            <h2>🎨 版型樣式總覽</h2>
+            <p>工具目前提供兩大類型的樣式：</p>
+
+            <h3>1. 資料上傳類 <span class="badge badge-basic">基礎</span></h3>
+            <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem;">
+                <li><strong>article-01/02/03 (圖文配置)</strong>：最標準的部落格文章格式，包含大標、副標、圖片與內文。</li>
+                <li><strong>article-04 (兩欄純文字)</strong>：適合展示特點介紹，無圖片。</li>
+                <li><strong>article-05/12 (多欄圖文卡片)</strong>：適合產品展示、服務項目介紹。</li>
+                <li><strong>article-15 (公司資訊)</strong>：專用於頁尾或聯絡頁面的公司資料列表。</li>
+            </ul>
+
+            <h3>2. 內頁美編類 <span class="badge badge-design">進階</span></h3>
+            <ul style="margin-left: 1.5rem;">
+                <li><strong>article-06 (QA列表)</strong>：自動生成問與答的摺疊或條列樣式。</li>
+                <li><strong>article-08 (Sticky 文字列)</strong>：左側有序號，適合步驟教學。</li>
+                <li><strong>article-10/11 (Icon 排版)</strong>：帶有小圖示(Icon)的排版，適合強調功能特色。</li>
+                <li><strong>article-13/14 (三欄排版)</strong>：豐富的 Icon 與數字卡片設計。</li>
+            </ul>
+        </section>
+
+        <!-- FAQ -->
+        <section id="faq">
+            <h2>❓ 常見問題 (FAQ)</h2>
+
+            <h3>Q: 為什麼我的圖片沒顯示？</h3>
+            <p>A: 請確認你的圖片格式。工具目前支援 <code>.jpg</code>, <code>.png</code>, <code>.webp</code>, <code>.jpeg</code>
+                結尾的網址。如果網址沒有副檔名，可能會被視為普通連結。</p>
+
+            <h3>Q: 如何調整區塊順序？</h3>
+            <p>A: 在生成 HTML 之前，你可以在中間的「內容排序與編輯」區塊，按住區塊左上角的 <strong>拖曳圖示 (六個點)</strong> 上下移動即可。</p>
+
+            <h3>Q: 我可以刪除某個不需要的欄位嗎？</h3>
+            <p>A: 可以！每個輸入欄位右上角都有一個 <strong>垃圾桶圖示</strong> 或 <strong>X 按鈕</strong>，點擊後該欄位就不會被輸出到 HTML 中。</p>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>© 2025 翻譯蒟蒻 Tool. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // 平滑捲動效果
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,228 @@
+:root {
+    --bg: #f8fafc;
+    --surface: #ffffff;
+    --border: #e2e8f0;
+    --text-main: #334155;
+    --text-sub: #64748b;
+    --primary: #3b82f6;
+    --danger: #ef4444;
+    --radius: 12px;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+/* --- 區塊卡片設計 --- */
+.content-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 24px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+    position: relative;
+}
+
+.content-block:hover {
+    border-color: #cbd5e1;
+}
+
+/* 卡片頭部：拖曳與動作 */
+.block-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    background: #f1f5f9;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+}
+
+.block-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    color: var(--text-main);
+    font-size: 16px;
+}
+
+.drag-handle {
+    cursor: grab;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+}
+
+.drag-handle:hover {
+    color: var(--text-main);
+}
+
+.remove-field-btn {
+    top: 0;
+    right: 0;
+}
+
+.action-btn {
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+    padding: 0;
+    border-radius: 4px;
+    transition: all 0.2s;
+    top: 15px;
+    right: 20px;
+}
+
+.action-btn:hover {
+    background: #e2e8f0;
+    color: var(--danger);
+}
+
+/* 卡片內容區 */
+.block-body {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* --- Input Group 設計 (合併標籤與輸入) --- */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.field-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-main);
+}
+
+.merged-input {
+    display: flex;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: ring 0.2s;
+}
+
+.merged-input:focus-within {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* 左側選擇器 (SEO Tag) */
+.input-group select.tag-select {
+    background: #f8fafc;
+    border: none;
+    border-right: 1px solid var(--border);
+    padding: 10px 12px;
+    color: var(--text-sub);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    width: 80px;
+    text-align: center;
+}
+
+/* 右側輸入框 */
+.input-group input[type=text].main-input {
+    flex: 1;
+    border: none;
+    padding: 10px 15px;
+    font-size: 15px;
+    outline: none;
+    color: var(--text-main);
+}
+
+/* 敘述文字區域 */
+.textarea-input {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 15px;
+    font-size: 15px;
+    min-height: 120px;
+    outline: none;
+    resize: vertical;
+    font-family: inherit;
+}
+
+.textarea-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* --- 新增按鈕區 --- */
+.add-zone {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.add-zone::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: #e2e8f0;
+    z-index: 0;
+}
+
+.btn-add {
+    position: relative;
+    z-index: 1;
+    background: var(--surface);
+    border: 1px solid #cbd5e1;
+    color: var(--text-main);
+    padding: 12px 16px;
+    border-radius: 99em;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    width: 200px;
+}
+
+.btn-add:hover {
+    transform: scale(1.05);
+    color: white;
+}
+
+/* Icons SVG */
+.icon {
+    width: 18px;
+    height: 18px;
+}
+
+.icon-sm {
+    width: 14px;
+    height: 14px;
+}
+
+
+/* Icons SVG */
+.icon {
+    width: 18px;
+    height: 18px;
+}

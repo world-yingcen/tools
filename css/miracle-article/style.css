@@ -1,0 +1,259 @@
+@charset "UTF-8";
+::-moz-placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #505050;
+  opacity: 1;
+  /* Firefox */
+}
+.customized_columns ._input,
+.customized_columns select,
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #505050;
+  opacity: 1;
+  /* Firefox */
+}
+
+::-moz-placeholder {
+  color: #7b7b7b;
+}
+
+::placeholder {
+  color: #7b7b7b;
+}
+
+.input-panel {
+  position: relative;
+}
+
+.input-group + .input-group {
+  margin-top: var(--Space1);
+}
+
+.input-group label {
+  display: block;
+  padding-bottom: 8px;
+  font-weight: 500;
+  color: var(--TextColorPrimary);
+  font-size: 0.9rem;
+}
+
+.input-group input[type=text],
+.input-group textarea {
+  font-size: 15px;
+  color: var(--TextColorSecondary);
+}
+
+/* --- 新增：Markdown 輸入區塊樣式 --- */
+#anchorMarkdownInput,
+#markdownInput {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--BorderColor, #ccc);
+  border-radius: var(--BorderRadius, 8px);
+  background-color: var(--InputBg, #f9f9f9);
+  color: var(--TextColorPrimary, #333);
+  font-family: inherit;
+  margin-bottom: 15px;
+  resize: vertical;
+  height: 100px;
+  box-sizing: border-box;
+  font-size: 13px;
+  margin-top: 0;
+}
+
+/* --- 8. DYNAMIC CONTENT BLOCKS --- */
+/* 拖曳欄位的樣式 */
+.dynamic-block {
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fcfcfc;
+  position: relative;
+  cursor: grab;
+  margin-bottom: var(--Space1);
+}
+
+.dynamic-block > label {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.dynamic-block:nth-of-type(1) {
+  border: 0;
+  padding: 0;
+}
+
+.dynamic-block:nth-last-of-type(1) {
+  margin-bottom: 10rem !important;
+}
+
+/* 子區塊的樣式 */
+.block-section-container {
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  overflow: hidden;
+  transition: all 0.3s ease-out;
+}
+
+.block-section-container__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #e0e0e0;
+  cursor: pointer;
+}
+
+.block-section-container__title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--TextColorPrimary);
+  margin: 0;
+}
+
+.block-section-container__toggle-icon {
+  background: none;
+  border: 1px solid #ccc;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  padding: 0;
+  color: var(--TextColorSecondary);
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  border-radius: 4px;
+}
+
+.block-section-container__header {
+  gap: 10px;
+}
+
+.block-section-container__title {
+  margin-right: auto;
+}
+
+.block-section-container__remove-btn {
+  background: #f0f0f0;
+  border: 0;
+  color: var(--TextColorSecondary);
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  line-height: 1;
+  padding: 0;
+  font-weight: bold;
+  transition: var(--TransitionDefault);
+}
+
+.block-section-content {
+  padding: 15px;
+  transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+}
+
+.block-section-container.collapsed .block-section-content {
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.block-section-container[data-container-type=ANCHOR_LIST] .insert-menu {
+  grid-template-columns: 80px;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.block-section-container[data-container-type=CTA] .dynamic-block:nth-last-of-type(1) {
+  margin-bottom: 0rem !important;
+}
+.block-section-container[data-container-type=CTA] .insert-bar-container {
+  display: none;
+}
+
+/* 插入選項菜單 */
+.insert-menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  display: none;
+  /* 預設隱藏 */
+  background: white;
+  padding: 8px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 20;
+  pointer-events: auto;
+}
+
+.dynamic-block[data-type=HR].insert-bar-container {
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+/* Section Block 樣式 */
+.section-block {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.section-title-box {
+  display: flex;
+  justify-content: space-between;
+  align-content: flex-end;
+  align-items: flex-end;
+  margin-bottom: var(--Space2);
+}
+
+.section-block__title {
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
+}
+
+.toolbar-container {
+  text-align: right;
+}
+
+.toolbar-container .tool-button {
+  background-color: #f0f0f0;
+  border: 1px solid #e0e0e0;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  flex-grow: 0;
+  /* 不要填滿寬度 */
+  width: auto;
+}
+
+.artilce-list-ol,
+.artilce-list-ul {
+  color: var(--TextColorSecondary);
+}
+
+figure {
+  margin: 0;
+  width: 100%;
+}
+
+@media (min-width: 1200px) and (hover: hover) and (pointer: fine) {
+  .toolbar-container .tool-button:hover {
+    color: var(--BtnPrimaryHoverTextColor);
+    background: var(--BtnPrimaryHoverBg);
+  }
+  .block-section-container__remove-btn:hover {
+    background-color: var(--ColorPrimary);
+    color: white;
+  }
+  .block-section-container__toggle-icon:hover {
+    background: #febc2e;
+    color: white;
+  }
+}/*# sourceMappingURL=style.css.map */
