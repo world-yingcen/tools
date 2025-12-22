@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +9,8 @@
     <style>
         /* --- 1. 基礎設定 (Reset & Base) --- */
         :root {
-            --primary-color: #2563eb; /* 藍色主色 */
+            --primary-color: #2563eb;
+            /* 藍色主色 */
             --primary-dark: #1d4ed8;
             --primary-light: #eff6ff;
             --text-main: #334155;
@@ -19,7 +20,9 @@
             --sidebar-width: 300px;
         }
 
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
 
         body {
             font-family: "Microsoft JhengHei", "Helvetica Neue", Arial, sans-serif;
@@ -39,7 +42,7 @@
             border-right: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
-            box-shadow: 4px 0 24px rgba(0,0,0,0.05);
+            box-shadow: 4px 0 24px rgba(0, 0, 0, 0.05);
             z-index: 10;
             flex-shrink: 0;
         }
@@ -50,10 +53,25 @@
             color: white;
         }
 
-        .sidebar-header h1 { margin: 0; font-size: 18px; display: flex; align-items: center; gap: 8px; }
-        .sidebar-header p { margin: 5px 0 0 0; font-size: 15px; opacity: 0.9; }
+        .sidebar-header h1 {
+            margin: 0;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-        #nav-menu { flex: 1; overflow-y: auto; padding: 15px; }
+        .sidebar-header p {
+            margin: 5px 0 0 0;
+            font-size: 15px;
+            opacity: 0.9;
+        }
+
+        #nav-menu {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+        }
 
         .nav-btn {
             width: 100%;
@@ -72,8 +90,11 @@
             font-size: 16px;
         }
 
-        .nav-btn:hover { background-color: var(--bg-color); color: var(--primary-color); }
-        
+        .nav-btn:hover {
+            background-color: var(--bg-color);
+            color: var(--primary-color);
+        }
+
         .nav-btn.active {
             background-color: var(--primary-light);
             color: var(--primary-color);
@@ -81,15 +102,20 @@
         }
 
         .nav-icon {
-            width: 28px; height: 28px;
+            width: 28px;
+            height: 28px;
             background: #f1f5f9;
             border-radius: 6px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 15px; color: #94a3b8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            color: #94a3b8;
         }
 
         .nav-btn.active .nav-icon {
-            background: var(--primary-color); color: white;
+            background: var(--primary-color);
+            color: white;
         }
 
         /* 新增：快速連結區塊樣式 */
@@ -98,21 +124,26 @@
             background-color: #f8fafc;
             border-top: 1px solid var(--border-color);
         }
+
         .sidebar-links h3 {
-            font-size: 20px;;
+            font-size: 20px;
+            ;
             color: #000000e0;
             margin: 0 0 10px 0;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
+
         .sidebar-links ul {
             list-style: none;
             padding: 0;
             margin: 0;
         }
+
         .sidebar-links li {
             margin-bottom: 8px;
         }
+
         .sidebar-links a {
             text-decoration: none;
             color: var(--text-main);
@@ -122,16 +153,18 @@
             gap: 8px;
             transition: color 0.2s;
         }
+
         .sidebar-links a:hover {
             color: var(--primary-color);
             text-decoration: underline;
         }
+
         .sidebar-links i {
             color: #cbd5e1;
             font-size: 12px;
         }
 
-        .sidebar-links small{
+        .sidebar-links small {
             color: #a9a9a9;
         }
 
@@ -163,15 +196,30 @@
         }
 
         /* --- 4. 通用樣式元件 --- */
-        h2 { font-size: 28px; margin: 0 0 20px 0; color: #1e293b; }
-        h3 { font-size: 20px; margin: 0 0 15px 0; color: #334155; }
-        p, li { line-height: 1.6; color: #475569; }
-        
+        h2 {
+            font-size: 28px;
+            margin: 0 0 20px 0;
+            color: #1e293b;
+        }
+
+        h3 {
+            font-size: 20px;
+            margin: 0 0 15px 0;
+            color: #334155;
+        }
+
+        p,
+        li {
+            line-height: 1.6;
+            color: #475569;
+        }
+
         .step-header {
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 15px;
             margin-bottom: 30px;
         }
+
         .step-label {
             color: var(--primary-color);
             font-weight: bold;
@@ -181,41 +229,160 @@
         }
 
         /* 提示框 */
-        .info-box { background: #eff6ff; border-left: 4px solid #3b82f6; padding: 15px; border-radius: 0 8px 8px 0; margin-bottom: 20px; }
-        .warn-box { background: #fef2f2; border-left: 4px solid #ef4444; padding: 15px; border-radius: 0 8px 8px 0; margin-bottom: 20px; }
-        .tip-box  { background: #fffbeb; border-left: 4px solid #f59e0b; padding: 15px; border-radius: 0 8px 8px 0; margin-bottom: 20px; }
-        
+        .info-box {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 20px;
+        }
+
+        .warn-box {
+            background: #fef2f2;
+            border-left: 4px solid #ef4444;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 20px;
+        }
+
+        .tip-box {
+            background: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 20px;
+        }
+
         /* 徽章 */
-        .badge { padding: 2px 8px; border-radius: 4px; font-size: 15px; font-weight: bold; color: white; display: inline-block; margin: 0 2px; }
-        .badge.cms { background-color: #ef4444; }
-        .badge.tool { background-color: #3b82f6; }
-        .badge.test { background-color: #10b981; }
+        .badge {
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: bold;
+            color: white;
+            display: inline-block;
+            margin: 0 2px;
+        }
+
+        .badge.cms {
+            background-color: #ef4444;
+        }
+
+        .badge.tool {
+            background-color: #3b82f6;
+        }
+
+        .badge.test {
+            background-color: #10b981;
+        }
 
         /* 按鈕 */
-        .btn-group { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #f1f5f9; }
-        .btn {
-            padding: 10px 24px; border-radius: 6px; border: none; cursor: pointer;
-            font-size: 15px; font-weight: 500; display: inline-flex; align-items: center; gap: 8px; transition: 0.3s;
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #f1f5f9;
         }
-        .btn-next { background-color: var(--primary-color); color: white; }
-        .btn-next:hover { background-color: var(--primary-dark); box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2); }
-        .btn-prev { background-color: #f1f5f9; color: #64748b; }
-        .btn-prev:hover { background-color: #e2e8f0; }
-        .btn-home { background-color: #f8fafc; color: #64748b; border: 1px solid #e2e8f0; }
-        .btn-home:hover { background-color: #f1f5f9; color: #334155; }
+
+        .btn {
+            padding: 10px 24px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+
+        .btn-next {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-next:hover {
+            background-color: var(--primary-dark);
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
+        }
+
+        .btn-prev {
+            background-color: #f1f5f9;
+            color: #64748b;
+        }
+
+        .btn-prev:hover {
+            background-color: #e2e8f0;
+        }
+
+        .btn-home {
+            background-color: #f8fafc;
+            color: #64748b;
+            border: 1px solid #e2e8f0;
+        }
+
+        .btn-home:hover {
+            background-color: #f1f5f9;
+            color: #334155;
+        }
 
         /* Step Content 動畫 */
-        .step-content { display: none; animation: fadeIn 0.5s ease; }
-        .step-content.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .step-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .step-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
         /* 列表樣式 */
-        ol.custom-list { padding-left: 20px; }
-        ol.custom-list li { margin-bottom: 15px; padding-left: 5px; }
-        ol.custom-list strong { color: #1e293b; }
-        ul.check-list { list-style: none; padding: 0; }
-        ul.check-list li { margin-bottom: 10px; padding-left: 24px; position: relative; }
-        ul.check-list li:before { content: '\f00c'; font-family: "Font Awesome 6 Free"; font-weight: 900; position: absolute; left: 0; color: #10b981; }
+        ol.custom-list {
+            padding-left: 20px;
+        }
+
+        ol.custom-list li {
+            margin-bottom: 15px;
+            padding-left: 5px;
+        }
+
+        ol.custom-list strong {
+            color: #1e293b;
+        }
+
+        ul.check-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul.check-list li {
+            margin-bottom: 10px;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        ul.check-list li:before {
+            content: '\f00c';
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: #10b981;
+        }
 
         /* 圖片佔位符 */
         .screenshot-placeholder {
@@ -226,13 +393,15 @@
             text-align: center;
             margin: 20px 0;
         }
+
         .screenshot-placeholder img {
             max-width: 100%;
             height: auto;
             border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             margin-bottom: 10px;
         }
+
         .screenshot-placeholder span {
             display: inline-block;
             background: #fff;
@@ -253,13 +422,32 @@
             position: relative;
             overflow: hidden;
         }
+
         .reminder-box:before {
             content: '';
-            position: absolute; top: 0; left: 0; width: 6px; height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
             background: #f97316;
         }
-        .reminder-box h4 { margin: 0 0 10px 0; color: #c2410c; font-size: 18px; display: flex; align-items: center; gap: 10px; }
-        .reminder-box p { margin: 0; color: #9a3412; font-size: 15px; line-height: 1.6; }
+
+        .reminder-box h4 {
+            margin: 0 0 10px 0;
+            color: #c2410c;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .reminder-box p {
+            margin: 0;
+            color: #9a3412;
+            font-size: 15px;
+            line-height: 1.6;
+        }
 
         /* 醒目 Alert (Step 8) */
         .alert-box {
@@ -272,27 +460,83 @@
             position: relative;
             animation: pulse 2s infinite;
         }
+
         @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
-            70% { transform: scale(1.01); box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+            }
+
+            70% {
+                transform: scale(1.01);
+                box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+            }
+
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+            }
         }
-        .alert-box h3 { color: white; margin: 0 0 10px 0; display: flex; align-items: center; gap: 10px; }
-        .alert-box p { color: rgba(255,255,255,0.9); margin: 0; }
-        .alert-box strong { color: #fef08a; border-bottom: 2px solid #fef08a; }
+
+        .alert-box h3 {
+            color: white;
+            margin: 0 0 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .alert-box p {
+            color: rgba(255, 255, 255, 0.9);
+            margin: 0;
+        }
+
+        .alert-box strong {
+            color: #fef08a;
+            border-bottom: 2px solid #fef08a;
+        }
 
         /* 格線佈局 */
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
         @media (max-width: 768px) {
-            body { flex-direction: column; height: auto; overflow: auto; }
-            aside { width: 100%; height: auto; border-right: none; border-bottom: 1px solid #ddd; }
-            main { padding: 20px; }
-            .container { padding: 20px; margin-top: 20px; }
-            .grid-2 { grid-template-columns: 1fr; }
-            .nav-btn { padding: 10px; }
+            body {
+                flex-direction: column;
+                height: auto;
+                overflow: auto;
+            }
+
+            aside {
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid #ddd;
+            }
+
+            main {
+                padding: 20px;
+            }
+
+            .container {
+                padding: 20px;
+                margin-top: 20px;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-btn {
+                padding: 10px;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <!-- 左側導覽列 -->
@@ -300,7 +544,7 @@
         <div class="sidebar-header">
             <h1><i class="fa-solid fa-robot"></i> 翻譯蒟蒻教學</h1>
         </div>
-        
+
         <nav id="nav-menu">
             <!-- JS 動態生成選單 -->
         </nav>
@@ -320,28 +564,32 @@
                     </a>
                 </li>
                 <li>
-                    <a href="https://docs.google.com/spreadsheets/d/14GOSxk0KgBzXGTiE9Km4j5Ocn9Zc6EuEgHcqiFRikcg/edit?gid=1285179831#gid=1285179831	" target="_blank">
+                    <a href="https://docs.google.com/spreadsheets/d/14GOSxk0KgBzXGTiE9Km4j5Ocn9Zc6EuEgHcqiFRikcg/edit?gid=1285179831#gid=1285179831	"
+                        target="_blank">
                         <i class="fa-solid fa-file-pen"></i> 內容更新紀錄
                     </a>
                 </li>
-                
+
                 <li>
-                    <a href="https://www.canva.com/folder/FAF18ALaYg0" target="_blank">
-                        <i class="fa-solid fa-wand-magic-sparkles"></i> 圖像生成器<small>(12月見)</small>
+                    <a href="https://chatgpt.com/g/g-692e7b0bf7a481919746322a49d602cb-mi-luo-pin-pai-zong-jian-fen-shen-v3"
+                        target="_blank">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> 米洛品牌總監分身v3
                     </a>
                 </li>
             </ul>
-<br>
+            <br>
             <h3>各種範本</h3>
             <ul>
                 <li>
-                    <a href="https://docs.google.com/document/d/10x3I1euOeipP1L2VniqhNFGh4MJHXfj_hxJ7uzzSvns/edit?usp=sharing" target="_blank">
-                          <i class="fa-solid fa-wand-magic-sparkles"></i> 沃德設計觀點範本
+                    <a href="https://docs.google.com/document/d/10x3I1euOeipP1L2VniqhNFGh4MJHXfj_hxJ7uzzSvns/edit?usp=sharing"
+                        target="_blank">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> 沃德設計觀點範本
                     </a>
                 </li>
-                 <li>
-                    <a href="https://docs.google.com/document/d/1LJU-Tsa1Lelt4x4J8DKNAse3sk-C9F0I4mX6yLNNpmc/edit?usp=sharing" target="_blank">
-                 <i class="fa-solid fa-wand-magic-sparkles"></i> 米洛觀點範本
+                <li>
+                    <a href="https://docs.google.com/document/d/1LJU-Tsa1Lelt4x4J8DKNAse3sk-C9F0I4mX6yLNNpmc/edit?usp=sharing"
+                        target="_blank">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> 米洛觀點範本
                     </a>
                 </li>
                 <li>
@@ -361,7 +609,7 @@
     <!-- 右側內容區 -->
     <main>
         <div class="container">
-            
+
             <!-- STEP 1: Google Doc 設定 -->
             <div id="step1" class="step-content active">
                 <div class="step-header">
@@ -371,14 +619,16 @@
 
                 <div class="info-box">
                     <p style="margin:0; color:#1e40af; font-weight:bold;">這是「一次性」設定</p>
-                    <p style="margin:5px 0 0 0; font-size:16px; color:#1e3a8a;">如果你的 Google 文件已經開啟過 Markdown 功能，可以直接跳到下一步。</p>
+                    <p style="margin:5px 0 0 0; font-size:16px; color:#1e3a8a;">如果你的 Google 文件已經開啟過 Markdown
+                        功能，可以直接跳到下一步。</p>
                 </div>
 
                 <ol class="custom-list">
                     <li>打開你的 Google 文件草稿。</li>
                     <li>點選上方選單的 <strong>工具 (Tools)</strong>。</li>
                     <li>選擇 <strong>偏好設定 (Preferences)</strong>。</li>
-                    <li>勾選 <strong style="color:#ef4444;"><i class="fa-brands fa-markdown"></i> 啟用 Markdown</strong>。</li>
+                    <li>勾選 <strong style="color:#ef4444;"><i class="fa-brands fa-markdown"></i> 啟用 Markdown</strong>。
+                    </li>
                     <li>點擊確定。</li>
                 </ol>
 
@@ -390,7 +640,8 @@
                 </div>
 
                 <div class="btn-group" style="justify-content: flex-end;">
-                    <button onclick="nextStep()" class="btn btn-next">下一步：準備圖片 <i class="fa-solid fa-arrow-right"></i></button>
+                    <button onclick="nextStep()" class="btn btn-next">下一步：準備圖片 <i
+                            class="fa-solid fa-arrow-right"></i></button>
                 </div>
             </div>
 
@@ -400,16 +651,21 @@
                     <span class="step-label">Step 2</span>
                     <h2>準備文章圖片</h2>
                 </div>
-                
+
                 <div style="text-align:center; padding: 40px 0;">
                     <i class="fa-solid fa-image" style="font-size:60px; color:#a855f7; margin-bottom:20px;"></i>
                     <h3>你的圖片都準備好了嗎？</h3>
-                    <p style="font-size:18px; color:#6b21a8;">如果還沒，請先<strong>求救設計部</strong> 🆘</p>
+                    <p style="font-size:18px; ">如果還沒，請找
+                        <a href="https://chatgpt.com/g/g-692e7b0bf7a481919746322a49d602cb-mi-luo-pin-pai-zong-jian-fen-shen-v3"
+                            target="_blank">米洛品牌總監分身v3</a>
+                    </p>
                 </div>
 
                 <div class="btn-group">
-                    <button onclick="prevStep()" class="btn btn-prev"><i class="fa-solid fa-arrow-left"></i> 上一步</button>
-                    <button onclick="nextStep()" class="btn btn-next">圖片好了，下一步 <i class="fa-solid fa-arrow-right"></i></button>
+                    <button onclick="prevStep()" class="btn btn-prev"><i class="fa-solid fa-arrow-left"></i>
+                        上一步</button>
+                    <button onclick="nextStep()" class="btn btn-next">圖片好了，下一步 <i
+                            class="fa-solid fa-arrow-right"></i></button>
                 </div>
             </div>
 
@@ -421,8 +677,10 @@
                 </div>
 
                 <div class="warn-box">
-                    <p style="margin:0; color:#991b1b; font-weight:bold;"><i class="fa-solid fa-triangle-exclamation"></i> 注意！</p>
-                    <p style="margin:5px 0 0 0; font-size:16px; color:#7f1d1d;">這一步是為了取得「永久的圖片網址」，請務必到<strong>正式站後台</strong>操作，但文章狀態要設為<strong>下架</strong>。</p>
+                    <p style="margin:0; color:#991b1b; font-weight:bold;"><i
+                            class="fa-solid fa-triangle-exclamation"></i> 注意！</p>
+                    <p style="margin:5px 0 0 0; font-size:16px; color:#7f1d1d;">
+                        這一步是為了取得「永久的圖片網址」，請務必到<strong>正式站後台</strong>操作，但文章狀態要設為<strong>下架</strong>。</p>
                 </div>
 
                 <ol class="custom-list">
@@ -433,8 +691,10 @@
                 </ol>
 
                 <div class="btn-group">
-                    <button onclick="prevStep()" class="btn btn-prev"><i class="fa-solid fa-arrow-left"></i> 上一步</button>
-                    <button onclick="nextStep()" class="btn btn-next">圖片已上傳，下一步 <i class="fa-solid fa-arrow-right"></i></button>
+                    <button onclick="prevStep()" class="btn btn-prev"><i class="fa-solid fa-arrow-left"></i>
+                        上一步</button>
+                    <button onclick="nextStep()" class="btn btn-next">圖片已上傳，下一步 <i
+                            class="fa-solid fa-arrow-right"></i></button>
                 </div>
             </div>
 
@@ -467,13 +727,16 @@
                             <li>❌ 只是把字體 <strong>加粗</strong> 當標題</li>
                             <li>❌ 自己手打 1. 2. 3. 當列表</li>
                         </ul>
-                        <p style="margin-top:10px; font-size:15px; color:#ef4444; font-weight:bold;">* 這樣 MD 會偵測不到，轉出來會是普通文字！</p>
+                        <p style="margin-top:10px; font-size:15px; color:#ef4444; font-weight:bold;">* 這樣 MD
+                            會偵測不到，轉出來會是普通文字！</p>
                     </div>
                 </div>
 
                 <div class="btn-group">
-                    <button onclick="prevStep()" class="btn btn-prev"><i class="fa-solid fa-arrow-left"></i> 上一步</button>
-                    <button onclick="nextStep()" class="btn btn-next">格式檢查完畢 <i class="fa-solid fa-arrow-right"></i></button>
+                    <button onclick="prevStep()" class="btn btn-prev"><i class="fa-solid fa-arrow-left"></i>
+                        上一步</button>
+                    <button onclick="nextStep()" class="btn btn-next">格式檢查完畢 <i
+                            class="fa-solid fa-arrow-right"></i></button>
                 </div>
             </div>
 
@@ -500,8 +763,13 @@
                     <li style="background-color:#f0f9ff; padding:15px; border-radius:8px; border:1px dashed #bae6fd;">
                         <strong>可自行增加其他樣式：</strong><br>
                         如果自動解析出來的少了你想要的樣式<br>
-                        例如：<span style="background:#fff; padding:2px 6px; border-radius:4px; font-size:13px;">QA</span>、<span style="background:#fff; padding:2px 6px; border-radius:4px; font-size:13px;">延伸閱讀</span>、<span style="background:#fff; padding:2px 6px; border-radius:4px; font-size:13px;">備註</span>...等<br><br>
-                       <strong>可以滑到欄位按 <span style="background:var(--primary-color); color:white; width:20px; height:20px; display:inline-flex; justify-content:center; align-items:center; border-radius:50%;">+</span> 新增</strong>
+                        例如：<span
+                            style="background:#fff; padding:2px 6px; border-radius:4px; font-size:13px;">QA</span>、<span
+                            style="background:#fff; padding:2px 6px; border-radius:4px; font-size:13px;">延伸閱讀</span>、<span
+                            style="background:#fff; padding:2px 6px; border-radius:4px; font-size:13px;">備註</span>...等<br><br>
+                        <strong>可以滑到欄位按 <span
+                                style="background:var(--primary-color); color:white; width:20px; height:20px; display:inline-flex; justify-content:center; align-items:center; border-radius:50%;">+</span>
+                            新增</strong>
                     </li>
                 </ol>
 
@@ -510,8 +778,10 @@
                 </div>
 
                 <div class="btn-group">
-                    <button onclick="prevStep()" class="btn btn-prev"><i class="fa-solid fa-arrow-left"></i> 上一步</button>
-                    <button onclick="nextStep()" class="btn btn-next">下一步 <i class="fa-solid fa-arrow-right"></i></button>
+                    <button onclick="prevStep()" class="btn btn-prev"><i class="fa-solid fa-arrow-left"></i>
+                        上一步</button>
+                    <button onclick="nextStep()" class="btn btn-next">下一步 <i
+                            class="fa-solid fa-arrow-right"></i></button>
                 </div>
             </div>
 
@@ -523,24 +793,35 @@
                 </div>
 
                 <p>現在我們要把 <span class="badge cms">正式站</span> 的圖片連結，貼回 <span class="badge tool">翻譯蒟蒻</span>。</p>
-                
-                <div style="background:white; border:1px solid #e2e8f0; border-radius:8px; overflow:hidden; margin-top:20px;">
-                    <div style="background:#f8fafc; padding:10px 15px; border-bottom:1px solid #e2e8f0; font-weight:bold; font-size:16px; color:#64748b;">操作流程</div>
+
+                <div
+                    style="background:white; border:1px solid #e2e8f0; border-radius:8px; overflow:hidden; margin-top:20px;">
+                    <div
+                        style="background:#f8fafc; padding:10px 15px; border-bottom:1px solid #e2e8f0; font-weight:bold; font-size:16px; color:#64748b;">
+                        操作流程</div>
                     <div style="padding:20px;">
                         <ul style="list-style:none; padding:0; margin:0;">
                             <li style="display:flex; gap:15px; margin-bottom:20px; align-items:start;">
-                                <div style="width:24px; height:24px; background:#e2e8f0; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:bold;">1</div>
+                                <div
+                                    style="width:24px; height:24px; background:#e2e8f0; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:bold;">
+                                    1</div>
                                 <div>回到米洛後台，打開剛剛存檔的文章編輯器，點擊圖片選取它。</div>
                             </li>
                             <li style="display:flex; gap:15px; margin-bottom:20px; align-items:start;">
-                                <div style="width:24px; height:24px; background:#e2e8f0; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:bold;">2</div>
+                                <div
+                                    style="width:24px; height:24px; background:#e2e8f0; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:bold;">
+                                    2</div>
                                 <div>
-                                    <strong>滑鼠右鍵</strong> > 選擇 <strong style="color:var(--primary-color);">複製圖片網址</strong>。
-                                    <div style="font-size:15px; color:#94a3b8; margin-top:4px;">*注意不是複製圖片本身，是複製位址(網址)</div>
+                                    <strong>滑鼠右鍵</strong> > 選擇 <strong
+                                        style="color:var(--primary-color);">複製圖片網址</strong>。
+                                    <div style="font-size:15px; color:#94a3b8; margin-top:4px;">*注意不是複製圖片本身，是複製位址(網址)
+                                    </div>
                                 </div>
                             </li>
                             <li style="display:flex; gap:15px; align-items:start;">
-                                <div style="width:24px; height:24px; background:#e2e8f0; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:bold;">3</div>
+                                <div
+                                    style="width:24px; height:24px; background:#e2e8f0; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:bold;">
+                                    3</div>
                                 <div>回到翻譯蒟蒻，找到對應的圖片欄位，貼上網址。</div>
                             </li>
                         </ul>
@@ -548,8 +829,10 @@
                 </div>
 
                 <div class="btn-group">
-                    <button onclick="prevStep()" class="btn btn-prev"><i class="fa-solid fa-arrow-left"></i> 上一步</button>
-                    <button onclick="nextStep()" class="btn btn-next">下一步 <i class="fa-solid fa-arrow-right"></i></button>
+                    <button onclick="prevStep()" class="btn btn-prev"><i class="fa-solid fa-arrow-left"></i>
+                        上一步</button>
+                    <button onclick="nextStep()" class="btn btn-next">下一步 <i
+                            class="fa-solid fa-arrow-right"></i></button>
                 </div>
             </div>
 
@@ -574,15 +857,21 @@
                         <h3><i class="fa-solid fa-code" style="color:#10b981;"></i> 產生代碼</h3>
                         <p>確認無誤後：</p>
                         <ol style="padding-left:20px; color:#475569;">
-                            <li>點擊左下角的 <span style="background:#f1f5f9; padding:2px 6px; border-radius:4px; font-family:monospace; font-size:13px;">👌🏻 給我html</span> 按鈕。</li>
-                            <li>點擊 <span style="background:#f1f5f9; padding:2px 6px; border-radius:4px; font-family:monospace; font-size:13px;">複製</span> 按鈕。</li>
+                            <li>點擊左下角的 <span
+                                    style="background:#f1f5f9; padding:2px 6px; border-radius:4px; font-family:monospace; font-size:13px;">👌🏻
+                                    給我html</span> 按鈕。</li>
+                            <li>點擊 <span
+                                    style="background:#f1f5f9; padding:2px 6px; border-radius:4px; font-family:monospace; font-size:13px;">複製</span>
+                                按鈕。</li>
                         </ol>
                     </div>
                 </div>
 
                 <div class="btn-group">
-                    <button onclick="prevStep()" class="btn btn-prev"><i class="fa-solid fa-arrow-left"></i> 上一步</button>
-                    <button onclick="nextStep()" class="btn btn-next">拿到 HTML 了！ <i class="fa-solid fa-arrow-right"></i></button>
+                    <button onclick="prevStep()" class="btn btn-prev"><i class="fa-solid fa-arrow-left"></i>
+                        上一步</button>
+                    <button onclick="nextStep()" class="btn btn-next">拿到 HTML 了！ <i
+                            class="fa-solid fa-arrow-right"></i></button>
                 </div>
             </div>
 
@@ -608,7 +897,9 @@
                 <div style="background:white; border:1px solid #e2e8f0; border-radius:8px; padding:30px;">
                     <ol class="custom-list">
                         <li>前往 <strong>測試站後台</strong> 新增文章。</li>
-                        <li>切換編輯器至 <strong style="background:#f1f5f9; padding:2px 8px; border-radius:4px; color:var(--primary-color); font-size:16px;"><i class="fa-solid fa-code"></i> 原始碼模式</strong>。</li>
+                        <li>切換編輯器至 <strong
+                                style="background:#f1f5f9; padding:2px 8px; border-radius:4px; color:var(--primary-color); font-size:16px;"><i
+                                    class="fa-solid fa-code"></i> 原始碼模式</strong>。</li>
                         <li>將剛剛複製的 HTML 全部貼上。</li>
                         <li>存檔，並前往 <strong>測試站前台</strong> 預覽。</li>
                         <li>米洛、沃德 都是一樣的方法唷～</li>
@@ -675,7 +966,7 @@
                     btn.classList.remove('active');
                 }
             });
-            
+
             // 3. 滾動到頂部
             document.querySelector('main').scrollTop = 0;
         }
@@ -706,4 +997,5 @@
         renderNav();
     </script>
 </body>
+
 </html>

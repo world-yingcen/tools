@@ -117,8 +117,6 @@ export const LayoutManager = {
                     const isDescriptionRemoved = mainTextBlock.removedFields?.P;
                     const isSubTitleRemoved = mainTextBlock.removedFields?.H3;
 
-
-
                     if (!isMainTitleRemoved || !isSubTitleRemoved) {
                         textBlockHTMLParts.push(`        <div class="section-title section-title-bottom ">`);
                         if (!isMainTitleRemoved) {

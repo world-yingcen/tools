@@ -255,6 +255,7 @@ const App = {
         });
 
         this.handleContentChange();
+        UIManager.scrollTo('generateButton');
     },
 
     _parseMarkdown(markdown) {
@@ -295,7 +296,7 @@ const App = {
                 blocks.push({ type: 'OL', content: { LIST_ITEMS: listItems.join('\n') } });
             } else if (line.match(/^!\\?\[(.*)\\?\]\((.*)\)/)) {
                 const match = line.match(/^!\\?\[(.*)\\?\]\((.*)\)/);
-                let url = match[2];
+                let url = match[2].trim();
                 // 只要不是 .jpg, .png, .webp 結尾，就替換為假圖
                 if (!url.match(/\.(jpg|jpeg|png|webp)$/i)) {
                     url = 'https://system16.webtech.com.tw/web/202500107/archive/image/article1/images/about-pic-1.jpg';
@@ -305,7 +306,7 @@ const App = {
             } else if (line.match(/^\\?\[(.*)\\?\]\((.*)\)/)) {
                 const match = line.match(/^\\?\[(.*)\\?\]\((.*)\)/);
                 const text = match[1].replace(/\*\*/g, '').replace(/\\/g, '');
-                let href = match[2];
+                let href = match[2].trim();
 
                 // 判斷是否為圖片連結 (副檔名 或 Google Drive 連結)
                 const isImage = href.match(/\.(webp|jpg|jpeg|png|gif)$/i) ||
@@ -313,10 +314,10 @@ const App = {
                     href.includes('drive.google.com');
 
                 if (isImage) {
-                    // 只要不是 .jpg, .png, .webp 結尾，就替換為假圖 -> 移除此限制
-                    // if (!href.match(/\.(jpg|jpeg|png|webp)$/i)) {
-                    //     href = 'https://system16.webtech.com.tw/web/202500107/archive/image/article1/images/about-pic-1.jpg';
-                    // }
+                    // 只要不是 .jpg, .png, .webp, .gif 結尾，就替換為假圖
+                    if (!href.match(/\.(jpg|jpeg|png|webp|gif)$/i)) {
+                        href = 'https://system16.webtech.com.tw/web/202500107/archive/image/article1/images/about-pic-1.jpg';
+                    }
                     blocks.push({ type: 'IMAGE', content: { ALT: text, URL: href } });
                 } else {
                     blocks.push({ type: 'A', content: { TEXT: text, HREF: href } });
@@ -403,12 +404,45 @@ const App = {
             return;
         }
 
-        navigator.clipboard.writeText(code).then(() => {
-            UIManager.showCopyMessage("👍🏻 成功複製到剪貼簿！", true);
-        }).catch(err => {
-            console.error("Copy failed:", err);
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(code).then(() => {
+                UIManager.showCopyMessage("👍🏻 成功複製到剪貼簿！", true);
+            }).catch(err => {
+                console.error("Copy failed:", err);
+                this._fallbackCopyTextToClipboard(code);
+            });
+        } else {
+            this._fallbackCopyTextToClipboard(code);
+        }
+    },
+
+    _fallbackCopyTextToClipboard(text) {
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+
+        // Ensure the textarea is not visible but part of the DOM
+        textArea.style.position = "fixed";
+        textArea.style.left = "-9999px";
+        textArea.style.top = "0";
+        document.body.appendChild(textArea);
+
+        textArea.focus();
+        textArea.select();
+        textArea.setSelectionRange(0, 99999); // For mobile devices
+
+        try {
+            const successful = document.execCommand('copy');
+            if (successful) {
+                UIManager.showCopyMessage("👍🏻 成功複製到剪貼簿！", true);
+            } else {
+                UIManager.showCopyMessage("複製失敗，請手動選取。", false);
+            }
+        } catch (err) {
+            console.error('Fallback copy failed', err);
             UIManager.showCopyMessage("複製失敗，請手動選取。", false);
-        });
+        }
+
+        document.body.removeChild(textArea);
     },
 
     handleToggleAllSections() {
