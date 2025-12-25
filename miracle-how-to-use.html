@@ -554,13 +554,26 @@
             <h3>快速連結</h3>
             <ul>
                 <li>
+                    <a href="http://192.168.168.137/miracle-website/articles/all" target="_blank">
+                        <i class="fa-solid fa-earth-americas"></i> 米洛測試站_前台
+                    </a>
+                </li>
+
+                <li>
                     <a href="http://192.168.168.137/php81/miracle2023/public/admin" target="_blank">
-                        <i class="fa-solid fa-earth-americas"></i> 米洛測試站
+                        <i class="fa-solid fa-earth-americas"></i> 米洛測試站_後台
+                    </a>
+                </li>
+
+
+                <li>
+                    <a href="http://192.168.168.137/world-website/articles/" target="_blank">
+                        <i class="fa-solid fa-globe"></i> 沃德測試站_前台
                     </a>
                 </li>
                 <li>
                     <a href="http://192.168.168.137/php81/world-website-admin/public/admin/" target="_blank">
-                        <i class="fa-solid fa-globe"></i> 沃德測試站
+                        <i class="fa-solid fa-globe"></i> 沃德測試站_後台
                     </a>
                 </li>
                 <li>
@@ -669,39 +682,10 @@
                 </div>
             </div>
 
-            <!-- STEP 3: 正式站上傳 -->
+            <!-- STEP 3: 檢查格式 (Moved from Old Step 4) -->
             <div id="step3" class="step-content">
                 <div class="step-header">
                     <span class="step-label">Step 3</span>
-                    <h2>上傳圖片 (正式站)</h2>
-                </div>
-
-                <div class="warn-box">
-                    <p style="margin:0; color:#991b1b; font-weight:bold;"><i
-                            class="fa-solid fa-triangle-exclamation"></i> 注意！</p>
-                    <p style="margin:5px 0 0 0; font-size:16px; color:#7f1d1d;">
-                        這一步是為了取得「永久的圖片網址」，請務必到<strong>正式站後台</strong>操作，但文章狀態要設為<strong>下架</strong>。</p>
-                </div>
-
-                <ol class="custom-list">
-                    <li>登入<span style="color:#ef4444; font-weight:bold;">正式站</span> 後台，前往文章管理區塊。</li>
-                    <li>新增文章並設定狀態為「<strong>下架</strong>」(隱藏)。</li>
-                    <li>將剛剛準備好的所有圖片，上傳到編輯器中。</li>
-                    <li>按下<strong>存檔</strong>。</li>
-                </ol>
-
-                <div class="btn-group">
-                    <button onclick="prevStep()" class="btn btn-prev"><i class="fa-solid fa-arrow-left"></i>
-                        上一步</button>
-                    <button onclick="nextStep()" class="btn btn-next">圖片已上傳，下一步 <i
-                            class="fa-solid fa-arrow-right"></i></button>
-                </div>
-            </div>
-
-            <!-- STEP 4: 檢查格式 -->
-            <div id="step4" class="step-content">
-                <div class="step-header">
-                    <span class="step-label">Step 4</span>
                     <h2>檢查 Google 文件格式</h2>
                 </div>
 
@@ -740,10 +724,10 @@
                 </div>
             </div>
 
-            <!-- STEP 5: 貼上文字 -->
-            <div id="step5" class="step-content">
+            <!-- STEP 4: 貼上文字 (Moved from Old Step 5) -->
+            <div id="step4" class="step-content">
                 <div class="step-header">
-                    <span class="step-label">Step 5</span>
+                    <span class="step-label">Step 4</span>
                     <h2>文字搬家 (貼上 MD)</h2>
                 </div>
 
@@ -774,7 +758,8 @@
                 </ol>
 
                 <div class="tip-box" style="margin-top:20px;">
-                    <i class="fa-solid fa-lightbulb"></i> <strong>提示：</strong> 此時圖片區塊還會是空的，不用擔心，我們下一步處理圖片。
+                    <i class="fa-solid fa-lightbulb"></i> <strong>提示：</strong> 此時圖片區塊會用「假圖」代替，不用擔心，我們先轉出
+                    HTML，等等到後台再一次換掉。
                 </div>
 
                 <div class="btn-group">
@@ -785,61 +770,10 @@
                 </div>
             </div>
 
-            <!-- STEP 6: 置入圖片 -->
-            <div id="step6" class="step-content">
+            <!-- STEP 5: 預覽與轉出 (Moved from Old Step 7) -->
+            <div id="step5" class="step-content">
                 <div class="step-header">
-                    <span class="step-label">Step 6</span>
-                    <h2>取得圖片網址</h2>
-                </div>
-
-                <p>現在我們要把 <span class="badge cms">正式站</span> 的圖片連結，貼回 <span class="badge tool">翻譯蒟蒻</span>。</p>
-
-                <div
-                    style="background:white; border:1px solid #e2e8f0; border-radius:8px; overflow:hidden; margin-top:20px;">
-                    <div
-                        style="background:#f8fafc; padding:10px 15px; border-bottom:1px solid #e2e8f0; font-weight:bold; font-size:16px; color:#64748b;">
-                        操作流程</div>
-                    <div style="padding:20px;">
-                        <ul style="list-style:none; padding:0; margin:0;">
-                            <li style="display:flex; gap:15px; margin-bottom:20px; align-items:start;">
-                                <div
-                                    style="width:24px; height:24px; background:#e2e8f0; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:bold;">
-                                    1</div>
-                                <div>回到米洛後台，打開剛剛存檔的文章編輯器，點擊圖片選取它。</div>
-                            </li>
-                            <li style="display:flex; gap:15px; margin-bottom:20px; align-items:start;">
-                                <div
-                                    style="width:24px; height:24px; background:#e2e8f0; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:bold;">
-                                    2</div>
-                                <div>
-                                    <strong>滑鼠右鍵</strong> > 選擇 <strong
-                                        style="color:var(--primary-color);">複製圖片網址</strong>。
-                                    <div style="font-size:15px; color:#94a3b8; margin-top:4px;">*注意不是複製圖片本身，是複製位址(網址)
-                                    </div>
-                                </div>
-                            </li>
-                            <li style="display:flex; gap:15px; align-items:start;">
-                                <div
-                                    style="width:24px; height:24px; background:#e2e8f0; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:bold;">
-                                    3</div>
-                                <div>回到翻譯蒟蒻，找到對應的圖片欄位，貼上網址。</div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="btn-group">
-                    <button onclick="prevStep()" class="btn btn-prev"><i class="fa-solid fa-arrow-left"></i>
-                        上一步</button>
-                    <button onclick="nextStep()" class="btn btn-next">下一步 <i
-                            class="fa-solid fa-arrow-right"></i></button>
-                </div>
-            </div>
-
-            <!-- STEP 7: 預覽與轉出 -->
-            <div id="step7" class="step-content">
-                <div class="step-header">
-                    <span class="step-label">Step 7</span>
+                    <span class="step-label">Step 5</span>
                     <h2>預覽與轉出 HTML</h2>
                 </div>
 
@@ -849,8 +783,8 @@
                         <p>看向工具右側的即時預覽區：</p>
                         <ul class="check-list">
                             <li>文字是否有錯字？</li>
-                            <li>圖片是否都有顯示出來？</li>
                             <li>段落順序是否正確？</li>
+                            <li>(圖片暫時是假圖是正常的)</li>
                         </ul>
                     </div>
                     <div>
@@ -875,11 +809,51 @@
                 </div>
             </div>
 
-            <!-- STEP 8: 測試站上架 -->
-            <div id="step8" class="step-content">
+            <!-- STEP 6: 後台換圖 (NEW) -->
+            <div id="step6" class="step-content">
                 <div class="step-header">
-                    <span class="step-label">Step 8</span>
-                    <h2>測試站上架與完稿</h2>
+                    <span class="step-label">Step 6</span>
+                    <h2>後台貼上與換圖</h2>
+                </div>
+                <!-- 醒目提醒區塊 -->
+                <div class="alert-box">
+                    <h3>
+                        <i class="fa-solid fa-circle-exclamation" style="font-size:24px; color:#fef08a;"></i>
+                        重要提醒：這是「測試站」！
+                    </h3>
+                    <p>
+                        請確認你目前開啟的網址是 <strong>測試站 (開頭http://192.168.168.137/)</strong><br><br>
+                        ⚠️ 千萬不要將 HTML 直接發佈到正式站前台！
+                    </p>
+                </div>
+                <div class="info-box">
+                    <p style="margin:0; font-size:16px;">這一步我們要把 HTML 貼到網站後台，並且把「假圖」換成「真圖」。</p>
+                </div>
+
+                <ol class="custom-list">
+                    <li>前往 <strong style="color: red;">測試站後台</strong> 新增文章。</li>
+                    <li>切換編輯器至 <strong
+                            style="background:#f1f5f9; padding:2px 8px; border-radius:4px; color:var(--primary-color); font-size:16px;"><i
+                                class="fa-solid fa-code"></i> 原始碼模式</strong>。</li>
+                    <li>將剛剛複製的 HTML 全部貼上。</li>
+                    <li><strong>切換回一般模式 (可視化模式)。</strong></li>
+                    <li><strong>點選剛剛的假圖圖片 > 按下「重新上傳」按鈕 > 上傳你正確的圖片</strong>。</li>
+                    <li>對每一張圖片重複此動作，直到全部換完。</li>
+                </ol>
+
+                <div class="btn-group">
+                    <button onclick="prevStep()" class="btn btn-prev"><i class="fa-solid fa-arrow-left"></i>
+                        上一步</button>
+                    <button onclick="nextStep()" class="btn btn-next">圖片都換好了 <i
+                            class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- STEP 7: 測試站上架與看稿 (Modified) -->
+            <div id="step7" class="step-content">
+                <div class="step-header">
+                    <span class="step-label">Step 7</span>
+                    <h2>測試站上架與看稿</h2>
                 </div>
 
                 <!-- 醒目提醒區塊 -->
@@ -895,22 +869,57 @@
                 </div>
 
                 <div style="background:white; border:1px solid #e2e8f0; border-radius:8px; padding:30px;">
-                    <ol class="custom-list">
-                        <li>前往 <strong>測試站後台</strong> 新增文章。</li>
-                        <li>切換編輯器至 <strong
-                                style="background:#f1f5f9; padding:2px 8px; border-radius:4px; color:var(--primary-color); font-size:16px;"><i
-                                    class="fa-solid fa-code"></i> 原始碼模式</strong>。</li>
-                        <li>將剛剛複製的 HTML 全部貼上。</li>
-                        <li>存檔，並前往 <strong>測試站前台</strong> 預覽。</li>
-                        <li>米洛、沃德 都是一樣的方法唷～</li>
-                        <li><strong>確認版面與內容完美無缺，可以去完成看稿流程囉！ 🎉</strong></li>
+                    <h3 style="margin-top:0;">最後確認：</h3>
+                    <ul class="check-list">
+                        <li>文章、圖片內容正確</li>
+                        <li>各裝置都沒有跑掉 (手機、平板都要看)</li>
+                    </ul>
+                    <p
+                        style="margin-top:20px; font-size:18px; font-weight:bold; color:#1e40af; background:#eff6ff; padding:15px; border-radius:8px; text-align:center;">
+                        <i class="fa-solid fa-check-circle"></i> 確認沒問題後，就可以去阿翔那邊看稿囉！
+                    </p>
+                </div>
+
+                <div class="btn-group">
+                    <button onclick="prevStep()" class="btn btn-prev"><i class="fa-solid fa-arrow-left"></i>
+                        上一步</button>
+                    <button onclick="nextStep()" class="btn btn-next">看稿 OK，下一步 <i
+                            class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- STEP 8: 看稿完成後 (New) -->
+            <div id="step8" class="step-content">
+                <div class="step-header">
+                    <span class="step-label">Step 8</span>
+                    <h2>看稿完成後 (正式站上架)</h2>
+                </div>
+
+                <div class="warn-box">
+                    <h3 style="margin:0 0 10px 0; color:#991b1b;"><i class="fa-solid fa-triangle-exclamation"></i>
+                        正式站上架注意</h3>
+                    <ol style="margin:0; padding-left:20px; color:#7f1d1d;">
+                        <li>將 HTML 搬到 <strong>正式站</strong>。</li>
+                        <li><strong>將所有圖片重新上傳一次！</strong> (非常重要，不然正式站會讀不到測試站圖片)</li>
+                        <li>先將文章設定成 <strong>下架</strong>。</li>
                     </ol>
                 </div>
 
-                <!-- 週五提醒區塊 -->
                 <div class="reminder-box">
-                    <h4><i class="fa-solid fa-calendar-check"></i> 完稿提醒</h4>
-                    <p>看完稿記得將文章搬到，之前正式站暫存圖片的文章編輯器 <br><strong>每週五下午 16:00-18:00</strong> 切換成顯示文章，並且到 Excel 紀錄唷！</p>
+                    <h4><i class="fa-solid fa-calendar-check"></i> 上架時程</h4>
+                    <p>等待 <strong>每週五下午 16:00-18:00</strong> 切換成 <strong>啟用</strong> 文章，並且到 Excel 紀錄唷！</p>
+                </div>
+
+                <div
+                    style="margin-top:20px; border:2px dashed #f59e0b; padding:20px; border-radius:12px; background:#fffbeb;">
+                    <h4 style="margin:0 0 10px 0; color:#b45309;"><i class="fa-solid fa-mobile-screen-button"></i>
+                        最後檢查</h4>
+                    <p style="color:#d97706; margin-bottom:15px;">啟用後務必用<strong>自己手機 (不接 WiFi，用 4G/5G)</strong>
+                        確認圖片都沒有問題！</p>
+                    <p style="font-size:14px; color:#92400e; background:#fef3c7; padding:10px; border-radius:6px;">
+                        <i class="fa-solid fa-circle-info"></i>
+                        如果有圖片沒有正常顯示，代表圖片沒有在正式站重新上傳過，<br>趕緊手刀進後台重新上傳就可以囉！
+                    </p>
                 </div>
 
                 <div class="btn-group" style="justify-content: center;">
@@ -927,12 +936,12 @@
         const steps = [
             { id: 'step1', title: 'Google 文件設定', icon: 'fa-file-word' },
             { id: 'step2', title: 'AI 產圖準備', icon: 'fa-image' },
-            { id: 'step3', title: '正式站上傳圖片', icon: 'fa-cloud-upload-alt' },
-            { id: 'step4', title: '檢查文件格式', icon: 'fa-check-double' },
-            { id: 'step5', title: '貼上 MD 內容', icon: 'fa-paste' },
-            { id: 'step6', title: '置入圖片網址', icon: 'fa-link' },
-            { id: 'step7', title: '預覽與輸出 HTML', icon: 'fa-code' },
-            { id: 'step8', title: '測試站完稿', icon: 'fa-flag-checkered' }
+            { id: 'step3', title: '檢查文件格式', icon: 'fa-check-double' },
+            { id: 'step4', title: '貼上 MD & 假圖', icon: 'fa-paste' },
+            { id: 'step5', title: '預覽與輸出 HTML', icon: 'fa-code' },
+            { id: 'step6', title: '測試站後台換圖', icon: 'fa-images' },
+            { id: 'step7', title: '測試站看稿', icon: 'fa-eye' },
+            { id: 'step8', title: '正式站完稿上架', icon: 'fa-flag-checkered' }
         ];
 
         let currentStepIndex = 0;
@@ -955,7 +964,9 @@
         function updateActiveState() {
             // 1. 切換右側內容
             document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
-            document.getElementById(steps[currentStepIndex].id).classList.add('active');
+            // Remove check to prevent error if ID doesn't exist, but we ensure they do.
+            const target = document.getElementById(steps[currentStepIndex].id);
+            if (target) target.classList.add('active');
 
             // 2. 切換左側按鈕樣式
             steps.forEach((step, index) => {
