@@ -78,7 +78,7 @@
             text-align: left;
             background: transparent;
             border: none;
-            padding: 15px 15px;
+            padding: 12px 15px;
             margin-bottom: 5px;
             border-radius: 8px;
             cursor: pointer;
@@ -127,9 +127,8 @@
 
         .sidebar-links h3 {
             font-size: 20px;
-            ;
             color: #000000e0;
-            margin: 0 0 10px 0;
+            margin: 0 0 20px 0;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
@@ -175,6 +174,21 @@
             color: #b5bac1;
             border-top: 1px solid var(--border-color);
             background: #fff;
+        }
+
+        .link-item {
+            margin-block: 20px;
+        }
+
+        .link-item h4 {
+            margin-block: 10px;
+            display: block;
+        }
+
+        .link-item-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         /* --- 3. 主內容區 (Main) --- */
@@ -552,30 +566,64 @@
         <!-- 新增：快速連結區塊 -->
         <div class="sidebar-links">
             <h3>快速連結</h3>
-            <ul>
-                <li>
+            <div class="link-item">
+                <h4 style="color:#e63b82">米洛測試站</h4>
+                <div class="link-item-box">
+                    <i class="fa-solid fa-earth-americas"></i>
                     <a href="http://192.168.168.137/miracle-website/articles/all" target="_blank">
-                        <i class="fa-solid fa-earth-americas"></i> 米洛測試站_前台
-                    </a>
-                </li>
-
-                <li>
+                        前台
+                    </a>/
                     <a href="http://192.168.168.137/php81/miracle2023/public/admin" target="_blank">
-                        <i class="fa-solid fa-earth-americas"></i> 米洛測試站_後台
+                        後台
                     </a>
-                </li>
+                </div>
+            </div>
 
+            <div class="link-item">
+                <h4 style="color:#e63b82">米洛<span style="    background: #e63b82;color: white;padding: 5px 10px;margin-inline: 5px;">正式站</span></h4>
+                <div class="link-item-box">
+                    <i class="fa-solid fa-earth-americas"></i>
+                    <a href="https://www.webtech.com.tw/articles/" target="_blank">
+                        前台
+                    </a>/
 
-                <li>
+                    <a href="http://miracle2023.miracle-single.tw/admin" target="_blank">
+                        後台
+                    </a>
+                </div>
+            </div>
+            <hr>
+            <div class="link-item">
+                <h4 style="color:#212121">沃德測試站</h4>
+
+                <div class="link-item-box">
+                    <i class="fa-solid fa-earth-americas"></i>
                     <a href="http://192.168.168.137/world-website/articles/" target="_blank">
-                        <i class="fa-solid fa-globe"></i> 沃德測試站_前台
-                    </a>
-                </li>
-                <li>
+                        前台
+                    </a> /
+
                     <a href="http://192.168.168.137/php81/world-website-admin/public/admin/" target="_blank">
-                        <i class="fa-solid fa-globe"></i> 沃德測試站_後台
+                        後台
                     </a>
-                </li>
+                </div>
+            </div>
+            <div class="link-item">
+                <h4 style="color:#212121">沃德<span style="    background: #000;color: white;padding: 5px 10px;margin-inline: 5px;">正式站</span></h4>
+
+                <div class="link-item-box">
+                    <i class="fa-solid fa-earth-americas"></i>
+                    <a href="https://www.world-group.com.tw/" target="_blank">
+                        前台
+                    </a> /
+
+                    <a href="http://admin.world-group.com.tw/admin/#/" target="_blank">
+                        後台
+                    </a>
+                </div>
+            </div>
+            <hr>
+            <ul style="margin-top: 20px;">
+
                 <li>
                     <a href="https://docs.google.com/spreadsheets/d/14GOSxk0KgBzXGTiE9Km4j5Ocn9Zc6EuEgHcqiFRikcg/edit?gid=1285179831#gid=1285179831	"
                         target="_blank">
