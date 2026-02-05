@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生存指南 - 策略中心</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/3/turn.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,700;1,400&family=Noto+Sans+TC:wght@400;500;700;900&family=Klee+One:wght@400;600&family=Caveat:wght@400..700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #2C4073;
+            --accent-red: #C04848;
+            --paper-white: #FDFDFD;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #121212;
+            overflow: hidden;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .technical-font { font-family: 'JetBrains Mono', monospace; }
+        .handwriting-font { font-family: 'Klee One', 'Caveat', cursive; }
+
+        #flipbook {
+            width: 80vw;
+            height: calc(80vw * 0.707); 
+            max-height: 90vh;
+            margin: auto;
+        }
+
+        .page {
+            background-color: white;
+            box-shadow: inset -1px 0 5px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        /* --- 跨頁核心修正 (Spread Fix) --- */
+        /* 強制 turn.js 的所有層級不裁剪內容 */
+        .spread-active .turn-page-wrapper,
+        .spread-active .turn-page,
+        .spread-active .turn-page-content {
+            overflow: visible !important;
+        }
+
+        /* 跨頁內容容器 */
+        .spread-content-container {
+            z-index: 100 !important;
+            position: relative;
+        }
+
+        /* 跨頁時隱藏右頁所有干擾 */
+        .right-page-hidden {
+            visibility: hidden !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
+
+        /* 呼吸動畫 */
+        @keyframes breathing {
+            0%, 100% { transform: scale(1.0); }
+            50% { transform: scale(1.025); }
+        }
+
+        .animate-breathing {
+            animation: breathing 3s ease-in-out infinite;
+        }
+
+        /* 內容淡入動畫 */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-in-up {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .delay-500 { animation-delay: 0.5s; }
+        .delay-1000 { animation-delay: 1s; }
+
+        /* 打字機效果 */
+        .typewriter {
+            display: inline-block;
+            overflow: hidden;
+            border-right: .15em solid #2C4073;
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: .05em;
+            animation: typing 2s steps(20, end), blink-caret .75s step-end infinite;
+            max-width: fit-content;
+        }
+
+        @keyframes typing { from { width: 0 } to { width: 100% } }
+        @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: #2C4073; } }
+
+        /* 拍立得風格照片 */
+        .polaroid-frame {
+            background: white;
+            padding: 12px 12px 45px 12px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            border: 1px solid #eee;
+            transform: rotate(-1.5deg);
+        }
+
+        .paper-texture {
+            background-color: var(--paper-white);
+            background-image: radial-gradient(#d1d1d1 0.5px, transparent 0.5px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="flipbook">
+        <!-- 封面 (Page 1) -->
+        <div class="page hard" onclick="actions.handleStart()">
+            <div class="relative w-full h-full flex flex-col items-center justify-center bg-[#FF7F32] cursor-pointer shadow-2xl">
+                <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://system16.webtech.com.tw/web/202500167/archive/image/customization/cover.webp')"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none"></div>
+                <div class="absolute left-0 top-0 bottom-0 w-1 bg-black/20"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const CHAPTERS = [
+            { id: 'ch1', category: '初始念頭', title: '步驟 1 ｜ 一開始我在想什麼', visualType: 'BOOT', special: true },
+            { id: 'ch2', category: 'DATA_ACQUISITION', title: '步驟 2 ｜ 我的優勢有哪些？', description: '此步驟用來盤點所有可用事實與依據，不依賴靈感。', bulletPoints: ['2024 年升遷簡報與承諾', '2025 年考核實際成果', '公司 AI 導入重點方向', '自我核心價值檢核'], visualType: 'SCAN' },
+            { id: 'ch3', category: 'TARGET_ANALYSIS', title: '步驟 3 ｜ 搞懂阿偉在在意什麼', subtitle: '理解對象後，關鍵變數即將出現', bulletPoints: ['阿偉在意數據，而非敘述。', '傳統簡報容易讓人分心。', '公司對 AI 轉型的急迫性。', '避免過於艱澀的技術術語。'], visualType: 'TARGET_SCAN_SPLIT' },
+            { id: 'ch4', category: 'CORE_VARIABLE', title: '步驟 4 ｜ 考核 121 分的秘密', subtitle: '建立一個讓對手無法忽視的對話前提。', bulletPoints: ['滿分 100，考核 121 分', '這不是炫耀，這是敲門磚', '換取老闆專注聆聽的時間'], visualType: 'ALERT_121' },
+            { id: 'ch5', category: 'ERROR_DETECTION', title: '步驟 5 ｜ 為什麼傳統做法會失敗？', subtitle: '辨識錯誤的溝通路徑，避免成為背景雜訊。', visualType: 'FAULTY_PATHS', special: true },
+            { id: 'ch6', category: 'FORMAT_UPGRADE', title: '步驟 6 ｜ 格式升級：為什麼是影片？', subtitle: '透過動態敘事，讓數據與成果產生情感共鳴。', bulletPoints: ['緩解提報緊張', '視覺吸引', '專注力同步', '白話轉譯', 'AI 工具鏈實戰'], visualType: 'UPGRADE_VIDEO' },
+            { id: 'ch7', category: 'SOLUTION_ITERATION', title: '步驟 7 ｜ 解決方案搜尋：靈感與迭代', subtitle: '解決方案搜尋', visualType: 'EUREKA_ITERATION', special: true },
+            { id: 'ch8', category: 'ROLES_ALLOCATION', title: '步驟 8 ｜ 權限與職責分配：誰才是老大', subtitle: 'AI 是我的加速器，而我是這場提報的靈魂。', bulletPoints: ['AI: 苦力', '人類: 靈魂'], visualType: 'ROLES_CHART', special: true },
+            { id: 'ch9', category: 'FACTORY_BLUEPRINT', title: '步驟 9 ｜ 自動化生產線：高效製作流程', subtitle: '數位工廠', visualType: 'BLUEPRINT_FACTORY', special: true },
+            { id: 'ch10', category: 'FINAL_OUTPUT', title: '第十章 ｜ 主程式執行：最終成果放映', subtitle: '最終輸出', visualType: 'CRT_FINAL', special: true },
+            { id: 'ch11', category: 'WARRANTY', title: '第 11 章 ｜ 保固條款', visualType: 'STICKY_WARRANTY', special: true }
+        ];
+
+        const state = { 
+            currentIndex: -1, 
+            interactionState: { ch1: { isRead: false } } 
+        };
+
+        function initBookPages() {
+            const book = $('#flipbook');
+            CHAPTERS.forEach((ch, idx) => {
+                // 每一個章節生成兩個頁面 (左/右)
+                book.append(`
+                    <div class="page paper-texture border-r border-gray-200" id="page-${idx}-left"></div>
+                    <div class="page paper-texture" id="page-${idx}-right"></div>
+                `);
+                renderPageContent(idx);
+            });
+        }
+
+        function renderPageContent(idx) {
+            const ch = CHAPTERS[idx];
+            const leftPage = document.getElementById(`page-${idx}-left`);
+            const rightPage = document.getElementById(`page-${idx}-right`);
+            
+            if (!leftPage || !rightPage) return;
+
+            const sidebar = `<div class="w-10 h-full bg-[#f2f2f2] border-r border-gray-200 flex flex-col items-center py-10 shrink-0"><div class="w-4 h-4 rounded-full bg-gray-300 shadow-inner"></div><div class="flex-grow"></div><div class="rotate-[-90deg] whitespace-nowrap text-[8px] text-gray-400 technical-font uppercase opacity-60">LANDSCAPE_DOC // v2.3</div></div>`;
+
+            const mainContent = `
+                <div class="flex-grow h-full flex flex-col relative bg-white p-12 overflow-hidden">
+                    <div class="absolute top-0 left-0 h-1.5 bg-[#C04848] z-50 transition-all duration-700" style="width: ${((idx + 1) / CHAPTERS.length) * 100}%"></div>
+                    <header class="mb-10">
+                        <span class="text-[10px] font-bold text-[#C04848] tracking-[0.2em] technical-font uppercase">${ch.category}</span>
+                        <h1 class="text-[28px] font-black text-[#2C4073] leading-tight">${ch.title}</h1>
+                    </header>
+                    <div class="flex-grow overflow-y-auto pr-6">${renderChapterBody(ch)}</div>
+                </div>
+            `;
+
+            if (ch.special) {
+                // 核心：寬度撐滿整本書 (80vw)
+                const bookWidth = window.innerWidth * 0.8;
+                leftPage.innerHTML = `<div class="flex h-full spread-content-container" style="width: ${bookWidth - 40}px">${sidebar}${mainContent}</div>`;
+                rightPage.innerHTML = ""; // 右頁留空
+            } else {
+                leftPage.innerHTML = `<div class="flex h-full w-full">${sidebar}${mainContent}</div>`;
+                rightPage.innerHTML = renderStandardRightPanel(ch);
+            }
+        }
+
+        function renderChapterBody(chapter) {
+            const s = state.interactionState[chapter.id] || {};
+            
+            if (chapter.id === 'ch1') {
+                if (!s.isRead) {
+                    return `
+                    <div class="flex flex-col items-center justify-center py-4">
+                        <div onclick="actions.readEmail()" class="email-window animate-breathing relative w-full max-w-2xl bg-white border border-gray-200 rounded-md shadow-2xl flex flex-col overflow-hidden cursor-pointer">
+                            <div class="bg-gray-100 px-4 py-2.5 border-b border-gray-200 flex justify-between items-center">
+                                <div class="flex gap-1.5"><div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div><div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div><div class="w-3 h-3 rounded-full bg-[#27c93f]"></div></div>
+                                <div class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">New Message</div>
+                                <div class="w-12"></div>
+                            </div>
+                            <div class="px-6 py-4 border-b border-gray-100 text-sm space-y-2">
+                                <div class="flex items-center gap-3"><span class="text-gray-400 font-bold w-12">寄件人:</span><span class="text-gray-700">HR 部門 &lt;hr@company.com&gt;</span></div>
+                                <div class="flex items-center gap-3"><span class="text-gray-400 font-bold w-12">主旨:</span><span class="text-[#2C4073] font-bold text-lg">當財運來臨時</span></div>
+                            </div>
+                            <div class="p-12 min-h-[200px] flex flex-col justify-center relative">
+                                <div class="text-[#2C4073] text-2xl font-black"><span class="typewriter">LIN ! 有機會談加薪囉！</span></div>
+                                <div class="absolute top-4 right-6 opacity-10"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg></div>
+                                <div class="mt-12 text-right text-gray-300 text-xs italic tracking-widest animate-pulse">點擊信件以讀取全文...</div>
+                            </div>
+                        </div>
+                    </div>`;
+                } else {
+                    return `
+                    <div class="flex flex-col items-center justify-center py-4">
+                        <div class="w-full max-w-3xl flex flex-col items-center text-center">
+                            <div class="text-[#2C4073] text-4xl font-black mb-12 animate-fade-in-up">嘻嘻：）我就知道我是最棒的</div>
+                            <div class="polaroid-frame animate-fade-in-up delay-500 mb-12">
+                                <div class="w-72 h-72 overflow-hidden bg-gray-100">
+                                    <img src="https://system16.webtech.com.tw/web/202500167/archive/image/customization/photo.webp" alt="LIN 自信照" class="w-full h-full object-cover">
+                                </div>
+                            </div>
+                            <div onclick="actions.handleNext()" class="group cursor-pointer animate-fade-in-up delay-1000">
+                                <p class="text-[18px] font-bold text-gray-500 leading-relaxed group-hover:text-[#2C4073] transition-colors">
+                                    既然是最棒的，那我應該要怎麼來向老闆證明，<br>
+                                    <span class="text-[#2C4073]/70 underline underline-offset-8 decoration-2 decoration-[#2C4073]/20">我先來盤點資料吧 →</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>`;
+                }
+            }
+            if (chapter.id === 'ch11') return `<div class="sticky-note w-full max-w-lg aspect-square p-12 rotate-[-1.5deg] mx-auto shadow-xl flex flex-col justify-center bg-[#fff9c4]"><h3 class="handwriting-font text-2xl font-bold text-[#2C4073] border-b border-black/10 pb-4">終極聲明：</h3><div class="handwriting-font text-[22px] leading-relaxed py-6"><p>「AI 可以代工繁瑣的運算，但無法模擬人類的幽默感與創意。」</p></div></div>`;
+            return `<div class="py-2"><p class="text-gray-400 italic mb-8 uppercase tracking-widest">${chapter.subtitle || ''}</p><ul class="space-y-6">${chapter.bulletPoints ? chapter.bulletPoints.map((p, i) => `<li class="flex items-start gap-5"><span class="w-6 h-6 rounded-full bg-[#2C4073] text-white text-[11px] flex items-center justify-center shrink-0 font-bold">${i + 1}</span><span class="text-[#333] text-[15px] font-bold">${p}</span></li>`).join('') : ''}</ul></div>`;
+        }
+
+        function renderStandardRightPanel(chapter) {
+            return `<div class="w-full h-full flex flex-col p-12 gap-8 bg-[#fafafa]/50 border-l border-gray-100"><div class="flex-grow flex items-center justify-center p-6 bg-white border border-gray-200 rounded-sm shadow-inner min-h-0 relative"><div class="text-gray-300 technical-font text-xs uppercase opacity-40">System_Data_Scanning...</div></div><button onclick="actions.handleNext()" class="w-full py-5 bg-[#2C4073] text-white text-xs font-bold uppercase tracking-widest rounded-sm shadow-lg hover:bg-black transition-colors">翻開下一頁</button></div>`;
+        }
+
+        function renderVisual(ch) {
+            // 此處為擴充功能預留
+            return "";
+        }
+
+        window.actions = {
+            handleStart: () => { $("#flipbook").turn("next"); },
+            handleNext: () => { $("#flipbook").turn("next"); },
+            readEmail: () => {
+                state.interactionState.ch1.isRead = true;
+                renderPageContent(0);
+            }
+        };
+
+        $(window).ready(function() {
+            initBookPages();
+            const book = $("#flipbook");
+            const w = window.innerWidth * 0.8;
+            book.turn({
+                width: w, height: w * 0.707, autoCenter: true, display: 'double', acceleration: true, elevation: 50,
+                when: {
+                    turned: function(e, page) {
+                        // turn.js 頁面 index 1 = 封面, 2/3 = Ch1, 4/5 = Ch2...
+                        const idx = page > 1 ? Math.floor((page - 2) / 2) : -1;
+                        state.currentIndex = idx;
+                        
+                        // 重置樣式
+                        book.removeClass('spread-active');
+                        $('.page').removeClass('right-page-hidden');
+
+                        if (idx >= 0 && CHAPTERS[idx].special) {
+                            book.addClass('spread-active');
+                            // 這裡的邏輯是隱藏當前對開頁的「右半部」
+                            // turn.js 會把 page 放在轉動的 div 裡，所以我們直接隱藏 DOM
+                            $(`#page-${idx}-right`).addClass('right-page-hidden');
+                        }
+                    }
+                }
+            });
+        });
+
+        $(window).resize(function() {
+            const w = window.innerWidth * 0.8;
+            $("#flipbook").turn("size", w, w * 0.707);
+            CHAPTERS.forEach((ch, idx) => renderPageContent(idx));
+        });
+    </script>
+</body>
+
+</html>

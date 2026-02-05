@@ -46,9 +46,9 @@
     --BtnMarginTop: max(3vw, 2rem);
 
     /* 字體 */
-    --FontFamily: Roboto, "Noto Sans TC", sans-serif;
-    --FontFamilyEn: 'Roboto', sans-serif;
-    --FontFamilyTw: 'Noto Sans TC', sans-serif;
+    --FontFamily: "Noto Sans", sans-serif;
+    --FontFamilyEn: "Noto Sans", sans-serif;
+    --FontFamilyTw: "Noto Sans", sans-serif;
 
 
 
@@ -176,6 +176,7 @@ body {
     color: var(--TextColorPrimary);
     background-color: #f7f7f9;
     padding: var(--Space3);
+
 }
 
 html {

@@ -35,6 +35,10 @@ const BLOCK_EDITOR_TEMPLATES = {
         <div class="input-group">
             <label>圖片alt*</label>
             <input type="text" data-field="ALT" placeholder="輸入 圖片描述">
+        </div>
+        <div class="input-group">
+            <label>圖片 title</label>
+            <input type="text" data-field="TITLE" placeholder="輸入 圖片 title">
         </div>`,
     H2: `<label>新增 大標 (<code>H2</code>)</label><textarea data-field="TEXT" placeholder="輸入 H2 大標"></textarea>`,
     H3: `<label>新增 小標 (<code>H3</code>)</label><textarea data-field="TEXT" placeholder="輸入 H3 小標"></textarea>`,
@@ -50,7 +54,8 @@ const BLOCK_EDITOR_TEMPLATES = {
         <div class="input-group mt-05"><label>連結 URL</label><input type="text" data-field="HREF" placeholder="輸入連結網址 (href)"></div>`,
     IMAGE: `<label>新增 圖片 (<code>IMG</code>)</label>
             <div class="input-group mt-05"><label>圖片網址</label><input type="text" data-field="URL" placeholder="輸入圖片網址 (URL)"></div>
-            <div class="input-group mt-05"><label>圖片alt</label><input type="text" data-field="ALT" placeholder="輸入圖片描述 (alt)"></div>`,
+            <div class="input-group mt-05"><label>圖片alt</label><input type="text" data-field="ALT" placeholder="輸入圖片描述 (alt)"></div>
+            <div class="input-group mt-05"><label>圖片 title</label><input type="text" data-field="TITLE" placeholder="輸入圖片 title"></div>`,
     HR: `<hr style="border-top: 1px solid #ddd; margin: 10px 0;">`,
     CTA: `<label>新增 CTA 區塊 (<code>CTA</code>)</label>
         <div class="input-group mt-05"><label>標題</label><input type="text" data-field="TITLE" placeholder="立即預約品牌顧問諮詢"></div>

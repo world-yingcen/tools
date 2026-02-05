@@ -211,8 +211,10 @@ ${innerHtml || '    <!-- 主內容編輯區為空 -->'}
             case 'QA_BLOCK':
                 return this._generateQaBlockHtml(blockContent);
             case 'IMAGE':
-                const { URL, ALT } = blockContent;
-                return URL ? `    <img src="${this._escapeHtml(URL)}" alt="${this._escapeHtml(ALT || "")}">` : ''; // Ensure alt is escaped
+                const { URL, ALT, TITLE } = blockContent;
+                if (!URL) return '';
+                const titleAttr = TITLE ? ` title="${this._escapeHtml(TITLE)}"` : '';
+                return `    <img src="${this._escapeHtml(URL)}" alt="${this._escapeHtml(ALT || "")}"${titleAttr}>`;
             case 'CTA': // CTA is handled as a top-level block in _generateDefaultSeoBlogHTML, but if it somehow appears here, generate it.
                 return this._generateCtaHtml(blockContent);
             case 'VIDEO':

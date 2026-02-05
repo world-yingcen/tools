@@ -37,9 +37,9 @@
   --BtnFontSize: 17px;
   --BtnMarginTop: max(3vw, 2rem);
   /* 字體 */
-  --FontFamily: Roboto, "Noto Sans TC", sans-serif;
-  --FontFamilyEn: "Roboto", sans-serif;
-  --FontFamilyTw: "Noto Sans TC", sans-serif;
+  --FontFamily: "Noto Sans", sans-serif;
+  --FontFamilyEn: "Noto Sans", sans-serif;
+  --FontFamilyTw: "Noto Sans", sans-serif;
   /* 文字大小 */
   /*螢幕2560px-767px 大小46px-25px */
   --FontSizePrimary: clamp(1.5625rem, 1.001rem + 1.1712vw, 2.875rem);
@@ -1210,4 +1210,4 @@ input[type=radio] {
   .text-xs-center {
     text-align: center;
   }
-}/*# sourceMappingURL=style.css.map */
+}
